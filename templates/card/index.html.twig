@@ -4,11 +4,6 @@
 
 {% block body %}
 <h1>Card game</h1>
-<p>
-    <a href="{{ path('deck') }}">Deck</a>
-    <a href="{{ path('deck_shuffle') }}">Shuffle</a>
-    <a href="{{ path('deck_draw') }}">Draw</a>
-    <a href="{{ path('deck_new') }}">Reset</a>
-    <a href="{{ path('session_debug') }}">Session</a>
-</p>
+{% include "card/nav.html.twig" %}
+
 {% endblock %}

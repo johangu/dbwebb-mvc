@@ -4,13 +4,7 @@
 
 {% block body %}
 <h1>Current Deck</h1>
-<p>
-    <a href="{{ path('deck') }}">Deck</a>
-    <a href="{{ path('deck_shuffle') }}">Shuffle</a>
-    <a href="{{ path('deck_draw') }}">Draw</a>
-    <a href="{{ path('deck_new') }}">Reset</a>
-    <a href="{{ path('session_debug') }}">Session</a>
-</p>
+{% include "card/nav.html.twig" %}
 {% if sorted %}
 <h2>Sorted representation</h2>
 {% else %}
