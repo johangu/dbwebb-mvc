@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dealt Hands{% endblock %}
+
+{% block body %}
+<h1>Dealt Hands</h1>
+
+{% include "card/nav.html.twig" %}
+
+{% if not hands is empty %}
+{% for hand in hands %}
+	<div class="hand">
+		<h2>Player {{ loop.index }}</h2>
+		<div>
+			{% for card in hand.cards %}
+			<span class="{{ card.suit | lower }}">{{ card }}</span>
+			{% endfor %}
+		</div>
+	</div>
+{% endfor %}
+{% else %}
+	<p>No hands have been dealt yet.</p>
+{% endif %}
+
+<p>Deck has {{ deck.getCount() }} cards left.</p>
+{% endblock %}

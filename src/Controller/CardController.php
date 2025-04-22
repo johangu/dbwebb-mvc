@@ -22,7 +22,7 @@ class CardController extends AbstractController
     public function deck(SessionInterface $session): Response
     {
         if (! $session->has('deck')) {
-            $session->set('deck', new StandardDeck());
+            $session->set('deck', new StandardDeck);
         }
 
         $deck = $session->get('deck');
@@ -36,7 +36,7 @@ class CardController extends AbstractController
     #[Route('/card/deck/new', name: 'deck_new')]
     public function newDeck(SessionInterface $session): RedirectResponse
     {
-        $deck = new StandardDeck();
+        $deck = new StandardDeck;
 
         $session->set('deck', $deck);
 
@@ -72,7 +72,7 @@ class CardController extends AbstractController
         ]);
     }
 
-    #[Route('/card/deck/draw/{number}', name: 'draw_many')]
+    #[Route('/card/deck/draw/{number}', name: 'deck_draw_many')]
     public function drawManyFromDeck(int $number, SessionInterface $session): Response
     {
         $deck = $session->get('deck');
@@ -82,6 +82,23 @@ class CardController extends AbstractController
 
         return $this->render('card/hand.html.twig', [
             'hand' => $hand,
+        ]);
+    }
+
+    #[Route('/card/deck/deal/{players}/{cards}', name: 'deck_deal')]
+    public function dealPlayerHands(int $players, int $cards, SessionInterface $session): Response
+    {
+        $hands = [];
+
+        $deck = $session->get('deck');
+        for ($i = 0; $i < $players; $i++) {
+            $hands[$i] = new CardHand($deck, $cards);
+        }
+        $session->set('deck', $deck);
+
+        return $this->render('card/hands.html.twig', [
+            'deck' => $deck,
+            'hands' => $hands,
         ]);
     }
 }
