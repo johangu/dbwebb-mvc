@@ -22,7 +22,14 @@
 						<a href="{{ path('lucky') }}">Lucky</a>
 						<a href="{{ path('api') }}">JSON Routes</a>
 					</nav>
-				</header>
+      </header>
+      {% for label, messages in app.flashes %}
+          {% for message in messages %}
+              <div class="flash-message {{ label }}">
+                  {{ message }}
+              </div>
+          {% endfor %}
+        {% endfor %}
 				<main>
         {% block body %}{% endblock %}
 				</main>
