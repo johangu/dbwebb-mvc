@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}DEBUG SESSION{% endblock %}
+
+{% block body %}
+    <h1>Session debug</h1>
+    <p>
+        <a href="{{ path('card') }}">Card</a>
+        <a href="{{ path('session_destroy') }}">Destroy session</a>
+    </p>
+    <ul>
+    {% for key, value in app.session.all() %}
+        <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
