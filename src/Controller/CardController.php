@@ -22,7 +22,7 @@ class CardController extends AbstractController
     public function deck(SessionInterface $session): Response
     {
         if (! $session->has('deck')) {
-            $session->set('deck', new StandardDeck);
+            $session->set('deck', new StandardDeck());
         }
 
         $deck = $session->get('deck');
@@ -36,7 +36,7 @@ class CardController extends AbstractController
     #[Route('/card/deck/new', name: 'deck_new')]
     public function newDeck(SessionInterface $session): RedirectResponse
     {
-        $deck = new StandardDeck;
+        $deck = new StandardDeck();
 
         $session->set('deck', $deck);
 
