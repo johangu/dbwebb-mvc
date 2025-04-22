@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}About the Author{% endblock %}
+
+{% block body %}
+
+    <h1>About the Author</h1>
+    <div class="content">
+      <img src="{{ asset('build/images/profile.jpg') }}" alt="Profile photo of Thorfridr" id="profile-photo">
+
+      <div>
+        <p><strong>Thorfridr</strong> is a former Viking warrior from the 9th century who accidentally stumbled into a time portal during a raid in what is now coastal Norway. He emerged in the year 2025, slightly confused, very bearded, and wielding not an axe, but an insatiable curiosity for technology.</p>
+
+        <p>Trading his longship for a laptop, Thorfridr quickly embraced the world of software development. With the same grit he once used to conquer seas, he now conquers codebases—particularly fond of the Symfony framework and the elegance of modern MVC architecture. He sees software as the new frontier, and Git commits as his battle cries.</p>
+
+        <p>Now enrolled in a course at <a href="https://www.bth.se" target="_blank">BTH</a>, Thorfridr is building web apps by day and reading sagas by night—rewriting history one line of code at a time.</p>
+
+        <p><em>Skål to that!</em></p>
+      </div>
+    </div>
+
+		<div class="xs-text">
+			<p>
+			<strong>Note:</strong> <em>this text is a about a fictional character. No real viking was brought through time and space in the making of this website.</em>
+			</p>
+		</div>
+
+{% endblock %}

@@ -1,3 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
 body {
-    background-color: skyblue;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+a {
+  color: #1e88e5;
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+main {
+  flex: 1;
+  width: 100vw;
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+header,
+footer {
+  background: linear-gradient(to right, #e0e0e0, #f5f5f5);
+  width: 100vw;
+  padding: 1rem;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.content::first-child {
+  flex-basis: 1;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+img#profile-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.xs-text {
+  font-size: 0.375rem;
+}
+
+@media (min-width: 600px) {
+  .content {
+    flex-direction: row;
+  }
+
+  .content img {
+    margin-bottom: 0;
+  }
+}
+
+.fizz {
+  color: blue;
+}
+
+.buzz {
+  color: green;
+}
+
+.fizzbuzz {
+  color: red;
+  font-style: italic;
 }

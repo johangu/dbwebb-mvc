@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Lucky number{% endblock %}
+
+{% block body %}
+{% set fizzbuzz_class =
+  number is divisible by(15) ? 'fizzbuzz' :
+  (number is divisible by(3) ? 'fizz' :
+  (number is divisible by(5) ? 'buzz' : '')) %}
+
+    <h1 class="{{ fizzbuzz_class }}">Lucky number</h1>
+    <div>
+      <p>
+      Lucky you! We generated <strong class="magic-number {{ fizzbuzz_class }}">{{ number }}</strong> for you.
+      </p>
+
+      <p>Did you notice that we color the number and title according to fizzbuzz rules? No? Then refresh until you see it!
+      </p>
+		</div>
+
+{% endblock %}
+

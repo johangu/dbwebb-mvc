@@ -1,0 +1,71 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}About the Author{% endblock %}
+
+{% block body %}
+
+    <h1>Report</h1>
+    <div class="content">
+			<aside>
+				<nav class="side-nav">
+					<a href="{{ path('report')}}#kmom01">kmom01</a>
+					<a href="{{ path('report')}}#kmom02">kmom02</a>
+					<a href="{{ path('report')}}#kmom03">kmom03</a>
+					<a href="{{ path('report')}}#kmom04">kmom04</a>
+					<a href="{{ path('report')}}#kmom05">kmom05</a>
+					<a href="{{ path('report')}}#kmom06">kmom06</a>
+				</nav>
+			</aside>
+			<div>
+				<div id="kmom01">
+					<h2>kmom01</h2>
+					<p>
+					Som vi vet från tidigare kurser har jag ganska bred erfarenhet av programmering i allmänhet, och har sysslat en hel del med objektorientering även om jag senaste 10 åren mest jobbat med backends på serverless och då inte rört så mycket vid just OOP.
+					</p>
+
+					<p>
+					Klasser kan man se som en mall för hur ett objekt ser ut, och sen "bygger" man objekt genom att instantiera en klass med dess constructor. Detta hjälper en att kunna ha flera objekt som har samma egenskaper utan att behöva skriva kod för vart och ett av dem. Denna "mall" kan innehålla variabler och metoder och kan specificera om dessa är publikt tillgängliga, eller privata. Därutöver kan de även vara "protected" om sub-klasser ska kunna använda dem. Sub-klasser och arv behöver vi inte riktigt komma in på än, för att kunna skapa de första klasserna, så jag går inte in mer där just nu. Ett instantierat objekt kan ha ett state, om något har skett med det och detta påverkar inga andra objekt av samma klass eftersom de trots att de skapats med samma mall har olika interna states.
+					</p>
+
+					<p>
+					Det är lite rörigt med kodbasen för mig eftersom den skiljer sig mycket från hur mina "vanliga" kodbaser ser ut. Det är mycket att hålla reda på med MVC jämfört med bara API:er och backend-services. Och att dessutom använda Composer samt npm känns lite rörigt för min del men jag ser absolut nyttan med det hela. Ska bli spännande att vänja sig lite och förstå mer runt Symfony.
+					</p>
+
+					<p>
+					I "PHP The Right Way" tyckte jag att det var intressant att läsa lite om Composer, eftersom det är så länge sen jag använde PHP sist, och på den tiden var det PEAR som gällde. Dessutom fann jag biten om exceptions och errors och hur PHP inte direkt använder exceptions som jag är van från Python och nodejs vilket jag nog kommer att behöva påminna mig själv om genom kursens gång.
+					</p>
+
+					<p>
+					TIL detta moment för mig är allt runt composer och Symfony, då jag aldrig arbetat med varken det ena eller det andra tidigare. Kul att lära sig nya verktyg.
+					</p>
+				</div>
+				<div id="kmom02">
+					<h2>kmom02</h2>
+					<p>
+					</p>
+				</div>
+				<div id="kmom03">
+					<h2>kmom03</h2>
+					<p>
+					</p>
+				</div>
+				<div id="kmom04">
+					<h2>kmom04</h2>
+					<p>
+					</p>
+				</div>
+				<div id="kmom05">
+					<h2>kmom05</h2>
+					<p>
+					</p>
+				</div>
+				<div id="kmom06">
+					<h2>kmom06</h2>
+					<p>
+					</p>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
