@@ -1,3 +1,12 @@
+:root {
+  --success-text: hsl(130, 59%, 22%);
+  --success-border: hsl(130, 59%, 80%);
+  --success-color: hsl(130, 59%, 85%);
+  --error-text: hsl(357, 48%, 30%);
+  --error-border: hsl(357, 48%, 85%);
+  --error-color: hsl(357, 48%, 80%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -110,4 +119,36 @@ p {
 .fizzbuzz {
   color: red;
   font-style: italic;
+}
+
+.flash-message {
+  padding: 0.375rem;
+  margin: 0.125rem auto 0;
+  border-radius: 0.5rem;
+  width: 100vw;
+  max-width: 1000px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.flash-message.success {
+  background-color: var(--success-color);
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
+}
+
+.flash-message.error {
+  background-color: var(--error-color);
+  color: var(--error-text);
+  border: 1px solid var(--error-border);
+}
+
+.hearts,
+.diamonds {
+  color: red;
+}
+
+.clubs,
+.spades {
+  color: black;
 }

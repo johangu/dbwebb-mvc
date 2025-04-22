@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% set deck = app.session.get('deck') %}
+
+{% block title %}Card game{% endblock %}
+
+{% block body %}
+<h1>Drawn card</h1>
+<p>
+    <a href="{{ path('deck') }}">Deck</a>
+    <a href="{{ path('deck_shuffle') }}">Shuffle</a>
+    <a href="{{ path('deck_draw') }}">Draw</a>
+    <a href="{{ path('deck_new') }}">Reset</a>
+    <a href="{{ path('session_debug') }}">Session</a>
+</p>
+{% if hand.getCards() is not empty %}
+    <div>
+        {% for card in hand.getCards() %}
+            <span class="{{ card.suit | lower }}">{{ card }}</span>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No card drawn.</p>
+{% endif %}
+
+<p>Deck has {{ deck.getCount() }} cards left.</p>
+{% endblock %}
+

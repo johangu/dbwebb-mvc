@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Deck{% endblock %}
+
+{% block body %}
+<h1>Current Deck</h1>
+<p>
+    <a href="{{ path('deck') }}">Deck</a>
+    <a href="{{ path('deck_shuffle') }}">Shuffle</a>
+    <a href="{{ path('deck_draw') }}">Draw</a>
+    <a href="{{ path('deck_new') }}">Reset</a>
+    <a href="{{ path('session_debug') }}">Session</a>
+</p>
+{% if sorted %}
+<h2>Sorted representation</h2>
+{% else %}
+<h2>Shuffled</h2>
+{% endif %}
+
+{% if deck is not empty %}
+    {% if sorted %}
+    <p>This is a sorted representation. The deck may still be shuffled.</p>
+    {% endif %}
+    <div>
+        {% for card in deck %}
+            <span class="{{ card.suit | lower }}">{{ card }}</span>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No cards in the deck.</p>
+{% endif %}
+{% endblock %}
