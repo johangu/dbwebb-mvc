@@ -12,10 +12,11 @@
         </ul>
 				<h2>kmom02</h2>
 				<ul>
-						<li><a href="{{ path('api_deck') }}">GET /api/deck</a> - Get the deck, sorted</li>
-						<li><a href="{{ path('api_deck_shuffle') }}">POST /api/deck/shuffle</a> - Shuffle the deck and return it</li>
-						<li><a href="{{ path('api_deck_draw') }}">POST /api/deck/draw</a> - Draw one card from the deck</li>
-						<li><a href="{{ path('api_deck_draw_many') }}">POST /api/deck/draw/:number</a> - Draw :number cards from the deck</li>
+						<li>GET /api/deck</a> - Get the deck, sorted</li>
+						<li>POST /api/deck/shuffle</a> - Shuffle the deck and return it</li>
+						<li>POST /api/deck/draw</a> - Draw one card from the deck</li>
+						<li>POST /api/deck/draw/:number</a> - Draw :number cards from the deck</li>
+						<li>POST /api/deck/deal/:players/:cards</a> - Deal :cards cards from the deck to :player players</li>
 				</ul>
     </div>
 
