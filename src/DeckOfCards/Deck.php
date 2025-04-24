@@ -10,7 +10,7 @@ use App\Card\Card;
  *
  * @author  jogm23
  */
-abstract class Deck
+abstract class Deck implements \JsonSerializable
 {
     protected $cards = [];
 
@@ -74,6 +74,20 @@ abstract class Deck
         }
 
         return array_splice($this->cards, 0, $count);
+    }
+
+    /**
+     * Get the JSON representation of the deck.
+     *
+     * @return array The JSON representation of the deck
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'type' => (new \ReflectionClass($this))->getShortName(),
+            'cardCount' => $this->getCount(),
+            'cards' => $this->getCards(),
+        ];
     }
 
     /**

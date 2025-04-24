@@ -9,7 +9,7 @@ namespace App\Card;
  *
  * @author  jogm23
  */
-class Card
+class Card implements \JsonSerializable
 {
     public string $rank;
 
@@ -59,6 +59,23 @@ class Card
     public function compareTo(Card $other): int
     {
         return [$this->suit, $this->value] <=> [$other->suit, $other->value];
+    }
+
+    /**
+     * Get the JSON representation of the card
+     *
+     * @return array The JSON representation of the card
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'suit' => $this->suit,
+            'rank' => $this->rank,
+            'value' => $this->value,
+            'isFaceCard' => $this->isFaceCard,
+            'isAce' => $this->isAce,
+            'isJoker' => $this->isJoker,
+        ];
     }
 
     /**

@@ -6,9 +6,17 @@
 
     <h1>JSON Routes</h1>
     <div>
+				<h2>kmom01</h2>
         <ul>
             <li><a href="{{ path('api_quote') }}">/api/quote</a> - get random Sun Tzu quote</li>
         </ul>
+				<h2>kmom02</h2>
+				<ul>
+						<li><a href="{{ path('api_deck') }}">GET /api/deck</a> - Get the deck, sorted</li>
+						<li><a href="{{ path('api_deck_shuffle') }}">POST /api/deck/shuffle</a> - Shuffle the deck and return it</li>
+						<li><a href="{{ path('api_deck_draw') }}">POST /api/deck/draw</a> - Draw one card from the deck</li>
+						<li><a href="{{ path('api_deck_draw_many') }}">POST /api/deck/draw/:number</a> - Draw :number cards from the deck</li>
+				</ul>
     </div>
 
 {% endblock %}
