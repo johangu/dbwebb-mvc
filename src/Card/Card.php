@@ -11,17 +11,17 @@ namespace App\Card;
  */
 class Card implements \JsonSerializable
 {
-    public string $rank;
+    private string $rank;
 
-    public string $suit;
+    private string $suit;
 
-    public int $value;
+    private int $value;
 
-    public bool $isFaceCard;
+    private bool $isFaceCard;
 
-    public bool $isAce;
+    private bool $isAce;
 
-    public bool $isJoker;
+    private bool $isJoker;
 
     /**
      * Constructor
@@ -47,6 +47,66 @@ class Card implements \JsonSerializable
         $this->isFaceCard = $isFaceCard;
         $this->isAce = $isAce;
         $this->isJoker = $isJoker;
+    }
+
+    /**
+     * Get the suit of the card
+     *
+     * @return string The suit of the card
+     */
+    public function getSuit(): string
+    {
+        return $this->suit;
+    }
+
+    /**
+     * Get the rank of the card
+     *
+     * @return string The rank of the card
+     */
+    public function getRank(): string
+    {
+        return $this->rank;
+    }
+
+    /**
+     * Get the value of the card
+     *
+     * @return int The value of the card
+     */
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
+    /**
+     * Check if the card is a face card
+     *
+     * @return bool True if the card is a face card, false otherwise
+     */
+    public function isFaceCard(): bool
+    {
+        return $this->isFaceCard;
+    }
+
+    /**
+     * Check if the card is an Ace
+     *
+     * @return bool True if the card is an Ace, false otherwise
+     */
+    public function isAce(): bool
+    {
+        return $this->isAce;
+    }
+
+    /**
+     * Check if the card is a Joker
+     *
+     * @return bool True if the card is a Joker, false otherwise
+     */
+    public function isJoker(): bool
+    {
+        return $this->isJoker;
     }
 
     /**
