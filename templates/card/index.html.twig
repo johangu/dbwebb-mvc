@@ -6,4 +6,28 @@
 <h1>Card game</h1>
 {% include "card/_nav.html.twig" %}
 
+<h1>Struktur och relationer mellan klasser</h1>
+<h2>Klasser</h2>
+<p>
+Jag har använt mig av fyra klasser för att lösa denna uppgift: 
+<ul>
+	<li><strong>Deck</strong> - En abstrakt superklass för kortlekar.</li>
+	<li><strong>StandardDeck</strong> - En standardkortlek med 52 spelkort som ärver från Deck.</li>
+	<li><strong>Card</strong> - Ett vanligt spelkort med färg, rank, värde och ett par extra attribut för att se om det är ett klätt kort, ett ess eller en joker.</li>
+	<li><strong>CardHand</strong> - En hand som kan hålla ett givet antal spelkort.</li>
+</ul>
+</p>
+
+<h2>Arv</h2>
+<p>
+I det här fallet har vi ett tydligt "är-en"-förhållande där StandardDeck är-en Deck. Klassen Deck är en abstrakt superklass som innehåller all gemensam funktionalitet för kortlekar, som att dra kort, blanda, serialisera till JSON osv. StandardDeck ärver från Deck och fyller i detaljerna, i det här fallet vad det innebär att vara en "standardkortlek" – nämligen 52 vanliga spelkort med 4 färger och 13 valörer. Genom arvet kan vi alltså säga att StandardDeck är en specifik typ av Deck.
+</p>
+
+<h2>Komposition</h2>
+<p>
+"Har-en"-förhållandet ser vi i att ett Deck har Cards, det vill säga att varje instans av Deck innehåller ett antal Card-objekt. Detta är ett exempel på komposition där Deck är sammansatt av flera Card-objekt. På samma sätt har en CardHand en uppsättning Card-objekt, även det komposition. Den relationen är extra tydlig i konstruktorn till CardHand, där man drar ett antal kort från ett Deck.
+</p>
+
+<img src="{{ asset('build/images/kmom02-uml.webp') }}" alt="UML-diagram kmom02">
+
 {% endblock %}
