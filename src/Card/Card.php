@@ -143,18 +143,10 @@ class Card implements \JsonSerializable
      */
     public function __toString(): string
     {
-        $symbol = match ($this->suit) {
-            'Hearts' => '♥',
-            'Diamonds' => '♦',
-            'Clubs' => '♣',
-            'Spades' => '♠',
-            default => '?'
-        };
-
         if ($this->isJoker) {
             return 'Joker';
         }
 
-        return "[{$this->rank} {$symbol}]";
+        return "{$this->rank} of {$this->suit}";
     }
 }

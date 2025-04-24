@@ -143,12 +143,28 @@ p {
   border: 1px solid var(--error-border);
 }
 
-.hearts,
-.diamonds {
+.card-suit.hearts,
+.card-suit.diamonds {
   color: red;
 }
 
-.clubs,
-.spades {
+.card-suit.clubs,
+.card-suit.spades {
   color: black;
+}
+
+.card-suit.hearts::before {
+  content: "♥️";
+}
+
+.card-suit.diamonds::before {
+  content: "♦️";
+}
+
+.card-suit.clubs::before {
+  content: "♣️";
+}
+
+.card-suit.spades::before {
+  content: "♠️";
 }

@@ -17,7 +17,11 @@
     {% endif %}
     <div>
         {% for card in deck %}
-            <span class="{{ card.suit | lower }}">{{ card }}</span>
+            <span>
+                [<span class="card-suit {{ card.suit | lower }}">
+                {{ card.getRank() }}
+                </span>]
+            </span>
         {% endfor %}
     </div>
 {% else %}
