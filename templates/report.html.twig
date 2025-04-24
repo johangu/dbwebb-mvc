@@ -43,19 +43,32 @@
 				<div id="kmom02">
 					<h2>kmom02</h2>
 					<p>
+					Arv i OOP innebär ett s.k. "är-en"-förhållande, där en subklass är garanterat att dela en viss typ av egenskaper med en superklass. I fallet i detta kmom har jag det representerat genom kortlekar, där jag har en abstrakt superklass Deck som innehåller all logik jag kunde tänka mig att kortlekar generellt delar, samt en StandardDeck som är en subklass till Deck, som representerar en vanlig kortlek med 52 kort. Genom arvet här kan vi säga att StandardDeck är-en Deck, dvs att den har alla Deck-egenskaper och utökat med några av sina egna egenskaper (de 52 spelkorten).
+					</p>
 					Förklara kort de objektorienterade konstruktionerna arv, komposition, interface och trait och hur de används i PHP.
+					<p>
+					Komposition innebär "har-en"-förhållande, till skillnad från arvets "är-en", där ett objekt har andra objekt i sitt interna state, än en gång representerat i detta kmom genom kortleken. En Deck har Cards, dvs att det finns i standardkortlekens fall 52 objekt av typen Card i ett nytt instantierats StandardDeck-objekt (när vi drar kort och händer kommer antalet variera). Kortleken består (is composed by/har-en-eller-flera) kort.
 					</p>
 
 					<p>
-Berätta om din implementation från uppgiften. Hur löste du uppgiften, är du nöjd/missnöjd, vilken förbättringspotential ser du i din koden och dina klasser?
+					Interface kan vi se som ett kontrakt om något som klassen måste innehålla. Dvs alla metoder som finns i ett interface MÅSTE vara implementerade i klassen, detta kan vi använda för att göra vår kod mer flexibel där våra klasser som implementerar interfacet garanterar att metoderna finns, men deras implementation kan se olika ut. T.ex. skulle jag kunnat ha ett DeckInterface med ett par metoder istället för en superklass, och låta alla kortlekar som implementerar interfacet hantera sin interna logik för de definerade metoderna. T.ex. shuffle kunde vara en bra metod att hantera på detta sätt, så den nu ligger i abstrakta superklassen och utgår från att alla kortlekar kan blandas, men vem vet, kanske har vi en kortlek som inte får blandas eller att kortlekar blandas på olika sätt? Där vore ett interface fint att nyttja, och låta de kortlekar som kan blandas implementera ShuffleInterface med sina egna blandningsalgoritmer.
 					</p>
 
 					<p>
-Vilka är dina reflektioner så här långt med att jobb i Symfony med applikationskod enligt MVC?
+					Traits är ett sätt vi kan dela kod på utan att använda arv. Bara för att flera saker kan dela någon typ av logik betyder det inte nödvändigtvis att de har ett "är-en"-förhållande. Om vi fortsätter exemplet från interface-förklaringen med shuffle, och vi utgår från att alla kortlekar som kan blandas faktiskt blandas på samma sätt, då skulle vi kunna ha ett trait Shufflable med metoden shuffle() och låta alla dessa kortlekar ha traited Shufflable för att slippa duplicera samma logik i alla kortlekar som kan blandas. Vi skulle givetvis kunna ha traits med olika sätt att blanda också och låta olika kortlekar använda olika traits. ProfessionallyShufflable, CutShufflable, TripleShufflable osv skulle vi kunna tänka oss då.
 					</p>
 
 					<p>
-					Vilken är din TIL för detta kmom?
+					Jag implementerade uppgiften med en abstrakt klass för kortlekar, och en subklass som ärver därifrån vilken representerar en standardkortlek. Därutöver har jag ett klass för kort och en klass för en hand med kort. Standardkortleken har en komposition av 52 spelkort som skapas när konstruktorn kallas. En hand med kort är även den en kompisition, och tar ett argument av en kortlek samt antal kort den ska dra från kortleken. Alla klasserna implementerar JsonSerializer och har en jsonSerialize-funktion för att enkelt kunna serialiseras och presenteras i /api-routes. Jag är generellt nöjd med implementationen, känner att mina klasser har bra uppbygnad och enkapsulering. Funderar dock om vissa delar av Deck bör flyttas ut från abstrakta superklassen till interfaces och traits framöver. Tror även att jag kan hitta en bättre struktur för templates kanske.<br>
+					Jag är dessutom inte helt säker på att jag är nöjd med min namnrymd och kan komma att uppdatera och förfina där i framtida kmom.
+					</p>
+
+					<p>
+					Det är absolut en stor skillnad att använda symfony år 2025, än det var att använda gamla ramverk 15 år tidigare, det känns stabilare och tydligare vad jag jobbar med. Det kanske iofs kan bero på mer erfarenhet också, men det låter vi vara osagt. Jag kan fortfarande känna att PHP är lite tungt att rodda i jämförelse med t.ex. Ruby eller Python (RoR och Flask som jämförelse mot Symfony), men jag värmer upp mer och mer.
+					</p>
+
+					<p>
+					Det har varit mycket Symfony-dokumentation för min del denna gång, och TIL har varit kring struktur, best practices, routes med parametrar (och defaults) denna gång.
 					</p>
 				</div>
 				<div id="kmom03">
