@@ -11,7 +11,7 @@ use App\DeckOfCards\Deck;
  *
  * @author  jogm23
  */
-class CardHand
+class CardHand implements \JsonSerializable
 {
     private array $cards = [];
 
@@ -38,5 +38,18 @@ class CardHand
     public function getCards(): array
     {
         return $this->cards;
+    }
+
+    /**
+     * Get the JSON representation of the hand.
+     *
+     * @return array The JSON representation of the hand
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'cards' => $this->cards,
+            'count' => count($this->cards),
+        ];
     }
 }

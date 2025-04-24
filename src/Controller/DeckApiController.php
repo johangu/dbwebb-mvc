@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Card\CardHand;
 use App\DeckOfCards\StandardDeck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -79,7 +80,7 @@ class DeckApiController extends AbstractController
         $deck = $session->get('deck');
         $hands = [];
         for ($i = 0; $i < $players; $i++) {
-            $hands[$i] = $deck->drawHand($cards);
+            $hands[$i] = new CardHand($deck, $cards);
         }
         $count = $deck->getCount();
         $session->set('deck', $deck);
