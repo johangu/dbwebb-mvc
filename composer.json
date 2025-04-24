@@ -78,6 +78,8 @@
   "scripts": {
     "csfix": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.dist.php fix src tests",
     "csfix:dry": "tools/php-cs-fixer/vendor/bin/php-cs-fixer --config=tools/php-cs-fixer/.php-cs-fixer.dist.php fix src tests --dry-run -v",
+    "phpmd": "tools/phpmd/vendor/bin/phpmd . text tools/phpmd/phpmd.xml",
+    "phpstan": "tools/phpstan/vendor/bin/phpstan analyse -l 10 src",
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd",
