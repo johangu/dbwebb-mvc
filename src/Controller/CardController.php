@@ -60,20 +60,8 @@ class CardController extends AbstractController
         ]);
     }
 
-    #[Route('/card/deck/draw', name: 'deck_draw')]
-    public function drawFromDeck(SessionInterface $session): Response
-    {
-        $deck = $session->get('deck');
-        $hand = new CardHand($deck, 1);
-        $session->set('deck', $deck);
-
-        return $this->render('card/hand.html.twig', [
-            'hand' => $hand,
-        ]);
-    }
-
-    #[Route('/card/deck/draw/{number}', name: 'deck_draw_many')]
-    public function drawManyFromDeck(int $number, SessionInterface $session): Response
+    #[Route('/card/deck/draw/{number?1}', name: 'deck_draw')]
+    public function drawFromDeck(SessionInterface $session, int $number = 1): Response
     {
         $deck = $session->get('deck');
         $hand = new CardHand($deck, $number);
