@@ -14,6 +14,24 @@ use App\Card\Card;
  */
 class StandardDeck extends Deck
 {
+    private const array SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+
+    private const array RANKS = [
+        'A' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+        '6' => 6,
+        '7' => 7,
+        '8' => 8,
+        '9' => 9,
+        '10' => 10,
+        'J' => 11,
+        'Q' => 12,
+        'K' => 13,
+    ];
+
     /**
      * Constructor
      */
@@ -29,33 +47,9 @@ class StandardDeck extends Deck
      */
     protected function addCards(): void
     {
-        $suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-        $ranks = [
-            1 => 'A',
-            2 => '2',
-            3 => '3',
-            4 => '4',
-            5 => '5',
-            6 => '6',
-            7 => '7',
-            8 => '8',
-            9 => '9',
-            10 => '10',
-            11 => 'J',
-            12 => 'Q',
-            13 => 'K',
-        ];
-
-        foreach ($suits as $suit) {
-            foreach ($ranks as $value => $rank) {
-                $this->cards[] = new Card(
-                    $suit,
-                    $rank,
-                    $value,
-                    in_array($rank, ['J', 'Q', 'K']),
-                    $rank === 'A',
-                    false
-                );
+        foreach (self::SUITS as $suit) {
+            foreach (self::RANKS as $rank => $value) {
+                $this->cards[] = new Card($suit, (string) $rank, $value);
             }
         }
     }
@@ -63,14 +57,14 @@ class StandardDeck extends Deck
     /**
      * Gets a copy of the deck, sorted on suit and rank
      *
-     * @return array The sorted deck of cards
+     * @return Card[] The sorted deck of cards
      */
     public function getSorted(): array
     {
         $sorted = $this->cards;
 
-        usort($sorted, function (Card $a, Card $b) {
-            return $a->compareTo($b);
+        usort($sorted, function (Card $first, Card $second) {
+            return $first->compareTo($second);
         });
 
         return $sorted;

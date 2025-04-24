@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'session_debug')]
-    public function session(SessionInterface $session): Response
+    public function session(): Response
     {
         return $this->render('session.html.twig');
     }

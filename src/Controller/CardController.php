@@ -25,6 +25,7 @@ class CardController extends AbstractController
             $session->set('deck', new StandardDeck());
         }
 
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
 
         return $this->render('card/deck.html.twig', [
@@ -48,7 +49,9 @@ class CardController extends AbstractController
     #[Route('/card/deck/shuffle', name: 'deck_shuffle')]
     public function shuffleDeck(SessionInterface $session): Response
     {
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
+
         $deck->shuffle();
         $session->set('deck', $deck);
 
@@ -63,7 +66,9 @@ class CardController extends AbstractController
     #[Route('/card/deck/draw/{number?1}', name: 'deck_draw')]
     public function drawFromDeck(SessionInterface $session, int $number = 1): Response
     {
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
+
         $hand = new CardHand($deck, $number);
         $session->set('deck', $deck);
         $this->addFlash('success', 'You have drawn '.count($hand->getCards()).' cards');
@@ -78,7 +83,9 @@ class CardController extends AbstractController
     {
         $hands = [];
 
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
+
         for ($i = 0; $i < $players; $i++) {
             $hands[$i] = new CardHand($deck, $cards);
         }

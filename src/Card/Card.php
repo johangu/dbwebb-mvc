@@ -11,17 +11,17 @@ namespace App\Card;
  */
 class Card implements \JsonSerializable
 {
+    private const array FACE_CARDS = ['J', 'Q', 'K'];
+
+    private const string ACE = 'A';
+
+    private const string JOKER = 'Joker';
+
     private string $rank;
 
     private string $suit;
 
     private int $value;
-
-    private bool $isFaceCard;
-
-    private bool $isAce;
-
-    private bool $isJoker;
 
     /**
      * Constructor
@@ -29,24 +29,12 @@ class Card implements \JsonSerializable
      * @param  string  $suit  The suit of the card
      * @param  string  $rank  The rank of the card
      * @param  int  $value  The value of the card
-     * @param  bool  $isFaceCard  Whether the card is a face card (Jack, Queen, King)
-     * @param  bool  $isAce  Whether the card is an Ace
-     * @param  bool  $isJoker  Whether the card is a Joker
      */
-    public function __construct(
-        string $suit,
-        string $rank,
-        int $value = 0,
-        bool $isFaceCard = false,
-        bool $isAce = false,
-        bool $isJoker = false
-    ) {
+    public function __construct(string $suit, string $rank, int $value = 0)
+    {
         $this->suit = $suit;
         $this->rank = $rank;
         $this->value = $value;
-        $this->isFaceCard = $isFaceCard;
-        $this->isAce = $isAce;
-        $this->isJoker = $isJoker;
     }
 
     /**
@@ -86,7 +74,7 @@ class Card implements \JsonSerializable
      */
     public function isFaceCard(): bool
     {
-        return $this->isFaceCard;
+        return in_array($this->rank, self::FACE_CARDS);
     }
 
     /**
@@ -96,7 +84,7 @@ class Card implements \JsonSerializable
      */
     public function isAce(): bool
     {
-        return $this->isAce;
+        return $this->rank === self::ACE;
     }
 
     /**
@@ -106,7 +94,7 @@ class Card implements \JsonSerializable
      */
     public function isJoker(): bool
     {
-        return $this->isJoker;
+        return $this->rank === self::JOKER;
     }
 
     /**
@@ -124,7 +112,7 @@ class Card implements \JsonSerializable
     /**
      * Get the JSON representation of the card
      *
-     * @return array The JSON representation of the card
+     * @return array<string, mixed> The JSON representation of the card
      */
     public function jsonSerialize(): array
     {
@@ -132,9 +120,9 @@ class Card implements \JsonSerializable
             'suit' => $this->suit,
             'rank' => $this->rank,
             'value' => $this->value,
-            'isFaceCard' => $this->isFaceCard,
-            'isAce' => $this->isAce,
-            'isJoker' => $this->isJoker,
+            'isFaceCard' => $this->isFaceCard(),
+            'isAce' => $this->isAce(),
+            'isJoker' => $this->isJoker(),
         ];
     }
 
@@ -143,7 +131,7 @@ class Card implements \JsonSerializable
      */
     public function __toString(): string
     {
-        if ($this->isJoker) {
+        if ($this->isJoker()) {
             return 'Joker';
         }
 

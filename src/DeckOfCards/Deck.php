@@ -3,6 +3,7 @@
 namespace App\DeckOfCards;
 
 use App\Card\Card;
+use ReflectionClass;
 
 /**
  * An abstract deck of playing cards.
@@ -12,10 +13,17 @@ use App\Card\Card;
  */
 abstract class Deck implements \JsonSerializable
 {
-    protected $cards = [];
+    /** @var Card[] */
+    protected array $cards = [];
 
     abstract protected function addCards(): void;
 
+    /**
+     * Abstract method to sort the cards in the deck.
+     * Creates a sorted copy of the deck.
+     *
+     * @return Card[]
+     */
     abstract public function getSorted(): array;
 
     /**
@@ -79,12 +87,12 @@ abstract class Deck implements \JsonSerializable
     /**
      * Get the JSON representation of the deck.
      *
-     * @return array The JSON representation of the deck
+     * @return array<string, mixed> The JSON representation of the deck
      */
     public function jsonSerialize(): array
     {
         return [
-            'type' => (new \ReflectionClass($this))->getShortName(),
+            'type' => (new ReflectionClass($this))->getShortName(),
             'cardCount' => $this->getCount(),
             'cards' => $this->getCards(),
         ];

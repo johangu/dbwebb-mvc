@@ -18,6 +18,7 @@ class DeckApiController extends AbstractController
             $session->set('deck', new StandardDeck());
         }
 
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
 
         $response = new JsonResponse($deck);
@@ -35,7 +36,9 @@ class DeckApiController extends AbstractController
             return new JsonResponse(status: 404);
         }
 
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
+
         $deck->shuffle();
         $session->set('deck', $deck);
 
@@ -54,7 +57,9 @@ class DeckApiController extends AbstractController
             return new JsonResponse(status: 404);
         }
 
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
+
         $cards = $deck->drawHand($number);
         $count = $deck->getCount();
         $session->set('deck', $deck);
@@ -77,7 +82,9 @@ class DeckApiController extends AbstractController
             return new JsonResponse(status: 404);
         }
 
+        /** @var StandardDeck $deck */
         $deck = $session->get('deck');
+
         $hands = [];
         for ($i = 0; $i < $players; $i++) {
             $hands[$i] = new CardHand($deck, $cards);
