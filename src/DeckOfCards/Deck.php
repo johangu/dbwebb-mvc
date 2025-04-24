@@ -95,11 +95,6 @@ abstract class Deck implements \JsonSerializable
      */
     public function __toString(): string
     {
-        $output = '';
-        foreach ($this->cards as $card) {
-            $output .= (string) $card.' ';
-        }
-
-        return trim($output);
+        return implode(' ', $this->cards);
     }
 }
