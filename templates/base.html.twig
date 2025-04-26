@@ -14,6 +14,7 @@
         {% endblock %}
     </head>
     <body>
+    {% block debug %}{% endblock %}
 				<header class="header">
 					<nav>
 						<a href="{{ path('home') }}">Home</a>
@@ -22,6 +23,7 @@
 						<a href="{{ path('lucky') }}">Lucky</a>
 						<a href="{{ path('api') }}">JSON Routes</a>
 						<a href="{{ path('card') }}">Card</a>
+            <a href="{{ path('game') }}">Game</a>
 					</nav>
       </header>
       {% for label, messages in app.flashes %}
@@ -39,3 +41,7 @@
 				</footer>
     </body>
 </html>
+
+{% if app.debug %}
+    {% dump(app.session.all()) %}
+{% endif %}
