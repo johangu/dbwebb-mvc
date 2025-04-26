@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block title %}21 - the card game{% endblock %}
+
+{% block body %}
+<section>
+    {% include 'game/_nav.html.twig' %}
+</section>
+
+<h1>21 - dbwebb kmom03 edition</h1>
+
+<section>
+    <h2>I korta drag</h2>
+    <p>
+    Spelets idé är att med två eller flera kort försöka uppnå det sammanlagda värdet 21, eller komma så nära som möjligt utan att överskrida 21. Ess är värt 1 eller 14.
+    </p>
+</section>
+
+<section>
+    <h2>Regler</h2>
+    <p>
+        Det finns en spelare (du) och en bankir (datorn). 
+        <ul>
+            <li>
+                Spelaren tar ett kort. Kortet visas.
+            </li>
+            <li>
+                Spelaren kan bestämma att stanna eller ta ytterligare ett kort.
+            </li>
+            <li>
+                Om spelaren får över 21 vinner banken.
+            </li>
+            <li>
+                När spelaren stannar så är det bankens tur.
+            </li>
+            <li>
+                Banken är inte medveten om spelarens korthand.
+            </li>
+            <li>
+                Banken plockar kort tills den stannar eller har över 21.
+            </li>
+            <li>
+                Banken vinner vid lika eller om banken har mer än spelaren.
+            </li>
+            <li>
+                Spelaren vinner om banken får över 21.
+            </li>
+        </ul>
+        Därefter kan man påbörja en ny omgång.
+    </p>
+</section>
+
+{% endblock %}
