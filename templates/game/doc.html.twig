@@ -1,0 +1,112 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dokumentation{% endblock %}
+
+{% block body %}
+<section>
+    {% include 'game/_nav.html.twig' %}
+</section>
+
+<h1>Dokumentation</h1>
+
+<section>
+    <h2>Flödesschema</h2>
+    <img src="{{ asset('build/images/kmom03-flowchart.jpg') }}" alt="Flow chart for game of 21">
+</section>
+
+<section>
+    <h2>Pseudokod</h2>
+    <pre>
+    MAIN
+        IF Player does not exist THEN
+            Create new player named Player
+        ENDIF
+
+        IF Bank does not exist THEN
+            Create new player named Bank
+        ENDIF
+
+        SET activePlayer to Player
+
+        WHILE activePlayer is Player
+            Deal one card from deck to activePlayer
+            DISPLAY activePlayer's hand
+
+            IF activePlayer's hand equals 21 THEN
+                DISPLAY "Player has won"
+                GOTO EndGame
+            ELSE IF activePlayer's hand exceeds 21 THEN
+                DISPLAY "Player has lost"
+                GOTO EndGame
+            ENDIF
+
+            Prompt player if they want another card
+            IF player responds no THEN
+                SET activePlayer to Bank
+                BREAK loop
+             ENDIF
+        ENDWHILE
+
+        WHILE activePlayer is Bank AND activePlayer's hand < 17
+            Deal one card from deck to activePlayer
+            DISPLAY activePlayer's hand
+        ENDWHILE
+
+        CALL DetermineWinner 
+    END
+
+    EndGame
+        Prompt user if they want to play again
+        IF user responds yes THEN
+            Reset game state
+            CALL MAIN
+        ELSE
+            Terminate program
+        ENDIF
+    END
+
+    DetermineWinner
+        IF Bank's hand > 21 THEN
+            DISPLAY "Player wins"
+        ELSE IF Player's hand > Bank's THEN
+            DISPLAY "Player wins"
+        ELSE IF Player's hand < Bank's THEN
+            DISPLAY "Bank wins"
+        ELSE
+            DISPLAY "Draw"
+        ENDIF
+
+        GOTO EndGame
+    END
+    </pre>
+</section>
+
+<section>
+    <h2>Klassbeskrivningar</h2>
+    <h3>DeckOfCards\\StandardDeck</h3>
+    <p>
+    Standardkortleken som skapades i kmom02. Innehåller 52 vanliga spelkort. Kortleken kan blandas och kort kan dras från den.
+    </p>
+
+    <h3>Card\\Card</h3>
+    <p>
+    Ett vanligt spelkort som har färg, rank och värde.
+    </p>
+
+    <h3>TwentyOne\\Player</h3>
+    <p>
+    En spelare, kan vara spelare eller bank i detta fall, som har en korthand.
+    </p>
+
+    <h3>TwentyOne\\CardHand</h3>
+    <p>
+    En hand innehållande spelkort som dragits från en kortlek.
+    </p>
+
+    <h3>TwentyOne\\Game</h3>
+    <p>
+    Innehåller spelreglerna, räknar värde på spelhänder och avgör vem som vinner.
+    </p>
+
+</section>
+{% endblock %}
