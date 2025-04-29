@@ -3,9 +3,11 @@
 {% block title %}Dealt Hands{% endblock %}
 
 {% block body %}
-<h1>Dealt Hands</h1>
+<section>
+    {% include "card/_nav.html.twig" %}
+</section>
 
-{% include "card/_nav.html.twig" %}
+<h1>Dealt Hands</h1>
 
 {% if not hands is empty %}
 {% for hand in hands %}

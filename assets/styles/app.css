@@ -60,7 +60,7 @@ footer {
   padding: 1rem;
 }
 
-header nav {
+nav {
   display: flex;
   justify-content: center;
   gap: 1rem;

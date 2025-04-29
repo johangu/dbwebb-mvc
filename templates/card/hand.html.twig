@@ -4,9 +4,10 @@
 {% block title %}Card game{% endblock %}
 
 {% block body %}
+<section>
+    {% include "card/_nav.html.twig" %}
+</section>
 <h1>Drawn card</h1>
-
-{% include "card/_nav.html.twig" %}
 
 {% if hand.getCards() is not empty %}
     <div>

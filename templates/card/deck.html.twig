@@ -3,8 +3,10 @@
 {% block title %}Deck{% endblock %}
 
 {% block body %}
+<section>
+    {% include "card/_nav.html.twig" %}
+</section>
 <h1>Current Deck</h1>
-{% include "card/_nav.html.twig" %}
 {% if sorted %}
 <h2>Sorted representation</h2>
 {% else %}
