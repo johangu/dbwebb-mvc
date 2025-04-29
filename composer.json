@@ -83,11 +83,13 @@
     "phpdoc": "tools/phpdoc/phpdoc --config=tools/phpdoc/phpdoc.xml || true",
     "phpmd": "tools/phpmd/vendor/bin/phpmd . text tools/phpmd/phpmd.xml || true",
     "phpstan": "tools/phpstan/vendor/bin/phpstan analyse -c tools/phpstan/phpstan.neon || true",
+    "phpstan:tests": "tools/phpstan/vendor/bin/phpstan analyse -c tools/phpstan/phpstan-tests.neon || true",
     "phpunit": "XDEBUG_MODE=coverage bin/phpunit || true",
     "lint": [
       "@csfix",
       "@phpmd",
-      "@phpstan"
+      "@phpstan",
+      "@phpstan:tests"
     ],
     "test": [
       "composer validate",
