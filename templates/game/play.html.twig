@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}21 - the card game{% endblock %}
+
+{% block body %}
+<section>
+    {% include 'game/_nav.html.twig' %}
+</section>
+
+<h1>21 - dbwebb kmom03 edition</h1>
+
+<section>
+    {% if winner %}
+        <h2>{{ winner }} har vunnit!</h2>
+        <div>
+            <a href={{ path('game_new') }}>Spela igen</a>
+        </div>
+    {% else %}
+        <form method="post" action="{{ path('game_deal') }}">
+            <button type="submit" class="btn btn-success">Ta ett kort</button>
+        </form>
+
+        <form method="post" action="{{ path('game_stand') }}">
+            <button type="submit" class="btn btn-warning">Stanna</button>
+        </form>
+    {% endif %}
+</section>
+
+<section class="game-table">
+
+    {% for name, player in players %}
+        {% include 'game/_player_hand.html.twig' with {
+            'name': player.getName(),
+            'hand': player.getHand(),
+            'score': game.getScore(player.getHand()),
+        } %}
+    {% endfor %}
+
+</section>
+
+{% endblock %}

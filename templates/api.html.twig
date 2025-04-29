@@ -12,12 +12,16 @@
         </ul>
 				<h2>kmom02</h2>
 				<ul>
-						<li>GET /api/deck</a> - Get the deck, sorted</li>
-						<li>POST /api/deck/shuffle</a> - Shuffle the deck and return it</li>
-						<li>POST /api/deck/draw</a> - Draw one card from the deck</li>
-						<li>POST /api/deck/draw/:number</a> - Draw :number cards from the deck</li>
-						<li>POST /api/deck/deal/:players/:cards</a> - Deal :cards cards from the deck to :player players</li>
+						<li>GET /api/deck - Get the deck, sorted</li>
+						<li>POST /api/deck/shuffle - Shuffle the deck and return it</li>
+						<li>POST /api/deck/draw - Draw one card from the deck</li>
+						<li>POST /api/deck/draw/:number - Draw :number cards from the deck</li>
+						<li>POST /api/deck/deal/:players/:cards - Deal :cards cards from the deck to :player players</li>
 				</ul>
+        <h2>kmom03</h2>
+        <ul>
+            <li>GET <a href="{{ path('api_game') }}">/api/game</a> - Get the current state of the game of 21 in the session
+        </ul>
     </div>
 
 {% endblock %}

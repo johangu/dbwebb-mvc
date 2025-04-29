@@ -1,0 +1,12 @@
+<div class="player-hand">
+    <h2>{{ name }}s Hand</h2>
+
+    <div class="cards">
+        {% for card in hand.getCards() %}
+            [<span class="card-suit {{ card.getSuit()|lower }}">{{ card.getRank() }}</span>]
+        {% endfor %}
+    </div>
+
+    <p>Totalt: <strong>{{ score }}</strong></p>
+</div>
+{% dump(player.getHand()) %}
