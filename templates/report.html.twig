@@ -74,6 +74,19 @@
 				<div id="kmom03">
 					<h2>kmom03</h2>
 					<p>
+					Att modeller med flödesdiagram är något jag har fått upp ögonen mer och mer för de senaste åren och det känns som ett stabilt sätt att faktiskt reflektera över hur applikationen ska fungera och vilka saker som hör samman hur. Definitivt något jag kommer att börja använda mig mer av till vardags också. Pseudokod tycker jag är ett bra sätt att snabbt förmedla tankar över hur något skall fungera, speciellt till kolleger när man kanske ännu inte har hunnit fått ordning på alla små detaljer, ett frukantsvärt bra verktyg att ha med sig.
+					</p>
+
+					<p>
+					Jag är i det stora hela nöjd med min implementation av kortspelet, mina controllers känns ungefär så smala som jag klarade av att göra dem och spellogiken blev bra enkapsulerad i de olika klasserna. Jag sparar pågående spel i sessionen. Ett spels state är hanterat i en klass Game som har en array av spelare av typen Player, håller reda på vem som är nuvarande spelare, har logik för att spela bankens hans, kontrollera en hands outcome om den är bust eller har 21, räkna hur många poäng en given hand är värd, etc. En Player i sin tur har ett namn, och en korthand av typen CardHand, som beskriven i kmom02. Via routes kontrolleras själva spelflödet i webbläsaren och spelet är renderat med twig för användaren.
+					</p>
+
+					<p>
+					Jag tycker att jag börjar få ganska bra känsla för Symfony vid det här laget men har fortfarande lite tvivel på namespace-biten. Därför kommer jag besöka dokumentationen lite mer och se om jag kan komma till någon insikt. Överlag tycker jag om att använda ramverk så det höjer effektiviteten och tar bort mycket onödig boilerplate.
+					</p>
+
+					<p>
+					TIL detta kmom för min del blev mer hur jag kunde nyttja partials i twig och skicka variabler till partials vilket jag kunde nyttja för att rendera mina korthänder. Riktigt trevligt. Jag lärde mig dessutom hur jag på att bättre sätt kunde svara med JSON-errors från min kontroller.
 					</p>
 				</div>
 				<div id="kmom04">
