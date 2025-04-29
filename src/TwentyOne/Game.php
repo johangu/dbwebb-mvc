@@ -3,6 +3,7 @@
 namespace App\TwentyOne;
 
 use App\Card\Card;
+use App\DeckOfCards\Deck;
 use App\DeckOfCards\StandardDeck;
 use InvalidArgumentException;
 
@@ -17,8 +18,8 @@ class Game implements \JsonSerializable
     /** @var array<Player> */
     private array $players = [];
 
-    /** @var StandardDeck */
-    private StandardDeck $deck;
+    /** @var Deck */
+    private Deck $deck;
 
     /** @var int */
     private int $currentPlayerIndex = 1;
@@ -30,9 +31,9 @@ class Game implements \JsonSerializable
     * Constructor for the Game class.
     * Initializes the game with a standard deck of cards.
     */
-    public function __construct()
+    public function __construct(?Deck $deck = null)
     {
-        $this->deck = new StandardDeck();
+        $this->deck = $deck ?? new StandardDeck();
         $this->deck->shuffle();
 
         array_push($this->players, new Player('Bank'));
@@ -73,7 +74,7 @@ class Game implements \JsonSerializable
     /**
      * Get the players in the game.
      *
-     * @return array<string, Player> The players in the game
+     * @return array<Player> The players in the game
      */
     public function getPlayers(): array
     {
@@ -82,17 +83,19 @@ class Game implements \JsonSerializable
 
     /**
     * Deal a card to the current player.
+    * @param ?Player $player The player to deal to. Defaults to current active player.
     *
     * @return ?Card The drawn card
     */
-    public function dealCard(): ?Card
+    public function dealCard(?Player $player = null): ?Card
     {
+        $player = $player ?? $this->getCurrentPlayer();
+
         $card = $this->deck->draw();
         if ($card === null) {
             return null;
         }
 
-        $player = $this->getCurrentPlayer();
         $player->getHand()->addCard($card);
 
         return $card;
@@ -128,7 +131,7 @@ class Game implements \JsonSerializable
         $bank = $this->players[0];
 
         while ($this->getScore($bank->getHand()) < 17) {
-            $this->dealCard();
+            $this->dealCard($bank);
         }
     }
 
