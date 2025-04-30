@@ -50,6 +50,8 @@ class CardTest extends TestCase
     public function testJsonSerialize(): void
     {
         $card = new Card('Spades', 'A', 1);
+
+        $json = json_encode($card);
         $expectedJson = json_encode([
             'suit' => 'Spades',
             'rank' => 'A',
@@ -58,6 +60,11 @@ class CardTest extends TestCase
             'isJoker' => false,
             'isAce' => true,
         ]);
-        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($card));
+
+        $this->assertNotFalse($json);
+        $this->assertNotFalse($expectedJson);
+        $this->assertJson($json);
+        $this->assertJson($expectedJson);
+        $this->assertJsonStringEqualsJsonString($expectedJson, $json);
     }
 }

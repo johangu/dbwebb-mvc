@@ -7,7 +7,7 @@ use App\DeckOfCards\Deck;
 use PHPUnit\Framework\TestCase;
 use App\TwentyOne\CardHand;
 
-class TestCardHand extends TestCase
+class CardHandTest extends TestCase
 {
     public function testAddCardToHand(): void
     {
@@ -48,14 +48,18 @@ class TestCardHand extends TestCase
         $cardHand->addCard($cardMock1);
         $cardHand->addCard($cardMock2);
 
+        $json = json_encode($cardHand);
         $expectedJson = json_encode([
             'cards' => [
                 ['mock' => 1],
                 ['mock' => 2]
             ],
         ]);
-        $actualJson = json_encode($cardHand);
 
-        $this->assertJsonStringEqualsJsonString($expectedJson, $actualJson);
+        $this->assertNotFalse($json);
+        $this->assertNotFalse($expectedJson);
+        $this->assertJson($json);
+        $this->assertJson($expectedJson);
+        $this->assertJsonStringEqualsJsonString($expectedJson, $json);
     }
 }

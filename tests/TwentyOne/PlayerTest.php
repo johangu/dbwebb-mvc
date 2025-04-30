@@ -20,13 +20,22 @@ class TestPlayer extends TestCase
         $this->assertEquals(0, count($hand->getCards()));
     }
 
-    public function testJsonSerialization(): void
+    public function testJsonSerialize(): void
     {
         $player = new Player("Test Testsson");
+
         $json = json_encode($player);
-        $this->assertJsonStringEqualsJsonString(
-            '{"name":"Test Testsson","hand":{ "cards": []}}',
-            $json
-        );
+        $expectedJson =
+            json_encode([
+                'hand' => [
+                    'cards' => []
+                ],
+                'name' => 'Test Testsson',
+            ]);
+        $this->assertNotFalse($json);
+        $this->assertNotFalse($expectedJson);
+        $this->assertJson($json);
+        $this->assertJson($expectedJson);
+        $this->assertJsonStringEqualsJsonString($expectedJson, $json);
     }
 }

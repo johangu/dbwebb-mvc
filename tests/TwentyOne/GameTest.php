@@ -262,7 +262,7 @@ class GameTest extends TestCase
         $game->addPlayer($playerMock);
 
         $json = json_encode($game);
-        $this->assertJsonStringEqualsJsonString(
+        $expectedJson =
             json_encode([
                 'players' => [
                     // bank is instantiated in Game so that one actually serializes here
@@ -271,9 +271,12 @@ class GameTest extends TestCase
                     []
                 ],
                 'deck' => [],
-            ]),
-            $json
-        );
+            ]);
+        $this->assertNotFalse($json);
+        $this->assertNotFalse($expectedJson);
+        $this->assertJson($json);
+        $this->assertJson($expectedJson);
+        $this->assertJsonStringEqualsJsonString($expectedJson, $json);
     }
 
     public function testToString(): void

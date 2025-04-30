@@ -50,6 +50,8 @@ class TestCardHand extends TestCase
             ->willReturn(52);
 
         $cardHand = new CardHand($deckMock, 1);
+
+        $json = json_encode($cardHand);
         $expectedJson = json_encode([
             'cards' => [
                 ['mock' => true],
@@ -57,9 +59,10 @@ class TestCardHand extends TestCase
             'count' => 1,
         ]);
 
-        $this->assertJsonStringEqualsJsonString(
-            $expectedJson,
-            json_encode($cardHand)
-        );
+        $this->assertNotFalse($json);
+        $this->assertNotFalse($expectedJson);
+        $this->assertJson($json);
+        $this->assertJson($expectedJson);
+        $this->assertJsonStringEqualsJsonString($expectedJson, $json);
     }
 }

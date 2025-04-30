@@ -47,15 +47,21 @@ class DeckTest extends TestCase
         $this->assertEquals([], $deck->getCards());
     }
 
-    public function testJsonSerializeEmptyDeck(): void
+    public function testJsonSerialize(): void
     {
         $deck = $this->getMockForAbstractClass(Deck::class);
+
+        $json = json_encode($deck);
         $expectedJson = json_encode([
             'type' => $deck::class,
             'cardCount' => 0,
             'cards' => [],
         ]);
-        $this->assertJsonStringEqualsJsonString($expectedJson, json_encode($deck));
+        $this->assertNotFalse($json);
+        $this->assertNotFalse($expectedJson);
+        $this->assertJson($json);
+        $this->assertJson($expectedJson);
+        $this->assertJsonStringEqualsJsonString($expectedJson, $json);
     }
 
     public function testToStringEmptyDeck(): void
