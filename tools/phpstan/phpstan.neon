@@ -3,5 +3,8 @@ parameters:
     paths:
         - ../../config
         - ../../src
+        - ../../tests
     bootstrapFiles:
         #- .phpstan.constants.php
+    excludePaths:
+        - ../../tests/bootstrap.php
