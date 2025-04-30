@@ -92,6 +92,22 @@
 				<div id="kmom04">
 					<h2>kmom04</h2>
 					<p>
+					Enhetstester är något jag har lite av en hat-kärlek till, det är så otroligt viktigt och ett sånt bra verktyg att ha med sig och nyttja, men det brukar kännas som det tar så mycket extra tid att skriva dem och det gör ibland lite ont hur verbosa de kan bli. Med det sagt tycker jag generellt om att få dem på plats, och PHPUnit känns som det har det mesta man kan önska från en test runner så i det stora hela känns det bra.
+					</p>
+					<p>
+					Jag har relativt bra kodtäckning, det mesta är 100%, men något ligger run 80%-snåret också. Däremot har jag en abstract class Deck som jag inte var riktigt säker på hur jag ska testa, så den har ca 50%, på sitt tomma state. Funderar om jag behöver dyka djupare i det nu, eller om jag ska vara nöjd för tillfället. Jag har dessutom ett problem med täckningsrapporten på Game-klassen, där jag inte förstår varför den säger 0% coverage på classes and traits, men det får jag också dyka mer i senare.
+					</p>
+
+					<p>
+					Koden är väldigt testbar, men jag fick göra ett par småförändringar för att göra den än bättre under tiden jag skrev testerna. Det finns nog alltid förbättringsmöjligheter, men det får man ta när man stöter på dem. Förändringarna jag gjorde var tillexempel att lägga till ett par optionella parametrar, med default-värden i konstruktorer och metoder för att kunna testa dem med mockar, för att enkapsulera testerna till endast en enhet åt gången.
+					</p>
+
+					<p>
+					Testbar kod och "ren kod" går nog lite hand i hand, och kvaliteten på koden är definitivt högre när den är testbar, om inte annat för att man måste anpassa den till mindre komplexa delar och får tänka mer på saker som Single Responsibility, har lättare att hitta potentiella side effects och annat som luktar illa.
+					</p>
+
+					<p>
+					TIL detta moment var mycket av PHPUnit och hur det fungerar, mycket dokumentation blev det att läsa för att få koll på mockandet. Även en del med PHPStan, jag började med att köra olika nivåer på src och tests, innan jag kunde lista ut hur jag t.ex. på ett "acceptabelt" sätt kunde göra asserts på mina jsonSerialize-funktioner.
 					</p>
 				</div>
 				<div id="kmom05">
