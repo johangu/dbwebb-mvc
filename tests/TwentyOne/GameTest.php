@@ -293,4 +293,92 @@ class GameTest extends TestCase
         $this->assertStringContainsString('Deck:', $string);
         $this->assertStringContainsString('Players:', $string);
     }
+
+    public function testDetermineWinnerPlayerBust(): void
+    {
+        $mockPlayer = $this->getMockBuilder(Player::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getHand'])
+            ->getMock();
+        $mockHand = $this->getMockBuilder(CardHand::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getCards'])
+            ->getMock();
+        $mockCard = $this->getMockBuilder(Card::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getValue', 'isFaceCard', 'isAce'])
+            ->getMock();
+
+        $mockPlayer->method('getHand')->willReturn($mockHand);
+        $mockHand->method('getCards')->willReturn([$mockCard]);
+        $mockCard->method('getValue')->willReturn(22);
+        $mockCard->method('isFaceCard')->willReturn(false);
+        $mockCard->method('isAce')->willReturn(false);
+
+        $game = new Game();
+        $game->addPlayer($mockPlayer);
+
+        $game->determineWinner();
+
+        $this->assertEquals('Bank', $game->getWinner());
+    }
+
+    public function testDetermineWinnerPlayer21(): void
+    {
+        $mockPlayer = $this->getMockBuilder(Player::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getHand', 'getName'])
+            ->getMock();
+        $mockHand = $this->getMockBuilder(CardHand::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getCards'])
+            ->getMock();
+        $mockCard = $this->getMockBuilder(Card::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getValue', 'isFaceCard', 'isAce'])
+            ->getMock();
+
+        $mockPlayer->method('getHand')->willReturn($mockHand);
+        $mockPlayer->method('getName')->willReturn('Test Testsson');
+        $mockHand->method('getCards')->willReturn([$mockCard]);
+        $mockCard->method('getValue')->willReturn(21);
+        $mockCard->method('isFaceCard')->willReturn(false);
+        $mockCard->method('isAce')->willReturn(false);
+
+        $game = new Game();
+        $game->addPlayer($mockPlayer);
+
+        $game->determineWinner();
+
+        $this->assertEquals('Test Testsson', $game->getWinner());
+    }
+
+    public function testDetermineWinnerHighScore(): void
+    {
+        $mockPlayer = $this->getMockBuilder(Player::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getHand', 'getName'])
+            ->getMock();
+        $mockHand = $this->getMockBuilder(CardHand::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getCards'])
+            ->getMock();
+        $mockCard = $this->getMockBuilder(Card::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['isFaceCard', 'isAce'])
+            ->getMock();
+
+        $mockPlayer->method('getHand')->willReturn($mockHand);
+        $mockPlayer->method('getName')->willReturn('Test Testsson');
+        $mockHand->method('getCards')->willReturn([$mockCard]);
+        $mockCard->method('isFaceCard')->willReturn(true);
+        $mockCard->method('isAce')->willReturn(false);
+
+        $game = new Game();
+        $game->addPlayer($mockPlayer);
+
+        $game->determineWinner();
+
+        $this->assertEquals('Test Testsson', $game->getWinner());
+    }
 }
