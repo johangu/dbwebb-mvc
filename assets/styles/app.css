@@ -5,6 +5,9 @@
   --error-text: hsl(357, 48%, 30%);
   --error-border: hsl(357, 48%, 85%);
   --error-color: hsl(357, 48%, 80%);
+  --info-text: hsl(230, 55%, 25%);
+  --info-border: hsl(230, 55%, 80%);
+  --info-color: hsl(230, 55%, 85%);
 }
 
 * {
@@ -137,6 +140,12 @@ p {
   border: 1px solid var(--success-border);
 }
 
+.flash-messages.info {
+  background-color: var(--info-color);
+  color: var(--info-text);
+  border: 1px solid var(--info-border);
+}
+
 .flash-message.error {
   background-color: var(--error-color);
   color: var(--error-text);
@@ -184,4 +193,160 @@ p {
   .game-table {
     flex-direction: column;
   }
+}
+
+.book-image {
+  flex: 0 0 200px;
+}
+
+.book-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.book-info {
+  flex: 1;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: sans-serif;
+}
+
+.form-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="url"],
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-container button[type="submit"] {
+  background-color: var(--info-color);
+  color: var(--info-text);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: var(--info-border);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.book-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+}
+
+.book-cover {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.book-card-body {
+  padding: 15px;
+}
+
+.book-title {
+  font-size: 1.1rem;
+  margin: 0 0 5px;
+  color: #2c3e50;
+}
+
+.book-author {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.book-year {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.edit-button {
+  display: inline-block;
+  background-color: var(--info-color);
+  color: var(--info-text);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.edit-button:hover {
+  background-color: var(--info-border);
+}
+
+.view-button {
+  display: inline-block;
+  background-color: var(--success-color);
+  color: var(--success-text);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.view-button:hover {
+  background-color: var(--success-border);
+}
+
+.btn-cancel {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--error-text);
+  text-decoration: none;
+  border: 1px solid var(--error-border);
+  background-color: var(--error-color);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: var(--error-border);
 }

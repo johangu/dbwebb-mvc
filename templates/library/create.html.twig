@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Book{% endblock %}
+
+{% block body %}
+	<p><a href="{{ path('library_index') }}" class="btn-link">&larr; Back to Library</a></p>
+	<h1>Add a New Book</h1>
+
+	<div class="form-container">
+    {{ form_start(form) }}
+			{{ form_row(form.title) }}
+			{{ form_row(form.author) }}
+			{{ form_row(form.publisher) }}
+			{{ form_row(form.isbn) }}
+			{{ form_row(form.year) }}
+			{{ form_row(form.image) }}
+			<button type="submit">Save</button>
+			<a href="{{ path('library_index') }}" class="btn-cancel">Cancel</a>
+    {{ form_end(form) }}
+	</div>
+{% endblock %}
+

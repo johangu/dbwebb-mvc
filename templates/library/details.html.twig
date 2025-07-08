@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Library book details{% endblock %}
+
+{% block body %}
+
+	<p><a href="{{ path('library_index') }}" class="btn-link">&larr; Back to Library</a></p>
+	<h1>{{ book.title }}</h1>
+	<div class="container">
+		<div class="book-image">
+			<img src="{{ book.image }}" alt="{{ book.title }}">
+		</div>
+
+		<div class="book-info">
+			<p><strong>Author:</strong> {{ book.author }}</p>
+			<p><strong>Publisher:</strong> {{ book.publisher }}</p>
+			<p><strong>ISBN:</strong> {{ book.isbn }}</p>
+			<p><strong>Year:</strong> {{ book.year }}</p>
+		</div>
+			<form method="POST" action="{{ path('library_delete', {'id': book.id}) }}" onsubmit="return confirm('Are you sure you want to delete this book?');" style="margin-top:20px;">
+				<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
+				<button type="submit" class="delete-button">Delete Book</button>
+		</form>
+	</div>
+
+{% endblock %}
+

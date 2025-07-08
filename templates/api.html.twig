@@ -22,6 +22,11 @@
         <ul>
             <li>GET <a href="{{ path('api_game') }}">/api/game</a> - Get the current state of the game of 21 in the session
         </ul>
+        <h2>kmom05</h2>
+        <ul>
+            <li>GET <a href="{{ path('api_library_index') }}">/api/library/books</a> - Show all books as JSON</li>
+            <li>GET <a href="{{ path('api_library_isbn', { 'isbn': '9780141036144'}) }}">/api/library/book/9780141036144</a> - View 1984 as JSON</li>
+        </ul>
     </div>
 
 {% endblock %}
