@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1751966995">
-  <project timestamp="1751966995">
+<coverage generated="1751974105">
+  <project timestamp="1751974105">
     <file name="/Users/johangu/Developer/github.com/johangu/dbwebb/mvc/me/report/src/Card/Card.php">
       <class name="App\Card\Card" namespace="global">
         <metrics complexity="11" methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="31" coveredelements="31"/>
@@ -351,7 +351,7 @@
     </file>
     <file name="/Users/johangu/Developer/github.com/johangu/dbwebb/mvc/me/report/src/Controller/ReportController.php">
       <class name="App\Controller\ReportController" namespace="global">
-        <metrics complexity="5" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="13" coveredelements="0"/>
+        <metrics complexity="6" methods="6" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="0" elements="15" coveredelements="0"/>
       </class>
       <line num="11" type="method" name="home" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="14" type="stmt" count="0"/>
@@ -366,7 +366,9 @@
       <line num="36" type="stmt" count="0"/>
       <line num="39" type="method" name="api" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="42" type="stmt" count="0"/>
-      <metrics loc="45" ncloc="45" classes="1" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="0" elements="13" coveredelements="0"/>
+      <line num="45" type="method" name="metric" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <metrics loc="51" ncloc="51" classes="1" methods="6" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="0" elements="15" coveredelements="0"/>
     </file>
     <file name="/Users/johangu/Developer/github.com/johangu/dbwebb/mvc/me/report/src/Controller/SessionController.php">
       <class name="App\Controller\SessionController" namespace="global">
@@ -610,6 +612,6 @@
       <line num="58" type="stmt" count="3"/>
       <metrics loc="61" ncloc="35" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="12" coveredelements="12"/>
     </file>
-    <metrics files="18" loc="1574" ncloc="1238" classes="17" methods="92" coveredmethods="40" conditionals="0" coveredconditionals="0" statements="409" coveredstatements="122" elements="501" coveredelements="162"/>
+    <metrics files="18" loc="1580" ncloc="1244" classes="17" methods="93" coveredmethods="40" conditionals="0" coveredconditionals="0" statements="410" coveredstatements="122" elements="503" coveredelements="162"/>
   </project>
 </coverage>
