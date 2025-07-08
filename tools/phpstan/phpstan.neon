@@ -8,3 +8,4 @@ parameters:
         #- .phpstan.constants.php
     excludePaths:
         - ../../tests/bootstrap.php
+        - ../../src/Entity
