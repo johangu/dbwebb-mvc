@@ -1,0 +1,118 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Metrics{% endblock %}
+
+{% block body %}
+
+<h1>Metrics</h1>
+
+<div>
+	<h2>Introduktion</h2>
+	<p>
+		Som ett verktyg för att mäta kodkvalitet kan man använda 6C, 6 steg som hjälp för att skriva snyggare kod.
+	</p>
+	<h3>1. Code style</h3>
+	<p>
+	En konsekvent kodstil är a och o för hög kodkvalitet. Genom att följa etablerade kodstandarder
+	och formatteringsregler blir koden mer läsbar och lättare att ta till sig, oavsett vem i teamet
+	som har skrivit den. Detta minskar risken för missförstånd, underlättar vid code review och gör
+	projektet lättare att underhålla.
+	</p>
+
+	<h3>2. Coverage</h3>
+	<p>
+	Test-täckning, eller code coverage, anger hur mycket av koden som omfattas av automatiska tester.
+	Detta gäller såväl enhets- som integrationstester. Hög täckning betyder att mer logik verifieras
+	vilket minskar risken för buggar. Dock betyder hög täckning inte automatiskt hög kvalitet, 
+	ytliga tester som inte rör logiken kan förekomma.
+	</p>
+
+	<h3>3. Complexity</h3>
+	<p>
+	Komplexitet mäter hur många olika vägar koden kan ta, i form av if-else-statements, switch-satser, 
+	loopar etc. Dessa vägar kan leda till svåröverskådlig kod och även små förändringar kan få större
+	konsekvenser än vad som verkar tydligt. Kod med hög komplexitet blir svårare att testa, men även
+	svårare att underhålla och vidareutveckla.
+	</p>
+
+	<h3>4. Cohesion</h3>
+	<p>
+	Cohesion är hur väl delarna i en klass hör ihop. Hög cohesion innebär att den har ett tydligt,
+	enkapsulerat ansvar och blir således lättare att förstå, underhålla och testa. Låg cohesion är
+	således motsatsen med otydlig struktur och funktionalitet som inte hör ihop, vilket gör koden
+	svårare att förstå och underhålla.
+	</p>
+
+	<h3>5. Coupling</h3>
+	<p>
+		Coupling beskriver till hur många andra klasser en klass har beroende till. Det gäller både
+		"utgående beroende", dvs en annan klass är beroende av den berörda klassen, och "inkommande
+		beroende", dvs att klassen är boernde av en annan klass. Man vill hålla antalet lågt för att
+		underlätta testning, underhåll och föreståelse för koden.
+	</p>
+
+	<h3>6. CRAP</h3>
+	<p>
+	CRAP mäter hur "svårt" det blir att ändra koden, genom en beräkning av cyclomatic complexity och
+	coverage tillsammans. Ett högt värde indikerar en hög "risk" för att fel uppstår vid modifieringar.
+	</p>
+</div>
+
+<div>
+	<h2>PHPMetrics</h2>
+	<div>
+		<img src="{{ asset('build/images/phpmetrics.png') }}" alt="php metrics screenshot">
+	</div>
+	<p>
+	Generellt är mina mätvärden bra, men som bilden visar har jag controllers, entities och forms som
+	inte täcks av unit tests. PHPMetrics rapporterar även ett "error" vilket tycks vara false postiive
+	då verktyget anser att LibraryController har för många methods (vilket i detta fall är routes).
+	Jag har genomgående låg coupling, där mina controllers har högst värden och inte riktigt kan förbättras.
+	Den värsta boven när det kommer till cyclomatic complexity är kortspelets huvudklass, som hanterar
+	all spellogik, och därigenom får ett högt maintainability index. Att döma av resultaten finns det 
+	inte jättemycket förbättringspotential generellt, men att täcka controllers med unit tests verkar
+	vara behövligt.
+	</p>
+</div>
+
+<div>
+	<h2>Scrutinizer</h2>
+	<p>
+		<a href="https://scrutinizer-ci.com/g/johangu/dbwebb-mvc/build-status/main">
+			<img src="https://scrutinizer-ci.com/g/johangu/dbwebb-mvc/badges/build.png?b=main">
+		</a>
+	</p>
+	<p>
+		<a href="https://scrutinizer-ci.com/g/johangu/dbwebb-mvc/?branch=main">
+			<img src="https://scrutinizer-ci.com/g/johangu/dbwebb-mvc/badges/coverage.png?b=main">
+		</a>
+	</p>
+	<p>
+		<a href="https://scrutinizer-ci.com/g/johangu/dbwebb-mvc/?branch=main">
+			<img src="https://scrutinizer-ci.com/g/johangu/dbwebb-mvc/badges/quality-score.png?b=main">
+		</a>
+	</p>
+	<p>
+	Vid en första körning av scrutinizer var dess bedömning 10/10, alltså högsta tänkbara betyg, 
+	medan en något mager 33% badge rapporterades för code coverage. Även här är det controllers som
+	saknar coverage. Alla kodfiler har fått rating A, och de buggar som är rapporterade tycks vara
+	false positives där jag använt "private const array" och verktyget inte tycks riktigt stödja
+	syntax för type hint på consts. 
+	</p>
+</div>
+
+<div>
+	<h2>Förbättringar</h2>
+	<p>
+	Efter att ha analyserat rapporterna från såväl PHPMetrics som Scrutinizer kan jag bara
+	konstatera att jag generellt har skrivit ganska clean code genom kursens gång, men det betyder
+	inte att jag inte kan förbättra code coverage. Därför väljer jag att fokusera på att täcka mina
+	controllers med unit tests som en förbättringsåtgärd i hopp om att få högre code coverage.
+	</p>
+</div>
+
+<div>
+	<h2>Diskussion</h2>
+</div>
+
+{% endblock %}

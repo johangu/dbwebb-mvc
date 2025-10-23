@@ -41,4 +41,10 @@ class ReportController extends AbstractController
     {
         return $this->render('api.html.twig');
     }
+
+    #[Route('/metric', name: 'metric')]
+    public function metric(): Response
+    {
+        return $this->render('metric.html.twig');
+    }
 }
