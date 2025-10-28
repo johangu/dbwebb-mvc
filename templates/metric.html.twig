@@ -102,17 +102,36 @@
 </div>
 
 <div>
-	<h2>Förbättringar</h2>
+	<h2>Förbättringspotential?</h2>
 	<p>
 	Efter att ha analyserat rapporterna från såväl PHPMetrics som Scrutinizer kan jag bara
-	konstatera att jag generellt har skrivit ganska clean code genom kursens gång, men det betyder
-	inte att jag inte kan förbättra code coverage. Därför väljer jag att fokusera på att täcka mina
-	controllers med unit tests som en förbättringsåtgärd i hopp om att få högre code coverage.
+	konstatera att jag generellt har skrivit ganska clean code genom kursens gång. 
+	Om man skulle vilja vara petig skulle jag kunna skriva ytliga, och kanske onödiga, enhetstester
+	för ett formulär, ett repository och en entity bara för att få upp coverage-siffrorna. Eller ge
+	mig in i träsket att testa controllers, och då antingen göra ytliga tester endast för coverage
+	eller investera en potentiellt oresonlig mängd tid i att börja mocka och fixa, endast för
+	att sifforna ska se bättre ut. Här väljer jag hellre avvägningen att inte gå överstyr med detta
+	för att en badge ska se bättre ut.
 	</p>
 </div>
 
 <div>
 	<h2>Diskussion</h2>
+	<p>
+	Jag tycker definitivt att man kan jobbat mot clean code med hjälp av verktyg som analyserar och
+	pekar ut förbättringspotential i den kod som skrivit, dock anser jag att man inte får stirra sig
+	blind på dess output och tro att det är en single source of truth. Det är viktigt att känna sin
+	kodbas, och att veta var, och varför, man gör avsteg från vissa "best practices" eller metologier.
+	</p>
+	<p>
+	Jag kan mycket väl tänka mig att för juniora utvecklare är det lätt att falla in i fällan att tro
+	att man måste tillfredsställa dessa verktyg oavsett vad, och det kanske kan vara bra för att lära
+	sig vissa saker och för att förstå koncept. Dock kan detta leda till produktionsbortfall eller att
+	man överkomplicerar något endast för att ett verktyg ska ge en klapp på axeln, snarare än att 
+	följa sin intuition över varför något är lösa på ett speciellt sätt. Att använda dessa rätt är
+	dock ovärderligt, då det kan ge en klarare bild över onödig komplexitet eller potentiella risker
+	i koden.
+	</p>
 </div>
 
 {% endblock %}
