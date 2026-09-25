@@ -160,6 +160,15 @@ p {
   background-color: var(--wood-dark);
 }
 
+.room-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 3px solid var(--wood);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
 .prompt {
   white-space: pre-wrap;
   padding: 1rem;

@@ -1,0 +1,58 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}Fusklapp{% endblock %}
+
+{% block body %}
+<h1>Fusklapp</h1>
+
+<p>
+Här är snabbaste vägen genom spelet, steg för steg. Varje steg är ett drag, och följer man stegen i ordning hittar man skatten utan några onödiga omvägar. Ordningen på stegen inom ett rum spelar dock mindre roll, så länge man har rätt saker i ryggsäcken när de behövs.
+</p>
+
+<section>
+    <h2>Hamnen</h2>
+    <img src="{{ asset('build/images/proj/hamnen.webp') }}" alt="Hamnen" class="room-image">
+    <ol>
+        <li>Undersök tunnan, en penningpung dyker upp.</li>
+        <li>Ta penningpungen.</li>
+        <li>Gå norrut till krogen.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Krogen</h2>
+    <img src="{{ asset('build/images/proj/krogen.webp') }}" alt="Krogen" class="room-image">
+    <ol start="4">
+        <li>Undersök tavlan, bakom den hänger en skattkarta.</li>
+        <li>Ta skattkartan.</li>
+        <li>Använd penningpungen på sjömännen, de går med på att bli din besättning.</li>
+        <li>Ta besättningen.</li>
+        <li>Gå söderut tillbaka till hamnen.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Hamnen igen</h2>
+    <ol start="9">
+        <li>Gå österut till skeppet.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Skeppet</h2>
+    <img src="{{ asset('build/images/proj/skeppet.webp') }}" alt="Skeppet" class="room-image">
+    <ol start="10">
+        <li>Använd besättningen på ankaret, ankaret hissas.</li>
+        <li>Undersök ratten, nu när ankaret är hissat kan du ta tag i den och vägen österut öppnas.</li>
+        <li>Segla österut ut på havet.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Havet</h2>
+    <img src="{{ asset('build/images/proj/havet.webp') }}" alt="Havet" class="room-image">
+    <ol start="13">
+        <li>Använd skattkartan på horisonten, kartan leder dig till skatten.</li>
+    </ol>
+</section>
+{% endblock %}
