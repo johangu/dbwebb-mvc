@@ -38,4 +38,14 @@
     Kör man fast, eller bara vill se hur spelet går till, finns det en <a href="{{ path('proj_cheat') }}">fusklapp</a> som visar snabbaste vägen genom spelet.
     </p>
 </section>
+
+<section>
+    <h2>Databasen</h2>
+    <p>
+    Allt innehåll i spelet ligger i databasen. Skulle något ha gått snett går databasen att återställa till sitt ursprungliga skick, highscorelistan påverkas dock inte.
+    </p>
+    <form method="post" action="{{ path('proj_reset') }}">
+        <button type="submit" class="proj-button">Återställ databasen</button>
+    </form>
+</section>
 {% endblock %}
