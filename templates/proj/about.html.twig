@@ -1,0 +1,32 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}Om projektet{% endblock %}
+
+{% block body %}
+<h1>Om projektet</h1>
+
+<section>
+    <h2>Bakgrund</h2>
+    <p>
+    Piratäventyret är mitt slutprojekt (kmom10) i kursen <a href="https://dbwebb.se/kurser/mvc-v2">mvc</a> på <a href="https://bth.se">BTH</a>. Av de olika projektalternativen valde jag att bygga ett <a href="https://dbwebb.se/kurser/mvc-v2/kmom10/adventure">äventyrsspel</a>, där utmaningen enligt uppgiften är att bygga en bra struktur bakom spelet så att man kan lägga till rum, saker och händelser på ett generellt sätt, utan att hårdkoda spelets logik.
+    </p>
+</section>
+
+<section>
+    <h2>Spelet</h2>
+    <p>
+    Spelet består av fyra rum, hamnen där äventyret börjar, krogen där man kan värva en besättning, skeppet som ska göras sjöklart innan man kan lägga ut och till sist havet där skatten väntar.
+    </p>
+
+    <p>
+    Tanken är att allt innehåll i spelet, dvs rum, utgångar, saker och vad som händer när man använder dem, ska ligga i databasen och läsas via ORM. Själva koden ska således inte veta något om pirater, utan bara hur man rör sig mellan rum och hanterar saker. På så sätt skulle man kunna byta ut hela äventyret mot ett annat bara genom att ändra i databasen.
+    </p>
+</section>
+
+<section>
+    <h2>Teknik</h2>
+    <p>
+    Projektet är byggt i Symfony med Twig för vyerna och Doctrine ORM mot en SQLite-databas, precis som resten av rapportsidan. Spellogiken ligger i egna klasser som är enhetstestade med PHPUnit, och koden valideras med phpstan, phpmd och php-cs-fixer. Källkoden finns på <a href="https://github.com/johangu/dbwebb-mvc">GitHub</a>.
+    </p>
+</section>
+{% endblock %}
