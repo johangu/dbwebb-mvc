@@ -1,0 +1,63 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}Databasen{% endblock %}
+
+{% block body %}
+<p><a href="{{ path('proj_about') }}">&larr; Tillbaka till om projektet</a></p>
+<h1>Databasen</h1>
+
+<section>
+    <h2>ER-diagram</h2>
+    <img src="{{ asset('build/images/proj/er-diagram.png') }}" alt="ER-diagram över spelets tabeller" class="er-diagram">
+</section>
+
+<section>
+    <h2>Tabellerna</h2>
+    <ul>
+        <li><strong>room</strong> sparar spelets rum, med namn, beskrivning och vilken bild som ska visas för rummet.</li>
+        <li><strong>passage</strong> sparar utgångarna mellan rummen, åt vilket håll de går, vilket verb som används (t.ex. "Gå" eller "Segla") och om utgången är låst från början.</li>
+        <li><strong>item</strong> sparar alla saker i spelet, vilket rum de finns i samt om de är gömda från början och om de går att plocka upp.</li>
+        <li><strong>interaction</strong> sparar vad som händer när man undersöker en sak eller använder en sak på en annan, t.ex. att något gömt visar sig, att en utgång låses upp eller att spelet vinns.</li>
+        <li><strong>highscore</strong> sparar namn och antal drag för de som har klarat spelet.</li>
+    </ul>
+    <p>
+    I samma databas finns även tabellen book från biblioteket i kmom05 samt messenger_messages som Symfony själv använder, men de hör inte till projektet.
+    </p>
+</section>
+
+<section>
+    <h2>Relationer</h2>
+    <p>
+    Alla relationer är lösta med ManyToOne i Doctrine, dvs att en rad i en tabell pekar på en rad i en annan tabell via en främmande nyckel. Relationerna är enkelriktade, t.ex. vet en sak vilket rum den ligger i men ett rum har ingen lista över sina saker, utan de hämtas istället via ett repository när de behövs.
+    </p>
+
+    <p>
+    En passage har två relationer till room, en för rummet den går från och en för rummet den leder till. En interaction är den tabell som har flest relationer, den hör till ett rum och har alltid en sak som mål, men kan även peka på en sak som används, en sak som visar sig och en utgång som låses upp. Dessa är således frivilliga och kan vara null.
+    </p>
+
+    <p>
+    Den kanske mest intressanta relationen är att interaction kan peka på sig själv, via required_interaction_id. På så sätt kan en händelse kräva att en annan har skett innan, t.ex. går det inte att ta tag i ratten förrän besättningen har hissat ankaret. Den logiken ligger alltså i databasen och inte i koden.
+    </p>
+</section>
+
+<section>
+    <h2>SQLite</h2>
+    <p>
+    Jag använder SQLite, precis som för biblioteket i kmom05, och databasen ligger i filen var/data.db. Tabellerna skapas via Doctrine migrations och innehållet i spelet läses in av klassen WorldLoader, som även används när man trycker på "Återställ databasen" på projektets förstasida.
+    </p>
+</section>
+
+<section>
+    <h2>Enhetstester mot databasen</h2>
+    <p>
+    I nuläget görs inga enhetstester direkt mot databasen. WorldLoader testas istället med en mockad Doctrine, där testerna kontrollerar att rätt rum, utgångar, saker och händelser sparas och att de hänger ihop som de ska.
+    </p>
+</section>
+
+<section>
+    <h2>ORM jämfört med databaskursen</h2>
+    <p>
+    Att arbeta med ORM känns generellt bra, man jobbar med objekt och repositories istället för att skriva SQL för hand, och Doctrine sköter både schemat via migrations och själva frågorna. Dock är jag alltid lite försiktig med ORM eftersom det kan kännas som mycket magi, även fast jag vet hur det fungerar bakom kulisserna. Jag har därmed ofta en förkärlek för att skriva min SQL manuellt för att veta exakt vad som sker, men ORM har absolut sin tid och plats.
+    </p>
+</section>
+{% endblock %}

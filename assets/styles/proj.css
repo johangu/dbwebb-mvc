@@ -169,6 +169,13 @@ p {
   margin-bottom: 1rem;
 }
 
+.er-diagram {
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  border: 3px solid var(--wood);
+  border-radius: 0.25rem;
+}
+
 .prompt {
   white-space: pre-wrap;
   padding: 1rem;
