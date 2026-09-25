@@ -1,0 +1,189 @@
+:root {
+  --parchment: hsl(40, 52%, 88%);
+  --parchment-dark: hsl(38, 42%, 76%);
+  --wood: hsl(25, 38%, 26%);
+  --wood-dark: hsl(25, 42%, 14%);
+  --gold: hsl(43, 74%, 52%);
+  --gold-light: hsl(45, 90%, 70%);
+  --sea: hsl(200, 58%, 24%);
+  --ink: hsl(25, 30%, 15%);
+  --success-text: hsl(130, 59%, 22%);
+  --success-border: hsl(130, 59%, 60%);
+  --success-color: hsl(130, 40%, 80%);
+  --error-text: hsl(357, 48%, 30%);
+  --error-border: hsl(357, 48%, 65%);
+  --error-color: hsl(357, 48%, 82%);
+  --info-text: hsl(200, 58%, 20%);
+  --info-border: hsl(200, 45%, 60%);
+  --info-color: hsl(200, 45%, 82%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  background: linear-gradient(to bottom, var(--sea), var(--wood-dark));
+  color: var(--ink);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+a {
+  color: var(--sea);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+}
+
+header,
+footer {
+  background-color: var(--wood-dark);
+  color: var(--parchment);
+  width: 100%;
+  padding: 1rem;
+  border-color: var(--gold);
+  border-style: solid;
+  border-width: 0;
+}
+
+header {
+  border-bottom-width: 3px;
+  text-align: center;
+}
+
+footer {
+  border-top-width: 3px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: var(--gold-light);
+}
+
+.site-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 var(--wood);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: var(--gold-light);
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+nav a:hover {
+  color: var(--parchment);
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: var(--parchment);
+  border: 4px double var(--wood);
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .content {
+    flex-direction: row;
+  }
+}
+
+.proj-button {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background-color: var(--wood);
+  color: var(--gold-light);
+  border: 2px solid var(--gold);
+  border-radius: 0.25rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.proj-button:hover {
+  background-color: var(--wood-dark);
+}
+
+.flash-message {
+  padding: 0.375rem;
+  margin: 0.125rem auto 0;
+  border-radius: 0.5rem;
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.flash-message.success {
+  background-color: var(--success-color);
+  color: var(--success-text);
+  border: 1px solid var(--success-border);
+}
+
+.flash-message.info {
+  background-color: var(--info-color);
+  color: var(--info-text);
+  border: 1px solid var(--info-border);
+}
+
+.flash-message.error {
+  background-color: var(--error-color);
+  color: var(--error-text);
+  border: 1px solid var(--error-border);
+}

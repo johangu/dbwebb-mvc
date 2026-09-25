@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Piratäventyret{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🏴‍☠️</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('proj') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('proj') }}
+        {% endblock %}
+    </head>
+    <body>
+        <header class="header">
+            <p class="site-title">Piratäventyret</p>
+            <nav>
+                <a href="{{ path('proj') }}">Hem</a>
+                <a href="{{ path('proj_about') }}">Om projektet</a>
+            </nav>
+        </header>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-message {{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        <footer>
+            Detta är projektet i kursen mvc, som en del av dbwebb, vårterminen 2025. Skapare är jogm23.
+            <a href="{{ path('home') }}">Tillbaka till rapportsidan</a>.
+        </footer>
+    </body>
+</html>
