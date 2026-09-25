@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Adventure\WorldLoader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,5 +26,15 @@ class ProjectController extends AbstractController
     public function cheat(): Response
     {
         return $this->render('proj/cheat.html.twig');
+    }
+
+    #[Route('/proj/reset', name: 'proj_reset', methods: ['POST'])]
+    public function reset(WorldLoader $worldLoader): RedirectResponse
+    {
+        $worldLoader->load();
+
+        $this->addFlash('success', 'Databasen har återställts');
+
+        return $this->redirectToRoute('proj');
     }
 }
