@@ -29,4 +29,30 @@
     Projektet är byggt i Symfony med Twig för vyerna och Doctrine ORM mot en SQLite-databas, precis som resten av rapportsidan. Spellogiken ligger i egna klasser som är enhetstestade med PHPUnit, och koden valideras med phpstan, phpmd och php-cs-fixer. Källkoden finns på <a href="https://github.com/johangu/dbwebb-mvc">GitHub</a>.
     </p>
 </section>
+
+<section>
+    <h2>Bilder</h2>
+    <p>
+    Bilderna för spelets fyra rum är genererade av ChatGPT, och inte något jag har skapat själv. De togs fram med följande prompt:
+    </p>
+    <pre class="prompt">I am going to create an "adventure game". Hand-painted digital illustration in the style of a classic 1990s point-and-click adventure game, rich warm colors, soft painterly lighting, slightly stylized proportions, detailed but uncluttered composition, wide establishing shot from eye level, 16:9 aspect ratio, no text, no letters, no UI, no people in the foreground.
+
+I will present you with the four rooms below and you can generate a sheet with them for my approval before breaking them out to separate images.
+
+1. Hamnen (the port)
+
+A bustling 18th-century Caribbean pirate harbor at late afternoon. Wooden docks and stacked cargo crates, coiled ropes and fishing nets. In the left foreground, a single prominent weathered wooden barrel stands apart from the rest. To the left in the background, a cozy timber tavern with a hanging wooden sign and warm light in its windows. To the right, a tall-masted pirate ship moored at the pier with a gangplank leading up to its deck. Seagulls, calm turquoise water, palm trees on the hillside.
+
+2. Krogen (the tavern)
+
+The dim, smoky interior of a rowdy pirate tavern lit by lanterns and a fireplace. Low wooden beams, rum barrels behind the bar counter, mugs and bottles. At a large round table in the middle ground, a group of rough-looking sailors plays cards, clearly available for hire. On the back wall hangs a large framed oil painting of a stormy sea, slightly crooked as if something is hidden behind it. The door back out to the harbor is on the right.
+
+3. Skeppet (the ship)
+
+On the main deck of a wooden pirate ship still docked at the harbor. Masts with furled sails and rigging overhead. At the bow on the right, a huge iron anchor hangs from a heavy chain and capstan, clearly still lowered. At the stern on the left, a large wooden ship's wheel stands on a raised quarterdeck. The gangplank back to the port is visible at the edge of the deck. Golden hour light, the open sea on the horizon.
+
+4. Havet (the open sea)
+
+A pirate ship sailing on the open sea seen from its deck, full sails billowing in the wind. Deep blue ocean with gentle waves, dramatic sunset sky. Far away on the horizon, a small mysterious tropical island with a single palm tree is barely visible, hinting at buried treasure. A sense of freedom and adventure.</pre>
+</section>
 {% endblock %}

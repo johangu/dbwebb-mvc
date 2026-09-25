@@ -160,6 +160,14 @@ p {
   background-color: var(--wood-dark);
 }
 
+.prompt {
+  white-space: pre-wrap;
+  padding: 1rem;
+  background-color: var(--parchment-dark);
+  border-left: 4px solid var(--wood);
+  font-size: 0.875rem;
+}
+
 .flash-message {
   padding: 0.375rem;
   margin: 0.125rem auto 0;
