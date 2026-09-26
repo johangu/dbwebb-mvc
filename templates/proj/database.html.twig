@@ -26,6 +26,13 @@
 </section>
 
 <section>
+    <h2>Världen och spelarens läge</h2>
+    <p>
+    Databasen beskriver bara hur världen ser ut när ett spel startar, därav namnen starts_locked och starts_hidden. Inget i databasen ändras medan man spelar, utan varje spelares läge, dvs vilket rum man står i, vad man har i ryggsäcken och vad man har låst upp, sparas i sessionen. På så sätt kan flera spela samtidigt utan att påverka varandra, och det enda som skrivs till databasen under spelets gång är highscorelistan.
+    </p>
+</section>
+
+<section>
     <h2>Relationer</h2>
     <p>
     Alla relationer är lösta med ManyToOne i Doctrine, dvs att en rad i en tabell pekar på en rad i en annan tabell via en främmande nyckel. Relationerna är enkelriktade, t.ex. vet en sak vilket rum den ligger i men ett rum har ingen lista över sina saker, utan de hämtas istället via ett repository när de behövs.
