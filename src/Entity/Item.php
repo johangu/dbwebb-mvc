@@ -25,7 +25,7 @@ class Item
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?bool $hidden = null;
+    private ?bool $startsHidden = null;
 
     #[ORM\Column]
     private ?bool $pickable = null;
@@ -71,14 +71,14 @@ class Item
         return $this;
     }
 
-    public function isHidden(): ?bool
+    public function isStartsHidden(): ?bool
     {
-        return $this->hidden;
+        return $this->startsHidden;
     }
 
-    public function setHidden(bool $hidden): static
+    public function setStartsHidden(bool $startsHidden): static
     {
-        $this->hidden = $hidden;
+        $this->startsHidden = $startsHidden;
 
         return $this;
     }

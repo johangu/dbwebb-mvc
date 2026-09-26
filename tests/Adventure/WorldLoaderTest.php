@@ -101,7 +101,7 @@ class WorldLoaderTest extends TestCase
     public function testOnlyPassageToTheSeaIsLocked(): void
     {
         $passages = $this->ofClass($this->loadWorld(), Passage::class);
-        $locked = array_values(array_filter($passages, fn (Passage $passage) => $passage->isLocked() === true));
+        $locked = array_values(array_filter($passages, fn (Passage $passage) => $passage->isStartsLocked() === true));
 
         $this->assertCount(1, $locked);
         $this->assertEquals('Skeppet', $locked[0]->getFromRoom()?->getName());
@@ -119,7 +119,7 @@ class WorldLoaderTest extends TestCase
 
         $this->assertCount(1, $wheel);
         $this->assertEquals('ankaret', $wheel[0]->getRequiredInteraction()?->getTarget()?->getName());
-        $this->assertTrue($wheel[0]->getUnlocksPassage()?->isLocked());
+        $this->assertTrue($wheel[0]->getUnlocksPassage()?->isStartsLocked());
     }
 
     public function testOnlyTreasureMapOnHorizonWins(): void
@@ -135,7 +135,7 @@ class WorldLoaderTest extends TestCase
     public function testHiddenItemsCanBePickedUpAndAreRevealed(): void
     {
         $persisted = $this->loadWorld();
-        $hidden = array_filter($this->ofClass($persisted, Item::class), fn (Item $item) => $item->isHidden() === true);
+        $hidden = array_filter($this->ofClass($persisted, Item::class), fn (Item $item) => $item->isStartsHidden() === true);
         $revealed = array_map(
             fn (Interaction $interaction) => $interaction->getRevealsItem(),
             $this->ofClass($persisted, Interaction::class)

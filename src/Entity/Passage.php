@@ -28,7 +28,7 @@ class Passage
     private ?string $verb = null;
 
     #[ORM\Column]
-    private ?bool $locked = null;
+    private ?bool $startsLocked = null;
 
     public function getId(): ?int
     {
@@ -83,14 +83,14 @@ class Passage
         return $this;
     }
 
-    public function isLocked(): ?bool
+    public function isStartsLocked(): ?bool
     {
-        return $this->locked;
+        return $this->startsLocked;
     }
 
-    public function setLocked(bool $locked): static
+    public function setStartsLocked(bool $startsLocked): static
     {
-        $this->locked = $locked;
+        $this->startsLocked = $startsLocked;
 
         return $this;
     }

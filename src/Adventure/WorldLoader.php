@@ -45,67 +45,67 @@ class WorldLoader
     ];
 
     private const array PASSAGES = [
-        'hamnen-krogen' => ['from' => 'hamnen', 'to' => 'krogen', 'direction' => 'north', 'verb' => 'Gå', 'locked' => false],
-        'krogen-hamnen' => ['from' => 'krogen', 'to' => 'hamnen', 'direction' => 'south', 'verb' => 'Gå', 'locked' => false],
-        'hamnen-skeppet' => ['from' => 'hamnen', 'to' => 'skeppet', 'direction' => 'east', 'verb' => 'Gå', 'locked' => false],
-        'skeppet-hamnen' => ['from' => 'skeppet', 'to' => 'hamnen', 'direction' => 'west', 'verb' => 'Gå', 'locked' => false],
-        'skeppet-havet' => ['from' => 'skeppet', 'to' => 'havet', 'direction' => 'east', 'verb' => 'Segla', 'locked' => true],
-        'havet-skeppet' => ['from' => 'havet', 'to' => 'skeppet', 'direction' => 'west', 'verb' => 'Segla', 'locked' => false],
+        'hamnen-krogen' => ['from' => 'hamnen', 'to' => 'krogen', 'direction' => 'north', 'verb' => 'Gå', 'startsLocked' => false],
+        'krogen-hamnen' => ['from' => 'krogen', 'to' => 'hamnen', 'direction' => 'south', 'verb' => 'Gå', 'startsLocked' => false],
+        'hamnen-skeppet' => ['from' => 'hamnen', 'to' => 'skeppet', 'direction' => 'east', 'verb' => 'Gå', 'startsLocked' => false],
+        'skeppet-hamnen' => ['from' => 'skeppet', 'to' => 'hamnen', 'direction' => 'west', 'verb' => 'Gå', 'startsLocked' => false],
+        'skeppet-havet' => ['from' => 'skeppet', 'to' => 'havet', 'direction' => 'east', 'verb' => 'Segla', 'startsLocked' => true],
+        'havet-skeppet' => ['from' => 'havet', 'to' => 'skeppet', 'direction' => 'west', 'verb' => 'Segla', 'startsLocked' => false],
     ];
 
     private const array ITEMS = [
         'tunnan' => [
             'room' => 'hamnen',
             'description' => 'En gammal väderbiten tunna som står lite för sig själv.',
-            'hidden' => false,
+            'startsHidden' => false,
             'pickable' => false,
         ],
         'penningpungen' => [
             'room' => 'hamnen',
             'description' => 'En tung pung full med mynt.',
-            'hidden' => true,
+            'startsHidden' => true,
             'pickable' => true,
         ],
         'tavlan' => [
             'room' => 'krogen',
             'description' => 'En oljemålning av ett stormigt hav som hänger lite på sned.',
-            'hidden' => false,
+            'startsHidden' => false,
             'pickable' => false,
         ],
         'skattkartan' => [
             'room' => 'krogen',
             'description' => 'En gammal karta med ett kryss utritat på en liten ö.',
-            'hidden' => true,
+            'startsHidden' => true,
             'pickable' => true,
         ],
         'sjömännen' => [
             'room' => 'krogen',
             'description' => 'Ett gäng rufsiga sjömän som ser ut att behöva både jobb och pengar.',
-            'hidden' => false,
+            'startsHidden' => false,
             'pickable' => false,
         ],
         'besättningen' => [
             'room' => 'krogen',
             'description' => 'Sjömännen från krogen, redo att segla.',
-            'hidden' => true,
+            'startsHidden' => true,
             'pickable' => true,
         ],
         'ankaret' => [
             'room' => 'skeppet',
             'description' => 'Ett stort ankare av järn, det är fortfarande nedsänkt.',
-            'hidden' => false,
+            'startsHidden' => false,
             'pickable' => false,
         ],
         'ratten' => [
             'room' => 'skeppet',
             'description' => 'Skeppets ratt i mörkt trä.',
-            'hidden' => false,
+            'startsHidden' => false,
             'pickable' => false,
         ],
         'horisonten' => [
             'room' => 'havet',
             'description' => 'Långt borta vid horisonten skymtar en liten ö.',
-            'hidden' => false,
+            'startsHidden' => false,
             'pickable' => false,
         ],
     ];
@@ -259,7 +259,7 @@ class WorldLoader
             $passage->setToRoom($this->rooms[$data['to']]);
             $passage->setDirection($data['direction']);
             $passage->setVerb($data['verb']);
-            $passage->setLocked($data['locked']);
+            $passage->setStartsLocked($data['startsLocked']);
 
             $this->manager->persist($passage);
             $this->passages[$key] = $passage;
@@ -276,7 +276,7 @@ class WorldLoader
             $item->setRoom($this->rooms[$data['room']]);
             $item->setName($name);
             $item->setDescription($data['description']);
-            $item->setHidden($data['hidden']);
+            $item->setStartsHidden($data['startsHidden']);
             $item->setPickable($data['pickable']);
 
             $this->manager->persist($item);
