@@ -16,7 +16,8 @@
     <ul>
         <li><strong>room</strong> sparar spelets rum, med namn, beskrivning och vilken bild som ska visas för rummet.</li>
         <li><strong>passage</strong> sparar utgångarna mellan rummen, åt vilket håll de går, vilket verb som används (t.ex. "Gå" eller "Segla") och om utgången är låst från början.</li>
-        <li><strong>item</strong> sparar alla saker i spelet, vilket rum de finns i samt om de är gömda från början och om de går att plocka upp.</li>
+        <li><strong>item</strong> sparar alla saker i spelet, vilket rum de finns i, om de är gömda från början, om de går att plocka upp och i förekommande fall en bild på saken.</li>
+        <li><strong>hotspot</strong> sparar de klickbara ytorna i rummens bilder, i procent av bildens storlek, och vilken sak eller utgång ytan hör till.</li>
         <li><strong>interaction</strong> sparar vad som händer när man undersöker en sak eller använder en sak på en annan, t.ex. att något gömt visar sig, att en utgång låses upp eller att spelet vinns.</li>
         <li><strong>highscore</strong> sparar namn och antal drag för de som har klarat spelet.</li>
     </ul>
@@ -40,6 +41,10 @@
 
     <p>
     En passage har två relationer till room, en för rummet den går från och en för rummet den leder till. En interaction är den tabell som har flest relationer, den hör till ett rum och har alltid en sak som mål, men kan även peka på en sak som används, en sak som visar sig och en utgång som låses upp. Dessa är således frivilliga och kan vara null.
+    </p>
+
+    <p>
+    En hotspot hör till ett rum och pekar antingen på en sak eller på en utgång, men aldrig direkt på en interaction. När man klickar på en yta tar servern istället reda på vilken sak det gäller och letar sedan upp en interaction som har saken som mål och som passar det verb man har valt. Finns ingen sådan visas bara sakens beskrivning, vilket gör att det går att lägga till saker som bara är till för att undersöka utan att behöva någon interaction alls.
     </p>
 
     <p>
