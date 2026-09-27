@@ -30,6 +30,9 @@ class Item
     #[ORM\Column]
     private ?bool $pickable = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class Item
     public function setPickable(bool $pickable): static
     {
         $this->pickable = $pickable;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
