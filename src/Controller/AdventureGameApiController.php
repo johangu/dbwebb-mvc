@@ -1,0 +1,166 @@
+<?php
+
+namespace App\Controller;
+
+use App\Adventure\ActionHandler;
+use App\Adventure\GameSession;
+use App\Adventure\GameStatus;
+use App\Repository\ItemRepository;
+use App\Repository\PassageRepository;
+use App\Repository\RoomRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Annotation\Route;
+
+class AdventureGameApiController extends AbstractController
+{
+    #[Route('/proj/api/game', name: 'api_proj_game', methods: ['GET'])]
+    public function apiGame(SessionInterface $session, GameStatus $status): JsonResponse
+    {
+        if (!$session->has('adventure')) {
+            return $this->json(['error' => 'No game found'], Response::HTTP_NOT_FOUND);
+        }
+
+        /** @var GameSession $game */
+        $game = $session->get('adventure');
+
+        return $this->prettyJson($status->describe($game));
+    }
+
+    #[Route('/proj/api/start', name: 'api_proj_start', methods: ['POST'])]
+    public function apiStart(
+        Request $request,
+        SessionInterface $session,
+        GameStatus $status,
+        RoomRepository $roomRepository
+    ): JsonResponse {
+        $name = trim($request->request->getString('name'));
+        $room = $roomRepository->findOneBy([], ['id' => 'ASC']);
+
+        if ($room === null) {
+            return $this->json(['error' => 'The adventure is not loaded, reset the database'], Response::HTTP_NOT_FOUND);
+        }
+
+        if ($name === '') {
+            return $this->json(['error' => 'A name is needed to play'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $game = new GameSession($name, $room);
+        $session->set('adventure', $game);
+
+        return $this->prettyJson($status->describe($game));
+    }
+
+    #[Route('/proj/api/examine/{item}', name: 'api_proj_examine', methods: ['POST'])]
+    public function apiExamine(
+        string $item,
+        SessionInterface $session,
+        ActionHandler $actionHandler,
+        GameStatus $status,
+        ItemRepository $itemRepository
+    ): JsonResponse {
+        return $this->act($session, $actionHandler, $status, $itemRepository, ['examine', $item, null]);
+    }
+
+    #[Route('/proj/api/take/{item}', name: 'api_proj_take', methods: ['POST'])]
+    public function apiTake(
+        string $item,
+        SessionInterface $session,
+        ActionHandler $actionHandler,
+        GameStatus $status,
+        ItemRepository $itemRepository
+    ): JsonResponse {
+        return $this->act($session, $actionHandler, $status, $itemRepository, ['take', $item, null]);
+    }
+
+    #[Route('/proj/api/use/{item}/{target}', name: 'api_proj_use', methods: ['POST'])]
+    public function apiUse(
+        string $item,
+        string $target,
+        SessionInterface $session,
+        ActionHandler $actionHandler,
+        GameStatus $status,
+        ItemRepository $itemRepository
+    ): JsonResponse {
+        return $this->act($session, $actionHandler, $status, $itemRepository, ['use', $target, $item]);
+    }
+
+    #[Route('/proj/api/move/{direction}', name: 'api_proj_move', methods: ['POST'])]
+    public function apiMove(
+        string $direction,
+        SessionInterface $session,
+        ActionHandler $actionHandler,
+        GameStatus $status,
+        PassageRepository $passageRepository
+    ): JsonResponse {
+        if (!$session->has('adventure')) {
+            return $this->json(['error' => 'No game found'], Response::HTTP_NOT_FOUND);
+        }
+
+        /** @var GameSession $game */
+        $game = $session->get('adventure');
+        $passage = $passageRepository->findOneBy([
+            'fromRoom' => $game->getCurrentRoomId(),
+            'direction' => $direction,
+        ]);
+
+        if ($passage === null) {
+            return $this->json(['error' => 'There is no way in that direction'], Response::HTTP_NOT_FOUND);
+        }
+
+        $message = $actionHandler->move($game, $passage);
+        $session->set('adventure', $game);
+
+        return $this->prettyJson(['message' => $message] + $status->describe($game));
+    }
+
+    /**
+     * Let the player do something with an item, given by name.
+     *
+     * @param array{string, string, string|null} $action The verb, the item and the used item
+     */
+    private function act(
+        SessionInterface $session,
+        ActionHandler $actionHandler,
+        GameStatus $status,
+        ItemRepository $itemRepository,
+        array $action
+    ): JsonResponse {
+        if (!$session->has('adventure')) {
+            return $this->json(['error' => 'No game found'], Response::HTTP_NOT_FOUND);
+        }
+
+        [$verb, $itemName, $usedItemName] = $action;
+        $item = $itemRepository->findOneBy(['name' => $itemName]);
+        $usedItem = $usedItemName !== null ? $itemRepository->findOneBy(['name' => $usedItemName]) : null;
+
+        if ($item === null || ($usedItemName !== null && $usedItem === null)) {
+            return $this->json(['error' => 'Item not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        /** @var GameSession $game */
+        $game = $session->get('adventure');
+        $message = $actionHandler->act($game, $verb, $item, $usedItem);
+        $session->set('adventure', $game);
+
+        return $this->prettyJson(['message' => $message] + $status->describe($game));
+    }
+
+    /**
+     * Create a pretty printed JSON response.
+     *
+     * @param array<mixed> $data
+     */
+    private function prettyJson(array $data): JsonResponse
+    {
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+
+        return $response;
+    }
+}

@@ -25,4 +25,44 @@ Spelet har även ett JSON API, där man kan läsa ut hur världen ser ut. Routes
         </li>
     </ul>
 </section>
+
+<section>
+    <h2>Spelet</h2>
+    <p>
+    Spelet delar session med webbsidan, så det är samma spel man spelar via API:et som i webbläsaren. Knapparna nedan följer fusklappen, så trycker man på dem i ordning spelar man igenom hela spelet.
+    </p>
+    <ul class="api-list">
+        <li>GET <a href="{{ path('api_proj_game') }}">/proj/api/game</a> - Hur det går i spelet just nu</li>
+        <li>
+            <form method="post" action="{{ path('api_proj_start') }}" class="api-form">
+                POST /proj/api/start - Starta ett nytt spel som
+                <input type="text" name="name" value="API-pirat" aria-label="Namn">
+                <button type="submit" class="proj-button">Testa</button>
+            </form>
+        </li>
+        {% set steps = [
+            ['api_proj_examine', {item: 'tunnan'}, '/proj/api/examine/tunnan'],
+            ['api_proj_take', {item: 'penningpungen'}, '/proj/api/take/penningpungen'],
+            ['api_proj_move', {direction: 'north'}, '/proj/api/move/north'],
+            ['api_proj_examine', {item: 'tavlan'}, '/proj/api/examine/tavlan'],
+            ['api_proj_take', {item: 'skattkartan'}, '/proj/api/take/skattkartan'],
+            ['api_proj_use', {item: 'penningpungen', target: 'sjömännen'}, '/proj/api/use/penningpungen/sjömännen'],
+            ['api_proj_take', {item: 'besättningen'}, '/proj/api/take/besättningen'],
+            ['api_proj_move', {direction: 'south'}, '/proj/api/move/south'],
+            ['api_proj_move', {direction: 'east'}, '/proj/api/move/east'],
+            ['api_proj_use', {item: 'besättningen', target: 'ankaret'}, '/proj/api/use/besättningen/ankaret'],
+            ['api_proj_examine', {item: 'ratten'}, '/proj/api/examine/ratten'],
+            ['api_proj_move', {direction: 'east'}, '/proj/api/move/east'],
+            ['api_proj_use', {item: 'skattkartan', target: 'horisonten'}, '/proj/api/use/skattkartan/horisonten'],
+        ] %}
+        {% for step in steps %}
+            <li>
+                <form method="post" action="{{ path(step[0], step[1]) }}" class="api-form">
+                    POST {{ step[2] }}
+                    <button type="submit" class="proj-button">Testa</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
 {% endblock %}
