@@ -269,6 +269,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => 'penningpungen',
             'unlocks' => null,
+            'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Du undersöker tunnan och hittar en penningpung gömd bakom den.',
         ],
@@ -279,6 +280,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => 'skattkartan',
             'unlocks' => null,
+            'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Du lyfter på tavlan, bakom den hänger en gammal skattkarta.',
         ],
@@ -289,6 +291,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => 'besättningen',
             'unlocks' => null,
+            'consumesUsedItem' => true,
             'wins' => false,
             'message' => 'Sjömännen tar gärna emot pengarna och går med på att bli din besättning.',
         ],
@@ -299,6 +302,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => null,
             'unlocks' => null,
+            'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Besättningen hjälps åt att hissa ankaret.',
         ],
@@ -309,6 +313,7 @@ class WorldLoader
             'requires' => 'hissa-ankaret',
             'reveals' => null,
             'unlocks' => 'skeppet-havet',
+            'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Du tar tag i ratten, skeppet är redo att lägga ut.',
         ],
@@ -319,6 +324,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => null,
             'unlocks' => null,
+            'consumesUsedItem' => false,
             'wins' => true,
             'message' => 'Du följer skattkartan mot ön vid horisonten och hittar skatten.',
         ],
@@ -474,6 +480,7 @@ class WorldLoader
             $interaction->setRequiredInteraction($data['requires'] ? $this->interactions[$data['requires']] : null);
             $interaction->setRevealsItem($data['reveals'] ? $this->items[$data['reveals']] : null);
             $interaction->setUnlocksPassage($data['unlocks'] ? $this->passages[$data['unlocks']] : null);
+            $interaction->setConsumesUsedItem($data['consumesUsedItem']);
             $interaction->setWins($data['wins']);
             $interaction->setMessage($data['message']);
 
