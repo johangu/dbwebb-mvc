@@ -1,0 +1,28 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}JSON API{% endblock %}
+
+{% block body %}
+<h1>JSON API</h1>
+
+<p>
+Spelet har även ett JSON API, där man kan läsa ut hur världen ser ut. Routes med GET är vanliga länkar, medan routes med POST testas via knapparna.
+</p>
+
+<section>
+    <h2>Världen</h2>
+    <ul class="api-list">
+        <li>GET <a href="{{ path('api_proj_rooms') }}">/proj/api/rooms</a> - Alla rum med utgångar och saker</li>
+        {% if firstRoom %}
+            <li>GET <a href="{{ path('api_proj_room', {id: firstRoom.id}) }}">/proj/api/rooms/{{ firstRoom.id }}</a> - Ett rum, här {{ firstRoom.name }}</li>
+        {% endif %}
+        <li>GET <a href="{{ path('api_proj_highscore') }}">/proj/api/highscore</a> - De tio bästa på highscorelistan</li>
+        <li>
+            <form method="post" action="{{ path('api_proj_reset') }}" class="api-form">
+                POST /proj/api/reset - Återställ databasen
+                <button type="submit" class="proj-button">Testa</button>
+            </form>
+        </li>
+    </ul>
+</section>
+{% endblock %}

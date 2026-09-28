@@ -274,6 +274,24 @@ p {
   outline: 2px solid var(--scumm-verb-active);
 }
 
+.api-list li {
+  margin-bottom: 0.75rem;
+}
+
+.api-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.api-form input {
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--wood);
+  border-radius: 0.25rem;
+  font: inherit;
+}
+
 .start-form {
   display: flex;
   flex-wrap: wrap;
