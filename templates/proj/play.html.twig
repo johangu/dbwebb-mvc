@@ -7,51 +7,52 @@
 {% block body %}
 <h1>{{ room.name }}</h1>
 
-<div class="scene{% if debug %} scene-debug{% endif %}">
-    <img src="{{ asset('build/images/proj/' ~ room.image) }}" alt="{{ room.name }}" class="scene-image">
+<div class="adventure">
+    <div class="scene{% if debug %} scene-debug{% endif %}">
+        <img src="{{ asset('build/images/proj/' ~ room.image) }}" alt="{{ room.name }}" class="scene-image">
 
-    {% for hotspot in hotspots %}
-        {% if hotspot.passage %}
-            {% set label = hotspot.passage.verb ~ ' ' ~ directions[hotspot.passage.direction] %}
-        {% else %}
-            {% set label = hotspot.item.name|capitalize %}
-        {% endif %}
-        <button type="button"
-            class="hotspot{% if hotspot.passage %} hotspot-exit{% endif %}"
-            style="left: {{ hotspot.leftPercent }}%; top: {{ hotspot.topPercent }}%; width: {{ hotspot.widthPercent }}%; height: {{ hotspot.heightPercent }}%;"
-            aria-label="{{ label }}">
-            {% if hotspot.item and hotspot.item.image %}
-                <img src="{{ asset('build/images/proj/' ~ hotspot.item.image) }}" alt="" class="hotspot-image">
+        {% for hotspot in hotspots %}
+            {% if hotspot.passage %}
+                {% set label = hotspot.passage.verb ~ ' ' ~ directions[hotspot.passage.direction] %}
+            {% else %}
+                {% set label = hotspot.item.name|capitalize %}
             {% endif %}
-            <span class="hotspot-label">{{ label }}</span>
-        </button>
-    {% endfor %}
-</div>
-
-<p class="sentence">Undersök &hellip;</p>
-
-<div class="controls">
-    <nav class="verbs" aria-label="Verb">
-        <a href="#" class="verb verb-active">Undersök</a>
-        <a href="#" class="verb">Ta</a>
-        <a href="#" class="verb">Använd</a>
-    </nav>
-
-    <nav class="compass" aria-label="Utgångar">
-        {% for passage in passages %}
-            <button type="button" class="proj-button">{{ passage.verb }} {{ directions[passage.direction] }}</button>
+            <button type="button"
+                class="hotspot{% if hotspot.passage %} hotspot-exit{% endif %}"
+                style="left: {{ hotspot.leftPercent }}%; top: {{ hotspot.topPercent }}%; width: {{ hotspot.widthPercent }}%; height: {{ hotspot.heightPercent }}%;"
+                aria-label="{{ label }}">
+                {% if hotspot.item and hotspot.item.image %}
+                    <img src="{{ asset('build/images/proj/' ~ hotspot.item.image) }}" alt="" class="hotspot-image">
+                {% endif %}
+                <span class="hotspot-label">{{ label }}</span>
+            </button>
         {% endfor %}
-    </nav>
+    </div>
+
+    <p class="sentence">Undersök</p>
+
+    <div class="interface">
+        <ul class="verbs" aria-label="Verb">
+            <li><a href="#" class="verb verb-active">Undersök</a></li>
+            <li><a href="#" class="verb">Ta</a></li>
+            <li><a href="#" class="verb">Använd</a></li>
+        </ul>
+
+        <ul class="verbs" aria-label="Utgångar">
+            {% for passage in passages %}
+                <li><button type="button" class="verb">{{ passage.verb }} {{ directions[passage.direction] }}</button></li>
+            {% endfor %}
+        </ul>
+
+        <ul class="inventory" aria-label="Ryggsäcken">
+            {% for slot in 1..8 %}
+                <li class="inventory-slot"></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 
-<section class="backpack">
-    <h2>Ryggsäcken</h2>
-    {% if game.backpack.itemIds is empty %}
-        <p>Ryggsäcken är tom.</p>
-    {% endif %}
-</section>
-
-<p>{{ room.description }}</p>
+<p class="room-description">{{ room.description }}</p>
 
 <p class="moves">Antal drag: {{ game.moves }}</p>
 {% endblock %}
