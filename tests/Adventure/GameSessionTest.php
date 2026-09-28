@@ -114,7 +114,10 @@ class GameSessionTest extends TestCase
             'backpack' => ['itemIds' => []],
             'revealedItemIds' => [],
             'unlockedPassageIds' => [],
+            'doneInteractionIds' => [],
+            'consumedItemIds' => [],
             'moves' => 0,
+            'won' => false,
         ]);
 
         $this->assertNotFalse($json);

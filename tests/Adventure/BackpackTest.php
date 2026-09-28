@@ -37,6 +37,20 @@ class BackpackTest extends TestCase
         $this->assertCount(1, $backpack->getItemIds());
     }
 
+    public function testRemoveItem(): void
+    {
+        $itemMock = $this->createConfiguredMock(Item::class, ['getId' => 3]);
+        $otherMock = $this->createConfiguredMock(Item::class, ['getId' => 4]);
+
+        $backpack = new Backpack();
+        $backpack->add($itemMock);
+        $backpack->add($otherMock);
+        $backpack->remove($itemMock);
+
+        $this->assertFalse($backpack->has($itemMock));
+        $this->assertEquals([4], $backpack->getItemIds());
+    }
+
     public function testDoesNotHaveOtherItem(): void
     {
         $itemMock = $this->createConfiguredMock(Item::class, ['getId' => 3]);
