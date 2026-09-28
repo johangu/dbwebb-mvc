@@ -1,0 +1,17 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}Starta äventyret{% endblock %}
+
+{% block body %}
+<h1>Starta äventyret</h1>
+
+<p>
+Innan du ger dig ut på äventyret behöver vi veta vad du heter, namnet används bland annat på highscorelistan om du lyckas hitta skatten.
+</p>
+
+<form method="post" action="{{ path('proj_start') }}" class="start-form">
+    <label for="name">Vad heter du, pirat?</label>
+    <input type="text" id="name" name="name" maxlength="50" required autofocus>
+    <button type="submit" class="proj-button">Starta</button>
+</form>
+{% endblock %}

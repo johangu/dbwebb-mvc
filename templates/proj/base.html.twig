@@ -25,7 +25,7 @@
                 <a href="{{ path('proj_about') }}">Om projektet</a>
             </nav>
         </header>
-        {% for label, messages in app.flashes %}
+        {% for label, messages in app.flashes(['success', 'info', 'error']) %}
             {% for message in messages %}
                 <div class="flash-message {{ label }}">
                     {{ message }}

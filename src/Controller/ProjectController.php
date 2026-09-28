@@ -6,6 +6,7 @@ use App\Adventure\WorldLoader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProjectController extends AbstractController
@@ -35,9 +36,10 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/proj/reset', name: 'proj_reset', methods: ['POST'])]
-    public function reset(WorldLoader $worldLoader): RedirectResponse
+    public function reset(WorldLoader $worldLoader, SessionInterface $session): RedirectResponse
     {
         $worldLoader->load();
+        $session->remove('adventure');
 
         $this->addFlash('success', 'Databasen har återställts');
 

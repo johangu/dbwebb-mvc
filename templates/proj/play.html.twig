@@ -1,6 +1,7 @@
 {% extends "proj/base.html.twig" %}
 
 {% set directions = {north: 'norrut', south: 'söderut', east: 'österut', west: 'västerut'} %}
+{% set verbs = {examine: 'Undersök', take: 'Ta', use: 'Använd'} %}
 
 {% block title %}{{ room.name }} - Piratäventyret{% endblock %}
 
@@ -8,8 +9,17 @@
 <h1>{{ room.name }}</h1>
 
 <div class="adventure">
-    <div class="scene{% if debug %} scene-debug{% endif %}">
+    <form method="post" action="{{ path('proj_click') }}" class="scene{% if debug %} scene-debug{% endif %}">
+        <input type="hidden" name="verb" value="{{ verb }}">
+        {% if usedItem %}
+            <input type="hidden" name="item" value="{{ usedItem.id }}">
+        {% endif %}
+
         <img src="{{ asset('build/images/proj/' ~ room.image) }}" alt="{{ room.name }}" class="scene-image">
+
+        {% for message in app.flashes('adventure') %}
+            <p class="scene-message">{{ message }}</p>
+        {% endfor %}
 
         {% for hotspot in hotspots %}
             {% if hotspot.passage %}
@@ -17,7 +27,7 @@
             {% else %}
                 {% set label = hotspot.item.name|capitalize %}
             {% endif %}
-            <button type="button"
+            <button type="submit" name="hotspot" value="{{ hotspot.id }}"
                 class="hotspot{% if hotspot.passage %} hotspot-exit{% endif %}"
                 style="left: {{ hotspot.leftPercent }}%; top: {{ hotspot.topPercent }}%; width: {{ hotspot.widthPercent }}%; height: {{ hotspot.heightPercent }}%;"
                 aria-label="{{ label }}">
@@ -27,26 +37,45 @@
                 <span class="hotspot-label">{{ label }}</span>
             </button>
         {% endfor %}
-    </div>
+    </form>
 
-    <p class="sentence">Undersök</p>
+    <p class="sentence">
+        {{ verbs[verb] }}{% if verb == 'use' and usedItem %} {{ usedItem.name }} på{% endif %}
+    </p>
 
     <div class="interface">
         <ul class="verbs" aria-label="Verb">
-            <li><a href="#" class="verb verb-active">Undersök</a></li>
-            <li><a href="#" class="verb">Ta</a></li>
-            <li><a href="#" class="verb">Använd</a></li>
-        </ul>
-
-        <ul class="verbs" aria-label="Utgångar">
-            {% for passage in passages %}
-                <li><button type="button" class="verb">{{ passage.verb }} {{ directions[passage.direction] }}</button></li>
+            {% for key, name in verbs %}
+                <li>
+                    <a href="{{ path('proj_play', {verb: key}) }}" class="verb{% if key == verb %} verb-active{% endif %}">{{ name }}</a>
+                </li>
             {% endfor %}
         </ul>
 
+        <form method="post" action="{{ path('proj_move') }}">
+            <ul class="verbs" aria-label="Utgångar">
+                {% for passage in passages %}
+                    <li>
+                        <button type="submit" name="passage" value="{{ passage.id }}" class="verb">{{ passage.verb }} {{ directions[passage.direction] }}</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
+
         <ul class="inventory" aria-label="Ryggsäcken">
-            {% for slot in 1..8 %}
-                <li class="inventory-slot"></li>
+            {% for slot in 0..7 %}
+                {% set item = backpack[slot] ?? null %}
+                <li class="inventory-slot{% if item and usedItem and item.id == usedItem.id %} inventory-selected{% endif %}">
+                    {% if item %}
+                        <a href="{{ path('proj_play', {verb: 'use', item: item.id}) }}" title="{{ item.name|capitalize }}">
+                            {% if item.image %}
+                                <img src="{{ asset('build/images/proj/' ~ item.image) }}" alt="{{ item.name|capitalize }}">
+                            {% else %}
+                                {{ item.name|capitalize }}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
     </div>
@@ -54,5 +83,9 @@
 
 <p class="room-description">{{ room.description }}</p>
 
-<p class="moves">Antal drag: {{ game.moves }}</p>
+<p class="moves">{{ game.playerName }}, antal drag: {{ game.moves }}</p>
+
+<form method="post" action="{{ path('proj_restart') }}">
+    <button type="submit" class="proj-button">Börja om</button>
+</form>
 {% endblock %}
