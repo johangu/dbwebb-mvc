@@ -2,6 +2,7 @@
 
 namespace App\Adventure;
 
+use App\Entity\Interaction;
 use App\Entity\Item;
 use App\Entity\Passage;
 use App\Entity\Room;
@@ -29,7 +30,15 @@ class GameSession implements \JsonSerializable
     /** @var array<int> */
     private array $unlockedPassageIds = [];
 
+    /** @var array<int> */
+    private array $doneInteractionIds = [];
+
+    /** @var array<int> */
+    private array $consumedItemIds = [];
+
     private int $moves = 0;
+
+    private bool $won = false;
 
     /**
      * Constructor
@@ -85,10 +94,20 @@ class GameSession implements \JsonSerializable
     }
 
     /**
+     * Check if the player has found the treasure.
+     *
+     * @return bool True if the game is won, false otherwise
+     */
+    public function hasWon(): bool
+    {
+        return $this->won;
+    }
+
+    /**
      * Check if an item can be seen by the player.
      *
      * An item is visible if it doesn't start hidden or if the player has
-     * revealed it, as long as it hasn't been put in the backpack.
+     * revealed it, as long as it hasn't been put in the backpack or used up.
      *
      * @param Item $item The item to check
      *
@@ -96,7 +115,7 @@ class GameSession implements \JsonSerializable
      */
     public function isItemVisible(Item $item): bool
     {
-        if ($this->backpack->has($item)) {
+        if ($this->backpack->has($item) || in_array($item->getId(), $this->consumedItemIds, true)) {
             return false;
         }
 
@@ -138,6 +157,147 @@ class GameSession implements \JsonSerializable
     }
 
     /**
+     * Examine an item in the current room.
+     *
+     * If one of the interactions applies to examining the item it is performed,
+     * otherwise nothing happens and the item's description is all there is to see.
+     *
+     * @param Item $item The item to examine
+     * @param array<Interaction> $interactions The interactions that may apply
+     *
+     * @return Interaction|null The interaction that was performed, or null if none applied
+     */
+    public function examine(Item $item, array $interactions): ?Interaction
+    {
+        $this->moves++;
+
+        if (!$this->isItemHere($item)) {
+            return null;
+        }
+
+        return $this->perform($this->findInteraction($interactions, $item, null));
+    }
+
+    /**
+     * Take an item in the current room and put it in the backpack.
+     *
+     * @param Item $item The item to take
+     *
+     * @return bool True if the item was put in the backpack, false otherwise
+     */
+    public function take(Item $item): bool
+    {
+        $this->moves++;
+
+        if (!$this->isItemHere($item) || !$item->isPickable()) {
+            return false;
+        }
+
+        $this->backpack->add($item);
+
+        return true;
+    }
+
+    /**
+     * Use an item from the backpack on an item in the current room.
+     *
+     * @param Item $usedItem The item from the backpack
+     * @param Item $target The item to use it on
+     * @param array<Interaction> $interactions The interactions that may apply
+     *
+     * @return Interaction|null The interaction that was performed, or null if none applied
+     */
+    public function use(Item $usedItem, Item $target, array $interactions): ?Interaction
+    {
+        $this->moves++;
+
+        if (!$this->backpack->has($usedItem) || !$this->isItemHere($target)) {
+            return null;
+        }
+
+        return $this->perform($this->findInteraction($interactions, $target, $usedItem));
+    }
+
+    /**
+     * Check if an item is visible in the room the player is in.
+     *
+     * @param Item $item The item to check
+     *
+     * @return bool True if the item is here, false otherwise
+     */
+    private function isItemHere(Item $item): bool
+    {
+        return $item->getRoom()?->getId() === $this->currentRoomId && $this->isItemVisible($item);
+    }
+
+    /**
+     * Find the first interaction that applies right now.
+     *
+     * An interaction applies if it is in the current room, has the right target
+     * and used item, hasn't been done already and its required interaction is done.
+     *
+     * @param array<Interaction> $interactions The interactions to look through
+     * @param Item $target The item acted upon
+     * @param Item|null $usedItem The item used, or null when examining
+     *
+     * @return Interaction|null The interaction that applies, or null if none does
+     */
+    private function findInteraction(array $interactions, Item $target, ?Item $usedItem): ?Interaction
+    {
+        foreach ($interactions as $interaction) {
+            $required = $interaction->getRequiredInteraction();
+
+            if (
+                $interaction->getRoom()?->getId() === $this->currentRoomId
+                && $interaction->getTarget()?->getId() === $target->getId()
+                && $interaction->getUsedItem()?->getId() === $usedItem?->getId()
+                && !in_array($interaction->getId(), $this->doneInteractionIds, true)
+                && ($required === null || in_array($required->getId(), $this->doneInteractionIds, true))
+            ) {
+                return $interaction;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Perform an interaction and record what it changed for the player.
+     *
+     * @param Interaction|null $interaction The interaction to perform
+     *
+     * @return Interaction|null The performed interaction, or null if there was none
+     */
+    private function perform(?Interaction $interaction): ?Interaction
+    {
+        if ($interaction === null) {
+            return null;
+        }
+
+        $this->doneInteractionIds[] = (int) $interaction->getId();
+
+        if ($interaction->getRevealsItem() !== null) {
+            $this->revealedItemIds[] = (int) $interaction->getRevealsItem()->getId();
+        }
+
+        if ($interaction->getUnlocksPassage() !== null) {
+            $this->unlockedPassageIds[] = (int) $interaction->getUnlocksPassage()->getId();
+        }
+
+        $usedItem = $interaction->getUsedItem();
+        if ($usedItem !== null && $interaction->isConsumesUsedItem()) {
+            $this->backpack->remove($usedItem);
+            $this->consumedItemIds[] = (int) $usedItem->getId();
+        }
+
+        if ($interaction->isWins()) {
+            $this->won = true;
+        }
+
+        return $interaction;
+    }
+
+    /**
      * Get the JSON representation of the game session.
      *
      * @return array<string, mixed> The JSON representation of the game session
@@ -150,7 +310,10 @@ class GameSession implements \JsonSerializable
             'backpack' => $this->backpack,
             'revealedItemIds' => $this->revealedItemIds,
             'unlockedPassageIds' => $this->unlockedPassageIds,
+            'doneInteractionIds' => $this->doneInteractionIds,
+            'consumedItemIds' => $this->consumedItemIds,
             'moves' => $this->moves,
+            'won' => $this->won,
         ];
     }
 }
