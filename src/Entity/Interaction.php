@@ -34,6 +34,9 @@ class Interaction
     #[ORM\ManyToOne]
     private ?Passage $unlocksPassage = null;
 
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $consumesUsedItem = null;
+
     #[ORM\Column]
     private ?bool $wins = null;
 
@@ -113,6 +116,18 @@ class Interaction
     public function setUnlocksPassage(?Passage $unlocksPassage): static
     {
         $this->unlocksPassage = $unlocksPassage;
+
+        return $this;
+    }
+
+    public function isConsumesUsedItem(): ?bool
+    {
+        return $this->consumesUsedItem;
+    }
+
+    public function setConsumesUsedItem(bool $consumesUsedItem): static
+    {
+        $this->consumesUsedItem = $consumesUsedItem;
 
         return $this;
     }
