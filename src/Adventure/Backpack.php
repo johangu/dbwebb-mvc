@@ -31,6 +31,19 @@ class Backpack implements \JsonSerializable
     }
 
     /**
+     * Take an item out of the backpack.
+     *
+     * @param Item $item The item to remove
+     */
+    public function remove(Item $item): void
+    {
+        $this->itemIds = array_values(array_filter(
+            $this->itemIds,
+            fn (int $itemId) => $itemId !== $item->getId()
+        ));
+    }
+
+    /**
      * Check if an item is in the backpack.
      *
      * @param Item $item The item to look for
