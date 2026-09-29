@@ -16,30 +16,30 @@ class GameStatusTest extends TestCase
 {
     public function testDescribeGame(): void
     {
-        $room = $this->createConfiguredMock(Room::class, [
+        $roomMock = $this->createConfiguredMock(Room::class, [
             'getId' => 1,
             'getName' => 'Hamnen',
             'getDescription' => 'En hamn.',
             'getImage' => 'hamnen.webp',
         ]);
-        $barrel = $this->createConfiguredMock(Item::class, [
-            'getId' => 3, 'getName' => 'tunnan', 'getRoom' => $room, 'isStartsHidden' => false,
+        $barrelMock = $this->createConfiguredMock(Item::class, [
+            'getId' => 3, 'getName' => 'tunnan', 'getRoom' => $roomMock, 'isStartsHidden' => false,
         ]);
-        $purse = $this->createConfiguredMock(Item::class, [
-            'getId' => 4, 'getName' => 'penningpungen', 'getRoom' => $room, 'isStartsHidden' => true,
+        $purseMock = $this->createConfiguredMock(Item::class, [
+            'getId' => 4, 'getName' => 'penningpungen', 'getRoom' => $roomMock, 'isStartsHidden' => true,
         ]);
-        $passage = $this->createConfiguredMock(Passage::class, [
+        $passageMock = $this->createConfiguredMock(Passage::class, [
             'getDirection' => 'east', 'getVerb' => 'Gå', 'isStartsLocked' => true,
         ]);
 
-        $roomsMock = $this->createConfiguredMock(RoomRepository::class, ['find' => $room]);
-        $passagesMock = $this->createConfiguredMock(PassageRepository::class, ['findBy' => [$passage]]);
+        $roomsMock = $this->createConfiguredMock(RoomRepository::class, ['find' => $roomMock]);
+        $passagesMock = $this->createConfiguredMock(PassageRepository::class, ['findBy' => [$passageMock]]);
         $itemsMock = $this->createMock(ItemRepository::class);
-        $itemsMock->method('findBy')->willReturn([$barrel, $purse]);
-        $itemsMock->method('find')->willReturn($barrel);
+        $itemsMock->method('findBy')->willReturn([$barrelMock, $purseMock]);
+        $itemsMock->method('find')->willReturn($barrelMock);
 
-        $game = new GameSession('Test Testsson', $room);
-        $game->getBackpack()->add($barrel);
+        $game = new GameSession('Test Testsson', $roomMock);
+        $game->getBackpack()->add($barrelMock);
 
         $status = new GameStatus($roomsMock, $passagesMock, $itemsMock);
 

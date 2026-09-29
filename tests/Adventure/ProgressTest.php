@@ -23,46 +23,46 @@ class ProgressTest extends TestCase
 
     public function testRecordInteraction(): void
     {
-        $room = $this->createConfiguredMock(Room::class, ['getId' => 1]);
-        $purse = $this->createConfiguredMock(Item::class, ['getId' => 4]);
-        $passage = $this->createConfiguredMock(Passage::class, ['getId' => 10]);
-        $interaction = $this->createConfiguredMock(Interaction::class, [
+        $roomMock = $this->createConfiguredMock(Room::class, ['getId' => 1]);
+        $purseMock = $this->createConfiguredMock(Item::class, ['getId' => 4]);
+        $passageMock = $this->createConfiguredMock(Passage::class, ['getId' => 10]);
+        $interactionMock = $this->createConfiguredMock(Interaction::class, [
             'getId' => 20,
-            'getRoom' => $room,
-            'getRevealsItem' => $purse,
-            'getUnlocksPassage' => $passage,
+            'getRoom' => $roomMock,
+            'getRevealsItem' => $purseMock,
+            'getUnlocksPassage' => $passageMock,
             'getChangesRoomImage' => 'skeppet_2.webp',
         ]);
 
         $progress = new Progress();
-        $progress->record($interaction);
+        $progress->record($interactionMock);
 
-        $this->assertTrue($progress->isRevealed($purse));
-        $this->assertTrue($progress->isUnlocked($passage));
-        $this->assertEquals('skeppet_2.webp', $progress->getRoomImage($room));
-        $this->assertFalse($progress->isAvailable($interaction));
+        $this->assertTrue($progress->isRevealed($purseMock));
+        $this->assertTrue($progress->isUnlocked($passageMock));
+        $this->assertEquals('skeppet_2.webp', $progress->getRoomImage($roomMock));
+        $this->assertFalse($progress->isAvailable($interactionMock));
     }
 
     public function testInteractionRequiresEarlierInteraction(): void
     {
-        $anchor = $this->createConfiguredMock(Interaction::class, ['getId' => 22]);
-        $wheel = $this->createConfiguredMock(Interaction::class, ['getId' => 23, 'getRequiredInteraction' => $anchor]);
+        $anchorMock = $this->createConfiguredMock(Interaction::class, ['getId' => 22]);
+        $wheelMock = $this->createConfiguredMock(Interaction::class, ['getId' => 23, 'getRequiredInteraction' => $anchorMock]);
 
         $progress = new Progress();
-        $this->assertFalse($progress->isAvailable($wheel));
+        $this->assertFalse($progress->isAvailable($wheelMock));
 
-        $progress->record($anchor);
-        $this->assertTrue($progress->isAvailable($wheel));
+        $progress->record($anchorMock);
+        $this->assertTrue($progress->isAvailable($wheelMock));
     }
 
     public function testConsumeItem(): void
     {
-        $purse = $this->createConfiguredMock(Item::class, ['getId' => 4]);
+        $purseMock = $this->createConfiguredMock(Item::class, ['getId' => 4]);
 
         $progress = new Progress();
-        $progress->consume($purse);
+        $progress->consume($purseMock);
 
-        $this->assertTrue($progress->isConsumed($purse));
+        $this->assertTrue($progress->isConsumed($purseMock));
     }
 
     public function testJsonSerialize(): void

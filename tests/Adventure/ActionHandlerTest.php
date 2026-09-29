@@ -57,49 +57,49 @@ class ActionHandlerTest extends TestCase
 
     public function testClickOnPassageMoves(): void
     {
-        $passage = $this->createConfiguredMock(Passage::class, [
+        $passageMock = $this->createConfiguredMock(Passage::class, [
             'getFromRoom' => $this->room,
             'getToRoom' => $this->createConfiguredMock(Room::class, ['getId' => 2]),
             'isStartsLocked' => false,
         ]);
-        $hotspot = $this->createConfiguredMock(Hotspot::class, ['getPassage' => $passage]);
+        $hotspotMock = $this->createConfiguredMock(Hotspot::class, ['getPassage' => $passageMock]);
 
-        $this->assertEquals('', $this->createHandler()->click($this->game, $hotspot, 'take'));
+        $this->assertEquals('', $this->createHandler()->click($this->game, $hotspotMock, 'take'));
         $this->assertEquals(2, $this->game->getCurrentRoomId());
     }
 
     public function testMoveThroughLockedPassage(): void
     {
-        $passage = $this->createConfiguredMock(Passage::class, ['getFromRoom' => $this->room, 'isStartsLocked' => true]);
+        $passageMock = $this->createConfiguredMock(Passage::class, ['getFromRoom' => $this->room, 'isStartsLocked' => true]);
 
-        $this->assertEquals('Det går inte att ta sig dit än.', $this->createHandler()->move($this->game, $passage));
+        $this->assertEquals('Det går inte att ta sig dit än.', $this->createHandler()->move($this->game, $passageMock));
     }
 
     public function testClickOnHotspotWithoutItemOrPassage(): void
     {
-        $hotspot = $this->createMock(Hotspot::class);
+        $hotspotMock = $this->createMock(Hotspot::class);
 
-        $this->assertEquals('', $this->createHandler()->click($this->game, $hotspot, 'examine'));
+        $this->assertEquals('', $this->createHandler()->click($this->game, $hotspotMock, 'examine'));
     }
 
     public function testExamineShowsDescription(): void
     {
-        $hotspot = $this->createConfiguredMock(Hotspot::class, ['getItem' => $this->createItem(3, 'lådorna')]);
+        $hotspotMock = $this->createConfiguredMock(Hotspot::class, ['getItem' => $this->createItem(3, 'lådorna')]);
 
-        $this->assertEquals('Beskrivning av lådorna.', $this->createHandler()->click($this->game, $hotspot, 'examine'));
+        $this->assertEquals('Beskrivning av lådorna.', $this->createHandler()->click($this->game, $hotspotMock, 'examine'));
     }
 
     public function testExamineShowsInteractionMessage(): void
     {
         $barrel = $this->createItem(3, 'tunnan');
-        $interaction = $this->createConfiguredMock(Interaction::class, [
+        $interactionMock = $this->createConfiguredMock(Interaction::class, [
             'getId' => 20,
             'getRoom' => $this->room,
             'getTarget' => $barrel,
             'getMessage' => 'Du hittar något.',
         ]);
 
-        $this->assertEquals('Du hittar något.', $this->createHandler([$interaction])->act($this->game, 'examine', $barrel));
+        $this->assertEquals('Du hittar något.', $this->createHandler([$interactionMock])->act($this->game, 'examine', $barrel));
     }
 
     public function testUnknownVerbExaminesAndRecordsGame(): void

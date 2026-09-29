@@ -86,8 +86,8 @@ class GameSessionActionTest extends TestCase
 
     public function testExamineItemInAnotherRoom(): void
     {
-        $otherRoom = $this->createConfiguredMock(Room::class, ['getId' => 2]);
-        $barrel = $this->createItem(3, ['getRoom' => $otherRoom]);
+        $otherRoomMock = $this->createConfiguredMock(Room::class, ['getId' => 2]);
+        $barrel = $this->createItem(3, ['getRoom' => $otherRoomMock]);
         $game = new GameSession('Test Testsson', $this->room);
 
         $this->assertNull($game->examine($barrel, [$this->createInteraction(20, $barrel)]));
@@ -145,21 +145,21 @@ class GameSessionActionTest extends TestCase
         $crew = $this->createItem(6, ['isPickable' => true]);
         $anchor = $this->createItem(7);
         $wheel = $this->createItem(8);
-        $passage = $this->createConfiguredMock(Passage::class, ['getId' => 10, 'isStartsLocked' => true]);
+        $passageMock = $this->createConfiguredMock(Passage::class, ['getId' => 10, 'isStartsLocked' => true]);
         $raiseAnchor = $this->createInteraction(22, $anchor, ['getUsedItem' => $crew]);
         $takeWheel = $this->createInteraction(23, $wheel, [
             'getRequiredInteraction' => $raiseAnchor,
-            'getUnlocksPassage' => $passage,
+            'getUnlocksPassage' => $passageMock,
         ]);
         $game = new GameSession('Test Testsson', $this->room);
         $game->take($crew);
 
         $this->assertNull($game->examine($wheel, [$takeWheel]));
-        $this->assertFalse($game->isPassageOpen($passage));
+        $this->assertFalse($game->isPassageOpen($passageMock));
 
         $game->use($crew, $anchor, [$raiseAnchor]);
         $this->assertSame($takeWheel, $game->examine($wheel, [$takeWheel]));
-        $this->assertTrue($game->isPassageOpen($passage));
+        $this->assertTrue($game->isPassageOpen($passageMock));
     }
 
     public function testWinningInteraction(): void

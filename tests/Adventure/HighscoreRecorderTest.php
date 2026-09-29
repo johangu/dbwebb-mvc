@@ -35,10 +35,10 @@ class HighscoreRecorderTest extends TestCase
         $managerMock->expects($this->once())->method('flush');
         $doctrineMock = $this->createConfiguredMock(ManagerRegistry::class, ['getManager' => $managerMock]);
 
-        $game = $this->createGame(true);
-        $game->expects($this->once())->method('markRecorded');
+        $gameMock = $this->createGame(true);
+        $gameMock->expects($this->once())->method('markRecorded');
 
-        $this->assertTrue((new HighscoreRecorder($doctrineMock))->record($game));
+        $this->assertTrue((new HighscoreRecorder($doctrineMock))->record($gameMock));
         $this->assertCount(1, $saved);
         $this->assertInstanceOf(Highscore::class, $saved[0]);
         $this->assertEquals('Test Testsson', $saved[0]->getName());
@@ -60,8 +60,8 @@ class HighscoreRecorderTest extends TestCase
         $managerMock->expects($this->never())->method('persist');
         $doctrineMock = $this->createConfiguredMock(ManagerRegistry::class, ['getManager' => $managerMock]);
 
-        $game = $this->createConfiguredMock(GameSession::class, ['hasWon' => true, 'isRecorded' => true]);
+        $gameMock = $this->createConfiguredMock(GameSession::class, ['hasWon' => true, 'isRecorded' => true]);
 
-        $this->assertFalse((new HighscoreRecorder($doctrineMock))->record($game));
+        $this->assertFalse((new HighscoreRecorder($doctrineMock))->record($gameMock));
     }
 }
