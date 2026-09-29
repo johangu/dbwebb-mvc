@@ -15,7 +15,7 @@
             <input type="hidden" name="item" value="{{ usedItem.id }}">
         {% endif %}
 
-        <img src="{{ asset('build/images/proj/' ~ room.image) }}" alt="{{ room.name }}" class="scene-image">
+        <img src="{{ asset('build/images/proj/' ~ game.roomImage(room)) }}" alt="{{ room.name }}" class="scene-image">
 
         {% for message in app.flashes('adventure') %}
             <p class="scene-message">{{ message }}</p>

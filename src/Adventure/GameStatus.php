@@ -56,6 +56,7 @@ class GameStatus
             'won' => $game->hasWon(),
             'room' => $room?->getName(),
             'description' => $room?->getDescription(),
+            'image' => $room !== null ? $game->getRoomImage($room) : null,
             'items' => array_values(array_map(
                 fn (Item $item) => $item->getName(),
                 array_filter(

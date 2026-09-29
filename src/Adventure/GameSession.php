@@ -36,6 +36,9 @@ class GameSession implements \JsonSerializable
     /** @var array<int> */
     private array $consumedItemIds = [];
 
+    /** @var array<int, string> Room images changed by interactions, by room id */
+    private array $roomImages = [];
+
     private int $moves = 0;
 
     private bool $won = false;
@@ -101,6 +104,21 @@ class GameSession implements \JsonSerializable
     public function hasWon(): bool
     {
         return $this->won;
+    }
+
+    /**
+     * Get the image to show for a room.
+     *
+     * An interaction may have changed how the room looks for the player,
+     * otherwise the room's own image is used.
+     *
+     * @param Room $room The room to show
+     *
+     * @return string The file name of the image
+     */
+    public function getRoomImage(Room $room): string
+    {
+        return $this->roomImages[$room->getId()] ?? (string) $room->getImage();
     }
 
     /**
@@ -284,6 +302,10 @@ class GameSession implements \JsonSerializable
             $this->unlockedPassageIds[] = (int) $interaction->getUnlocksPassage()->getId();
         }
 
+        if ($interaction->getChangesRoomImage() !== null) {
+            $this->roomImages[(int) $interaction->getRoom()?->getId()] = $interaction->getChangesRoomImage();
+        }
+
         $usedItem = $interaction->getUsedItem();
         if ($usedItem !== null && $interaction->isConsumesUsedItem()) {
             $this->backpack->remove($usedItem);
@@ -312,6 +334,7 @@ class GameSession implements \JsonSerializable
             'unlockedPassageIds' => $this->unlockedPassageIds,
             'doneInteractionIds' => $this->doneInteractionIds,
             'consumedItemIds' => $this->consumedItemIds,
+            'roomImages' => $this->roomImages,
             'moves' => $this->moves,
             'won' => $this->won,
         ];
