@@ -37,6 +37,9 @@ class Interaction
     #[ORM\Column(options: ['default' => false])]
     private ?bool $consumesUsedItem = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $changesRoomImage = null;
+
     #[ORM\Column]
     private ?bool $wins = null;
 
@@ -128,6 +131,18 @@ class Interaction
     public function setConsumesUsedItem(bool $consumesUsedItem): static
     {
         $this->consumesUsedItem = $consumesUsedItem;
+
+        return $this;
+    }
+
+    public function getChangesRoomImage(): ?string
+    {
+        return $this->changesRoomImage;
+    }
+
+    public function setChangesRoomImage(?string $changesRoomImage): static
+    {
+        $this->changesRoomImage = $changesRoomImage;
 
         return $this;
     }
