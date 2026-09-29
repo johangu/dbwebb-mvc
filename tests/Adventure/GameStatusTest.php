@@ -20,6 +20,7 @@ class GameStatusTest extends TestCase
             'getId' => 1,
             'getName' => 'Hamnen',
             'getDescription' => 'En hamn.',
+            'getImage' => 'hamnen.webp',
         ]);
         $barrel = $this->createConfiguredMock(Item::class, [
             'getId' => 3, 'getName' => 'tunnan', 'getRoom' => $room, 'isStartsHidden' => false,
@@ -48,6 +49,7 @@ class GameStatusTest extends TestCase
             'won' => false,
             'room' => 'Hamnen',
             'description' => 'En hamn.',
+            'image' => 'hamnen.webp',
             'items' => [],
             'exits' => [['direction' => 'east', 'verb' => 'Gå', 'open' => false]],
             'backpack' => ['tunnan'],

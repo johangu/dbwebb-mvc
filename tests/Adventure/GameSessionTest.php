@@ -3,6 +3,7 @@
 namespace App\Tests\Adventure;
 
 use App\Adventure\GameSession;
+use App\Entity\Interaction;
 use App\Entity\Item;
 use App\Entity\Passage;
 use App\Entity\Room;
@@ -103,6 +104,23 @@ class GameSessionTest extends TestCase
         $this->assertEquals(1, $session->getMoves());
     }
 
+    public function testInteractionChangesRoomImage(): void
+    {
+        $roomMock = $this->createConfiguredMock(Room::class, ['getId' => 1, 'getImage' => 'skeppet.webp']);
+        $capstanMock = $this->createConfiguredMock(Item::class, ['getId' => 7, 'getRoom' => $roomMock]);
+        $interactionMock = $this->createConfiguredMock(Interaction::class, [
+            'getId' => 22,
+            'getRoom' => $roomMock,
+            'getTarget' => $capstanMock,
+            'getChangesRoomImage' => 'skeppet_2.webp',
+        ]);
+        $session = new GameSession('Test Testsson', $roomMock);
+
+        $this->assertEquals('skeppet.webp', $session->getRoomImage($roomMock));
+        $session->examine($capstanMock, [$interactionMock]);
+        $this->assertEquals('skeppet_2.webp', $session->getRoomImage($roomMock));
+    }
+
     public function testJsonSerialize(): void
     {
         $session = $this->createSession();
@@ -116,6 +134,7 @@ class GameSessionTest extends TestCase
             'unlockedPassageIds' => [],
             'doneInteractionIds' => [],
             'consumedItemIds' => [],
+            'roomImages' => [],
             'moves' => 0,
             'won' => false,
         ]);

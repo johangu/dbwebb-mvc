@@ -28,7 +28,8 @@ class WorldLoaderPuzzleTest extends WorldLoaderTestCase
         ));
 
         $this->assertCount(1, $wheel);
-        $this->assertEquals('ankaret', $wheel[0]->getRequiredInteraction()?->getTarget()?->getName());
+        $this->assertEquals('ankarspelet', $wheel[0]->getRequiredInteraction()?->getTarget()?->getName());
+        $this->assertEquals('skeppet_2.webp', $wheel[0]->getRequiredInteraction()?->getChangesRoomImage());
         $this->assertTrue($wheel[0]->getUnlocksPassage()?->isStartsLocked());
     }
 
