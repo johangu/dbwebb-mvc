@@ -130,11 +130,13 @@ class GameSessionTest extends TestCase
             'playerName' => 'Test Testsson',
             'currentRoomId' => 1,
             'backpack' => ['itemIds' => []],
-            'revealedItemIds' => [],
-            'unlockedPassageIds' => [],
-            'doneInteractionIds' => [],
-            'consumedItemIds' => [],
-            'roomImages' => [],
+            'progress' => [
+                'revealedItemIds' => [],
+                'unlockedPassageIds' => [],
+                'doneInteractionIds' => [],
+                'consumedItemIds' => [],
+                'roomImages' => [],
+            ],
             'moves' => 0,
             'won' => false,
         ]);

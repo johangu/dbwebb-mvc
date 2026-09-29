@@ -62,7 +62,7 @@ class AdventureGameApiController extends AbstractController
         GameStatus $status,
         ItemRepository $itemRepository
     ): JsonResponse {
-        return $this->act($session, $actionHandler, $status, $itemRepository, ['examine', $item, null]);
+        return $this->act($session, $actionHandler, $status, $itemRepository, 'examine', $item);
     }
 
     #[Route('/proj/api/take/{item}', name: 'api_proj_take', methods: ['POST'])]
@@ -73,7 +73,7 @@ class AdventureGameApiController extends AbstractController
         GameStatus $status,
         ItemRepository $itemRepository
     ): JsonResponse {
-        return $this->act($session, $actionHandler, $status, $itemRepository, ['take', $item, null]);
+        return $this->act($session, $actionHandler, $status, $itemRepository, 'take', $item);
     }
 
     #[Route('/proj/api/use/{item}/{target}', name: 'api_proj_use', methods: ['POST'])]
@@ -85,7 +85,7 @@ class AdventureGameApiController extends AbstractController
         GameStatus $status,
         ItemRepository $itemRepository
     ): JsonResponse {
-        return $this->act($session, $actionHandler, $status, $itemRepository, ['use', $target, $item]);
+        return $this->act($session, $actionHandler, $status, $itemRepository, 'use', $target, $item);
     }
 
     #[Route('/proj/api/move/{direction}', name: 'api_proj_move', methods: ['POST'])]
@@ -119,21 +119,20 @@ class AdventureGameApiController extends AbstractController
 
     /**
      * Let the player do something with an item, given by name.
-     *
-     * @param array{string, string, string|null} $action The verb, the item and the used item
      */
     private function act(
         SessionInterface $session,
         ActionHandler $actionHandler,
         GameStatus $status,
         ItemRepository $itemRepository,
-        array $action
+        string $verb,
+        string $itemName,
+        ?string $usedItemName = null
     ): JsonResponse {
         if (!$session->has('adventure')) {
             return $this->json(['error' => 'No game found'], Response::HTTP_NOT_FOUND);
         }
 
-        [$verb, $itemName, $usedItemName] = $action;
         $item = $itemRepository->findOneBy(['name' => $itemName]);
         $usedItem = $usedItemName !== null ? $itemRepository->findOneBy(['name' => $usedItemName]) : null;
 

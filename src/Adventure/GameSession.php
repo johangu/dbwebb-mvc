@@ -24,20 +24,7 @@ class GameSession implements \JsonSerializable
 
     private Backpack $backpack;
 
-    /** @var array<int> */
-    private array $revealedItemIds = [];
-
-    /** @var array<int> */
-    private array $unlockedPassageIds = [];
-
-    /** @var array<int> */
-    private array $doneInteractionIds = [];
-
-    /** @var array<int> */
-    private array $consumedItemIds = [];
-
-    /** @var array<int, string> Room images changed by interactions, by room id */
-    private array $roomImages = [];
+    private Progress $progress;
 
     private int $moves = 0;
 
@@ -56,6 +43,7 @@ class GameSession implements \JsonSerializable
         $this->playerName = $playerName;
         $this->currentRoomId = (int) $startRoom->getId();
         $this->backpack = new Backpack();
+        $this->progress = new Progress();
     }
 
     /**
@@ -138,7 +126,7 @@ class GameSession implements \JsonSerializable
      */
     public function getRoomImage(Room $room): string
     {
-        return $this->roomImages[$room->getId()] ?? (string) $room->getImage();
+        return $this->progress->getRoomImage($room) ?? (string) $room->getImage();
     }
 
     /**
@@ -153,11 +141,11 @@ class GameSession implements \JsonSerializable
      */
     public function isItemVisible(Item $item): bool
     {
-        if ($this->backpack->has($item) || in_array($item->getId(), $this->consumedItemIds, true)) {
+        if ($this->backpack->has($item) || $this->progress->isConsumed($item)) {
             return false;
         }
 
-        return !$item->isStartsHidden() || in_array($item->getId(), $this->revealedItemIds, true);
+        return $item->isStartsHidden() !== true || $this->progress->isRevealed($item);
     }
 
     /**
@@ -169,7 +157,7 @@ class GameSession implements \JsonSerializable
      */
     public function isPassageOpen(Passage $passage): bool
     {
-        return !$passage->isStartsLocked() || in_array($passage->getId(), $this->unlockedPassageIds, true);
+        return $passage->isStartsLocked() !== true || $this->progress->isUnlocked($passage);
     }
 
     /**
@@ -227,7 +215,7 @@ class GameSession implements \JsonSerializable
     {
         $this->moves++;
 
-        if (!$this->isItemHere($item) || !$item->isPickable()) {
+        if (!$this->isItemHere($item) || $item->isPickable() !== true) {
             return false;
         }
 
@@ -271,8 +259,8 @@ class GameSession implements \JsonSerializable
     /**
      * Find the first interaction that applies right now.
      *
-     * An interaction applies if it is in the current room, has the right target
-     * and used item, hasn't been done already and its required interaction is done.
+     * An interaction applies if it matches what the player did and it is
+     * available, i.e. hasn't been done already and its required interaction is done.
      *
      * @param array<Interaction> $interactions The interactions to look through
      * @param Item $target The item acted upon
@@ -283,20 +271,28 @@ class GameSession implements \JsonSerializable
     private function findInteraction(array $interactions, Item $target, ?Item $usedItem): ?Interaction
     {
         foreach ($interactions as $interaction) {
-            $required = $interaction->getRequiredInteraction();
-
-            if (
-                $interaction->getRoom()?->getId() === $this->currentRoomId
-                && $interaction->getTarget()?->getId() === $target->getId()
-                && $interaction->getUsedItem()?->getId() === $usedItem?->getId()
-                && !in_array($interaction->getId(), $this->doneInteractionIds, true)
-                && ($required === null || in_array($required->getId(), $this->doneInteractionIds, true))
-            ) {
+            if ($this->matches($interaction, $target, $usedItem) && $this->progress->isAvailable($interaction)) {
                 return $interaction;
             }
         }
 
         return null;
+    }
+
+    /**
+     * Check if an interaction is about what the player did.
+     *
+     * @param Interaction $interaction The interaction to check
+     * @param Item $target The item acted upon
+     * @param Item|null $usedItem The item used, or null when examining
+     *
+     * @return bool True if the interaction is in the current room with the same target and used item
+     */
+    private function matches(Interaction $interaction, Item $target, ?Item $usedItem): bool
+    {
+        return $interaction->getRoom()?->getId() === $this->currentRoomId
+            && $interaction->getTarget()?->getId() === $target->getId()
+            && $interaction->getUsedItem()?->getId() === $usedItem?->getId();
     }
 
     /**
@@ -312,29 +308,15 @@ class GameSession implements \JsonSerializable
             return null;
         }
 
-        $this->doneInteractionIds[] = (int) $interaction->getId();
-
-        if ($interaction->getRevealsItem() !== null) {
-            $this->revealedItemIds[] = (int) $interaction->getRevealsItem()->getId();
-        }
-
-        if ($interaction->getUnlocksPassage() !== null) {
-            $this->unlockedPassageIds[] = (int) $interaction->getUnlocksPassage()->getId();
-        }
-
-        if ($interaction->getChangesRoomImage() !== null) {
-            $this->roomImages[(int) $interaction->getRoom()?->getId()] = $interaction->getChangesRoomImage();
-        }
+        $this->progress->record($interaction);
 
         $usedItem = $interaction->getUsedItem();
-        if ($usedItem !== null && $interaction->isConsumesUsedItem()) {
+        if ($usedItem !== null && $interaction->isConsumesUsedItem() === true) {
             $this->backpack->remove($usedItem);
-            $this->consumedItemIds[] = (int) $usedItem->getId();
+            $this->progress->consume($usedItem);
         }
 
-        if ($interaction->isWins()) {
-            $this->won = true;
-        }
+        $this->won = $this->won || $interaction->isWins() === true;
 
         return $interaction;
     }
@@ -350,11 +332,7 @@ class GameSession implements \JsonSerializable
             'playerName' => $this->playerName,
             'currentRoomId' => $this->currentRoomId,
             'backpack' => $this->backpack,
-            'revealedItemIds' => $this->revealedItemIds,
-            'unlockedPassageIds' => $this->unlockedPassageIds,
-            'doneInteractionIds' => $this->doneInteractionIds,
-            'consumedItemIds' => $this->consumedItemIds,
-            'roomImages' => $this->roomImages,
+            'progress' => $this->progress,
             'moves' => $this->moves,
             'won' => $this->won,
         ];
