@@ -69,7 +69,19 @@
 <section>
     <h2>ORM jämfört med databaskursen</h2>
     <p>
-    Att arbeta med ORM känns generellt bra, man jobbar med objekt och repositories istället för att skriva SQL för hand, och Doctrine sköter både schemat via migrations och själva frågorna. Dock är jag alltid lite försiktig med ORM eftersom det kan kännas som mycket magi, även fast jag vet hur det fungerar bakom kulisserna. Jag har därmed ofta en förkärlek för att skriva min SQL manuellt för att veta exakt vad som sker, men ORM har absolut sin tid och plats.
+    I databaskursen jobbade vi mot MariaDB och skrev all SQL för hand, från enkla SELECT-satser till joins, vyer och subqueries, och kopplade upp oss mot databasen från Node.js och Express. Därutöver lade vi en hel del logik i själva databasen i form av lagrade procedurer, triggers och egna funktioner, och vi tittade på transaktioner och index för att få upp prestandan. Med Doctrine blir det i stort sett tvärtom, databasen blir mer en plats att spara data på medan all logik ligger i PHP-klasser, och tabellerna skapas utifrån mina entiteter via migrations.
+    </p>
+
+    <p>
+    I grunden är det dock fortfarande samma sak, en relationsdatabas med tabeller, främmande nycklar och index, och ER-modelleringen från databaskursen har varit lika användbar här för att tänka igenom hur tabellerna ska hänga ihop innan man skriver någon kod.
+    </p>
+
+    <p>
+    Att arbeta med ORM känns generellt bra, man jobbar med objekt och repositories istället för att skriva SQL för hand och slipper själv översätta rader i databasen till objekt och tillbaka. Migrations uppskattar jag också, schemat versionshanteras tillsammans med koden och varje förändring går att backa. Doctrine gör även koden mer oberoende av vilken databas som används, projektet kör SQLite men skulle i princip kunna flyttas till MariaDB utan att koden behöver ändras. För testbarheten har det också varit en fördel, WorldLoader går t.ex. att enhetstesta med en mockad Doctrine utan att någon databas är igång.
+    </p>
+
+    <p>
+    Dock är jag alltid lite försiktig med ORM eftersom det kan kännas som mycket magi, även fast jag vet hur det fungerar bakom kulisserna. Ett tydligt exempel var när två kolumner döptes om, där Doctrine på SQLite genererade en migration som skapade om hela tabellen via en temporär tabell istället för en enkel rename, något jag knappast hade gissat mig till utan att läsa den genererade koden. Lagrade procedurer och triggers passar inte heller särskilt naturligt ihop med en ORM, och man får mindre kontroll över prestandan än när man som i databaskursen själv analyserar frågorna och lägger till index där de behövs. Jag har därmed ofta en förkärlek för att skriva min SQL manuellt för att veta exakt vad som sker, men ORM har absolut sin tid och plats. För ett projekt som detta, med en liten och tydlig datamodell och mest enkla uppslag, har ORM passat bra, medan jag för tyngre rapporter och mer komplexa frågor nog hade gått tillbaka till handskriven SQL som i databaskursen. Det ena utesluter dock inte det andra, Doctrine har både DQL och möjlighet att köra ren SQL när det behövs, så i slutändan handlar det om att välja rätt verktyg för rätt uppgift.
     </p>
 </section>
 {% endblock %}
