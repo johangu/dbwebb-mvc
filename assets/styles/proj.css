@@ -246,6 +246,8 @@ p {
   right: 5%;
   z-index: 1;
   margin: 0;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
   font-size: 1.75rem;
   text-align: center;
@@ -315,8 +317,8 @@ p {
 
 .interface {
   display: grid;
-  grid-template-columns: auto auto 1fr;
-  gap: 1.5rem;
+  grid-template-columns: minmax(9rem, auto) minmax(12rem, auto) 1fr;
+  gap: 1rem;
   padding: 0.25rem 1rem 1rem;
 }
 
@@ -327,8 +329,11 @@ p {
 }
 
 .verb {
-  padding: 0;
+  display: block;
+  width: 100%;
+  padding: 0 0.5rem;
   background: none;
+  text-align: left;
   border: none;
   color: var(--scumm-verb);
   font: inherit;
@@ -339,6 +344,10 @@ p {
 .verb:hover,
 .verb-active {
   color: var(--scumm-verb-active);
+}
+
+.verb:hover {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .inventory {
