@@ -119,6 +119,16 @@ class AdventureGameApiController extends AbstractController
 
     /**
      * Let the player do something with an item, given by name.
+     *
+     * @param SessionInterface $session The session with the player's game
+     * @param ActionHandler $actionHandler Performs the action in the game
+     * @param GameStatus $status Describes the game after the action
+     * @param ItemRepository $itemRepository The repository to find the items in
+     * @param string $verb The verb, one of ActionHandler::VERBS
+     * @param string $itemName The name of the item to act on
+     * @param string|null $usedItemName The name of the item from the backpack when the verb is use
+     *
+     * @return JsonResponse The message and the status of the game, or an error
      */
     private function act(
         SessionInterface $session,
@@ -151,7 +161,9 @@ class AdventureGameApiController extends AbstractController
     /**
      * Create a pretty printed JSON response.
      *
-     * @param array<mixed> $data
+     * @param array<mixed> $data The data to put in the response
+     *
+     * @return JsonResponse The pretty printed response
      */
     private function prettyJson(array $data): JsonResponse
     {

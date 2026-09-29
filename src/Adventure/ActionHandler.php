@@ -118,6 +118,9 @@ class ActionHandler
     /**
      * Examine an item.
      *
+     * @param GameSession $game The player's game session
+     * @param Item $item The item to examine
+     *
      * @return string The message of the interaction, or the item's description
      */
     private function examine(GameSession $game, Item $item): string
@@ -129,6 +132,9 @@ class ActionHandler
 
     /**
      * Take an item.
+     *
+     * @param GameSession $game The player's game session
+     * @param Item $item The item to take
      *
      * @return string The message to show the player
      */
@@ -143,6 +149,10 @@ class ActionHandler
 
     /**
      * Use an item from the backpack on an item.
+     *
+     * @param GameSession $game The player's game session
+     * @param Item $target The item to use it on
+     * @param Item|null $usedItem The item from the backpack, or null if none is selected
      *
      * @return string The message of the interaction, or that nothing happened
      */

@@ -353,7 +353,7 @@ class WorldLoader
     /**
      * Constructor
      *
-     * @param  ManagerRegistry  $doctrine  The registry to get the entity manager from
+     * @param ManagerRegistry $doctrine The registry to get the entity manager from
      */
     public function __construct(ManagerRegistry $doctrine)
     {

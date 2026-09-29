@@ -93,7 +93,9 @@ class AdventureApiController extends AbstractController
     /**
      * Get a room with its exits and items as an array.
      *
-     * @return array<string, mixed>
+     * @param Room $room The room to describe
+     *
+     * @return array<string, mixed> The room with its exits and items
      */
     private function roomData(Room $room): array
     {
@@ -120,7 +122,9 @@ class AdventureApiController extends AbstractController
     /**
      * Create a pretty printed JSON response.
      *
-     * @param array<mixed> $data
+     * @param array<mixed> $data The data to put in the response
+     *
+     * @return JsonResponse The pretty printed response
      */
     private function prettyJson(array $data): JsonResponse
     {

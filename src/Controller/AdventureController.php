@@ -158,6 +158,8 @@ class AdventureController extends AbstractController
 
     /**
      * Show a message from the game over the scene.
+     *
+     * @param string $message The message to show, nothing is shown if it is empty
      */
     private function say(string $message): void
     {
@@ -169,9 +171,10 @@ class AdventureController extends AbstractController
     /**
      * Get the hotspots the player can see, larger areas first so smaller ones end up on top.
      *
-     * @param array<Hotspot> $hotspots
+     * @param GameSession $game The player's game session
+     * @param array<Hotspot> $hotspots The hotspots of the room
      *
-     * @return array<Hotspot>
+     * @return array<Hotspot> The visible hotspots, largest first
      */
     private function visibleHotspots(GameSession $game, array $hotspots): array
     {
@@ -186,6 +189,10 @@ class AdventureController extends AbstractController
 
     /**
      * Get the size of a hotspot, in percent of the image.
+     *
+     * @param Hotspot $hotspot The hotspot to measure
+     *
+     * @return float The area of the hotspot
      */
     private function area(Hotspot $hotspot): float
     {
@@ -195,7 +202,10 @@ class AdventureController extends AbstractController
     /**
      * Get the items in the backpack, in the order they were picked up.
      *
-     * @return array<Item>
+     * @param GameSession $game The player's game session
+     * @param ItemRepository $itemRepository The repository to find the items in
+     *
+     * @return array<Item> The items in the backpack
      */
     private function backpackItems(GameSession $game, ItemRepository $itemRepository): array
     {
