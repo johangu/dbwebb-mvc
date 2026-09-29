@@ -4,6 +4,7 @@ namespace App\Tests\Adventure;
 
 use App\Adventure\ActionHandler;
 use App\Adventure\GameSession;
+use App\Adventure\HighscoreRecorder;
 use App\Entity\Hotspot;
 use App\Entity\Interaction;
 use App\Entity\Item;
@@ -34,7 +35,7 @@ class ActionHandlerTest extends TestCase
         $repositoryMock = $this->createMock(InteractionRepository::class);
         $repositoryMock->method('findBy')->willReturn($interactions);
 
-        return new ActionHandler($repositoryMock);
+        return new ActionHandler($repositoryMock, $this->createMock(HighscoreRecorder::class));
     }
 
     /**
@@ -101,12 +102,14 @@ class ActionHandlerTest extends TestCase
         $this->assertEquals('Du hittar något.', $this->createHandler([$interaction])->act($this->game, 'examine', $barrel));
     }
 
-    public function testUnknownVerbExamines(): void
+    public function testUnknownVerbExaminesAndRecordsGame(): void
     {
-        $this->assertEquals(
-            'Beskrivning av nätet.',
-            $this->createHandler()->act($this->game, 'dance', $this->createItem(3, 'nätet'))
-        );
+        $repositoryMock = $this->createConfiguredMock(InteractionRepository::class, ['findBy' => []]);
+        $recorderMock = $this->createMock(HighscoreRecorder::class);
+        $recorderMock->expects($this->once())->method('record')->with($this->game);
+        $handler = new ActionHandler($repositoryMock, $recorderMock);
+
+        $this->assertEquals('Beskrivning av nätet.', $handler->act($this->game, 'dance', $this->createItem(3, 'nätet')));
     }
 
     public function testTake(): void
@@ -115,6 +118,17 @@ class ActionHandlerTest extends TestCase
 
         $this->assertEquals('Du tar pungen.', $handler->act($this->game, 'take', $this->createItem(4, 'pungen', ['isPickable' => true])));
         $this->assertEquals('Det går inte att ta tunnan.', $handler->act($this->game, 'take', $this->createItem(3, 'tunnan')));
+    }
+
+    public function testNothingHappensAfterWinning(): void
+    {
+        $gameMock = $this->createConfiguredMock(GameSession::class, ['hasWon' => true]);
+        $gameMock->expects($this->never())->method('examine');
+        $gameMock->expects($this->never())->method('move');
+        $handler = $this->createHandler();
+
+        $this->assertEquals('Du har redan hittat skatten.', $handler->act($gameMock, 'examine', $this->createItem(3, 'tunnan')));
+        $this->assertEquals('Du har redan hittat skatten.', $handler->move($gameMock, $this->createMock(Passage::class)));
     }
 
     public function testUseWithoutSelectedItem(): void

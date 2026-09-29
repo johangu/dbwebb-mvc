@@ -173,5 +173,9 @@ class GameSessionActionTest extends TestCase
         $this->assertFalse($game->hasWon());
         $game->use($map, $horizon, [$interaction]);
         $this->assertTrue($game->hasWon());
+
+        $this->assertFalse($game->isRecorded());
+        $game->markRecorded();
+        $this->assertTrue($game->isRecorded());
     }
 }
