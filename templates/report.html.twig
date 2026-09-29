@@ -15,6 +15,7 @@
 					<a href="{{ path('report')}}#kmom04">kmom04</a>
 					<a href="{{ path('report')}}#kmom05">kmom05</a>
 					<a href="{{ path('report')}}#kmom06">kmom06</a>
+					<a href="{{ path('report')}}#kmom10">kmom10</a>
 				</nav>
 			</aside>
 			<div>
@@ -144,6 +145,92 @@
 
 					<p>
 					TIL detta moment var CRAP-number, det hade jag inte stött på innan och det var ett intressant värde att ha i åtanke och förhålla sig till.
+					</p>
+				</div>
+				<div id="kmom10">
+					<h2>kmom10</h2>
+					<p>
+					Projektet blev ett äventyrsspel, <a href="{{ path('proj') }}">Piratäventyret</a>, där man börjar i en hamn och ska ta sig ut på havet för att hitta en skatt. Det var roligt att få bygga något i stil med de gamla äventyrsspelen, och det blev en hel del att fundera på kring hur världen och spellogiken skulle hänga ihop.
+					</p>
+
+					<h3>Krav 1, 2 och 3</h3>
+					<p>
+					Projektet finns länkat som Project i rapportsidans navbar och har en egen landningssida på /proj med beskrivning, regler och en knapp för att börja spela. Jag ville få det att kännas som något annat än rapportsidan och gick på ett pirattema med pergament, mörkt trä och guld. Det har en egen stylesheet, egna typsnitt och egen header, footer och navbar.
+					</p>
+					<p>
+					På /proj/about beskriver jag projektet och tekniken bakom. Där finns även prompterna som användes för bilderna, som är genererade av ChatGPT. Själva spelet har fyra rum, saker att undersöka och plocka upp samt en ryggsäck. Det finns också en fusklapp länkad från förstasidan om man vill ta sig igenom det snabbt.
+					</p>
+					<p>
+					README:n har instruktioner för att klona och komma igång samt badges från Scrutinizer. Jag har även uppdaterat docs/ med phpdoc, phpmetrics och kodtäckningen. Täckningen ligger på 98 procent, men då har jag exkluderat bland annat de gamla kontrollerna och entiteterna. Det är således inte 98 procent av precis allt i repot.
+					</p>
+
+					<h3>Krav 4</h3>
+					<p>
+					JSON API:et finns presenterat på /proj/api och har tio routes, varav sex är POST. Jag delade upp det i en del för världen och en för det pågående spelet. Man kan hämta rum, saker och highscorelistan, återställa databasen och även spela hela spelet via API:et.
+					</p>
+					<p>
+					Jag ville att API:et och webbsidan skulle använda samma spellogik, och de delar även session. Det går alltså att göra något via API:et och sedan gå tillbaka till webbsidan och fortsätta där. Det känns som en ganska naturlig lösning istället för att ha två olika varianter av spelet att hålla reda på.
+					</p>
+					<p>
+					Alla routes går att prova från API-sidan, med länkar för GET och formulärknappar för POST. Knapparna för själva spelet följer fusklappen så att man kan klicka sig igenom det.
+					</p>
+
+					<h3>Krav 5</h3>
+					<p>
+					Projektet använder Doctrine ORM och SQLite, precis som biblioteket från kmom05. Det blev sex tabeller: room, passage, item, hotspot, interaction och highscore. Tabellerna skapas med migrations och klassen WorldLoader läser in själva äventyret.
+					</p>
+					<p>
+					På /proj/about/database finns ett ER-diagram från draw.io och beskrivningar av tabellerna och deras relationer. Där skriver jag även om hur databasen testas och jämför arbetet med ORM med hur vi jobbade i databaskursen.
+					</p>
+					<p>
+					Databasen testas både med mockad Doctrine i enhetstesterna och med funktionella tester mot en separat SQLite-databas. Det senare blev användbart för att kontrollera att delarna faktiskt fungerar tillsammans, inte bara var för sig.
+					</p>
+
+					<h3>Krav 6</h3>
+					<p>
+					Det som krävde mest funderande var hur jag skulle beskriva pusslen i databasen. En generell struktur för rum och saker ingår redan i uppgiften, men jag gick vidare med händelser som kan vara beroende av varandra och ändra flera delar av spelarens state. Tabellen interaction kan t.ex. beskriva att penningpungen förbrukas när man betalar sjömännen, att besättningen blir tillgänglig och att ankaret måste hissas innan man kan ta tag i ratten. Händelser kan även byta bilden på ett rum, så att skeppet ser annorlunda ut när ankaret hissats. Det svåra var att hålla ihop dessa förändringar utan att lägga in särskilda villkor för varje pussel i PHP-koden. Det är framför allt kedjorna av händelser och deras olika effekter som jag vill lyfta fram här, eftersom modellen behöver hantera mer än att bara flytta mellan rum och plocka upp saker.
+					</p>
+
+					<p>
+					Jag lät databasen beskriva världen vid spelets start och sparar vad spelaren har gjort i sessionen, så att flera kan spela utan att ändra världen för varandra. Kolumnerna locked och hidden fick därför heta starts_locked och starts_hidden istället.
+					</p>
+
+					<p>
+					En annan del var de klickbara ytorna direkt i bilderna. Jag började med vanliga knappar, men ville att man skulle få leta i bilden efter saker att undersöka. Ytorna fick en egen tabell, hotspot, med positioner och storlekar i procent så att de följer bilden när den skalas. De pekar på en sak eller en utgång, vilket även gör det möjligt att lägga in saker som bara har en beskrivning och inte hör till något pussel. Själva ytorna fick jag mäta ut för hand, och några överlappar varandra, som flaggan och skeppet. De större ytorna ritas därför först så att de inte täcker de mindre, och ytor för gömda eller upplockade saker filtreras bort.
+					</p>
+
+					<p>
+					Menyraden är inspirerad av Monkey Island, med Undersök, Ta och Använd. Utöver att klicka på en sak kan man välja vad man vill göra med den och vilken sak från ryggsäcken man vill använda. Jag ville att allt skulle fungera utan JavaScript, så valt verb och vald sak ligger i URL:en och klicken skickas som formulär. Muspekarna och ikonerna visar vilket verb man har valt, men sökvägarna från CSS-filen fungerade inte med webpack-konfigurationen. Jag löste det genom att skapa sökvägarna med asset() i Twig och skicka in dem som CSS custom properties, vilket även fungerar i underkatalogen på studentservern.
+					</p>
+
+					<p>
+					API:et byggdes parallellt med webbsidan, vilket hjälpte mig att hålla spellogiken utanför kontrollerna. Krav 4 ber om ett JSON API, men jag valde att göra hela spelet spelbart från båda håll och låta dem dela samma session. Det går t.ex. att undersöka tunnan via API:et och sedan gå till webbsidan och plocka upp penningpungen som har visat sig. GameSession och ActionHandler används från båda håll, så reglerna för vad man får göra och vad som händer behöver inte implementeras två gånger. Jag bröt även ut beskrivningen av spelets state till GameStatus, som hämtar rätt rum, synliga saker, utgångar och innehållet i ryggsäcken för JSON-svaret. Det jag vill lyfta fram utöver själva API-routes är att man kan växla mellan gränssnitten under ett pågående spel och ändå få samma regler och samma state.
+					</p>
+
+					<p>
+					Testerna gav också en del att reda ut. Utöver enhetstesterna skrev jag funktionella tester med WebTestCase som spelar igenom hela äventyret via requests och kontrollerar både vinstsidan och att resultatet hamnar i highscorelistan. De kontrollerar även att vinsten bara registreras en gång om man försöker utföra den sista handlingen igen. Där upptäckte jag att suffixet för testdatabasen inte fungerade som jag hade tänkt med SQLite, så testerna skrev över utvecklingsdatabasen. Det fick bli en egen databasfil för testerna, där schemat skapas om och världen läses in inför varje test. Sedan föll testerna som renderar sidor på Scrutinizer eftersom frontend-filerna inte byggs där och entrypoints.json saknades. Jag fick stänga av strict mode för Encore i testmiljön och låta asset() klara sig utan manifestet, så att sidorna kunde renderas även där. Det extra här är att testerna följer hela flödet genom routing, session, spellogik, databas och rendering, och kontrollerar att delarna fungerar tillsammans även när samma handling upprepas.
+					</p>
+
+					<h3>Om projektet</h3>
+					<p>
+					Jag är i det stora hela nöjd med projektet. Det började med sidorna och databasen, sedan kom spellogiken och därefter mycket av detaljerna i gränssnittet. En del fick jag tänka om kring under tiden. Besättningen skulle t.ex. först användas direkt på ankaret, men ankarspelet kändes mer logiskt.
+					</p>
+					<p>
+					Att skilja på världen i databasen och spelarens state i sessionen tycker jag blev bra. Det gjorde det lättare att resonera om vad som faktiskt ska ändras när man gör något i spelet.
+					</p>
+					<p>
+					Om jag fortsätter skulle jag vilja lägga till fler rum och möjlighet att spara och ladda ett spel. Strukturen borde kunna hantera det, även om fler pussel säkert skulle visa på saker jag inte har tänkt på än.
+					</p>
+
+					<h3>Om kursen</h3>
+					<p>
+					Det har varit kul att komma tillbaka till PHP efter så många år och se vad som hänt med både språket och verktygen. Jag tycker upplägget har fungerat bra, där samma kodbas har fått växa från me-sidan till kortspel, bibliotek och till sist projektet.
+					</p>
+					<p>
+					Kodkvalitet och tester har fått ganska mycket plats, vilket jag uppskattar även om mängden verktyg ibland känns lite stor för en så liten applikation. Jag hade gärna sett lite mer djup kring vissa delar, som EntityManagerInterface, ManagerRegistry och repositories i kmom05. Även phpmetrics hade mått bra av tydligare förklaringar av vad siffrorna faktiskt betyder och hur man ska använda dem.
+					</p>
+					<p>
+					Jag använde inte handledningen särskilt mycket och har därför svårt att bedöma den. I det stora hela är jag mycket nöjd med kursen och ger den 9 av 10. Jag skulle rekommendera kursen till vänner eller kollegor som vill komma igång med PHP och Symfony.
 					</p>
 				</div>
 			</div>
