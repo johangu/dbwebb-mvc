@@ -1,0 +1,40 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}Highscore - Piratäventyret{% endblock %}
+
+{% block body %}
+<h1>Highscore</h1>
+
+<p>
+De tio pirater som hittat skatten på minst antal drag. Snabbaste vägen genom spelet är 13 drag, så bättre än så går det inte att göra.
+</p>
+
+{% if highscores is empty %}
+    <p>Ingen har hittat skatten än.</p>
+{% else %}
+    <table class="highscore">
+        <thead>
+            <tr>
+                <th>Plats</th>
+                <th>Namn</th>
+                <th>Antal drag</th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for highscore in highscores %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ highscore.name }}</td>
+                    <td>{{ highscore.moves }}</td>
+                    <td>{{ highscore.createdAt|date('Y-m-d H:i') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+<p>
+    <a href="{{ path('proj_play') }}" class="proj-button">Spela</a>
+</p>
+{% endblock %}

@@ -276,6 +276,28 @@ p {
   outline: 2px solid var(--scumm-verb-active);
 }
 
+.highscore {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+}
+
+.highscore th,
+.highscore td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--parchment-dark);
+  text-align: left;
+}
+
+.highscore th {
+  background-color: var(--wood);
+  color: var(--gold-light);
+}
+
+.highscore tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
 .api-list li {
   margin-bottom: 0.75rem;
 }

@@ -1,0 +1,30 @@
+{% extends "proj/base.html.twig" %}
+
+{% block title %}Skatten - Piratäventyret{% endblock %}
+
+{% block body %}
+<h1>Skatten</h1>
+
+<div class="adventure">
+    <div class="scene">
+        <img src="{{ asset('build/images/proj/skatten.webp') }}" alt="Skatten på en strand" class="scene-image">
+
+        {% for message in app.flashes('adventure') %}
+            <p class="scene-message">{{ message }}</p>
+        {% endfor %}
+    </div>
+
+    <p class="sentence">{{ game.playerName }} hittade skatten på {{ game.moves }} drag!</p>
+
+    <div class="interface">
+        <ul class="verbs">
+            <li><a href="{{ path('proj_highscore') }}" class="verb">Visa highscore</a></li>
+            <li>
+                <form method="post" action="{{ path('proj_restart') }}">
+                    <button type="submit" class="verb">Spela igen</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

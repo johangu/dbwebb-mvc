@@ -7,6 +7,7 @@ use App\Adventure\GameSession;
 use App\Entity\Hotspot;
 use App\Entity\Item;
 use App\Entity\Room;
+use App\Repository\HighscoreRepository;
 use App\Repository\HotspotRepository;
 use App\Repository\ItemRepository;
 use App\Repository\PassageRepository;
@@ -35,6 +36,11 @@ class AdventureController extends AbstractController
 
         /** @var GameSession $game */
         $game = $session->get('adventure');
+
+        if ($game->hasWon()) {
+            return $this->render('proj/win.html.twig', ['game' => $game]);
+        }
+
         $room = $roomRepository->find($game->getCurrentRoomId());
 
         if ($room === null) {
@@ -132,6 +138,14 @@ class AdventureController extends AbstractController
         }
 
         return $this->redirectToRoute('proj_play');
+    }
+
+    #[Route('/proj/highscore', name: 'proj_highscore', methods: ['GET'])]
+    public function highscore(HighscoreRepository $highscoreRepository): Response
+    {
+        return $this->render('proj/highscore.html.twig', [
+            'highscores' => $highscoreRepository->findBy([], ['moves' => 'ASC', 'createdAt' => 'ASC'], 10),
+        ]);
     }
 
     #[Route('/proj/restart', name: 'proj_restart', methods: ['POST'])]
