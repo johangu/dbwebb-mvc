@@ -19,16 +19,22 @@ class ActionHandler
 {
     public const array VERBS = ['examine', 'take', 'use'];
 
+    private const string ALREADY_WON = 'Du har redan hittat skatten.';
+
     private InteractionRepository $interactions;
+
+    private HighscoreRecorder $recorder;
 
     /**
      * Constructor
      *
      * @param InteractionRepository $interactions The repository to find interactions in
+     * @param HighscoreRecorder $recorder Puts the game on the highscore list when it is won
      */
-    public function __construct(InteractionRepository $interactions)
+    public function __construct(InteractionRepository $interactions, HighscoreRecorder $recorder)
     {
         $this->interactions = $interactions;
+        $this->recorder = $recorder;
     }
 
     /**
@@ -61,6 +67,9 @@ class ActionHandler
     /**
      * Do something with an item, examine it, take it or use another item on it.
      *
+     * A game that is won by the action is put on the highscore list, and once
+     * the game is won nothing more happens.
+     *
      * @param GameSession $game The player's game session
      * @param string $verb The verb, one of VERBS
      * @param Item $item The item to act on
@@ -70,11 +79,19 @@ class ActionHandler
      */
     public function act(GameSession $game, string $verb, Item $item, ?Item $usedItem = null): string
     {
-        return match ($verb) {
+        if ($game->hasWon()) {
+            return self::ALREADY_WON;
+        }
+
+        $message = match ($verb) {
             'take' => $this->take($game, $item),
             'use' => $this->use($game, $item, $usedItem),
             default => $this->examine($game, $item),
         };
+
+        $this->recorder->record($game);
+
+        return $message;
     }
 
     /**
@@ -87,6 +104,10 @@ class ActionHandler
      */
     public function move(GameSession $game, Passage $passage): string
     {
+        if ($game->hasWon()) {
+            return self::ALREADY_WON;
+        }
+
         if ($game->move($passage)) {
             return '';
         }

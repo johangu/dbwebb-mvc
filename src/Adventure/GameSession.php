@@ -43,6 +43,8 @@ class GameSession implements \JsonSerializable
 
     private bool $won = false;
 
+    private bool $recorded = false;
+
     /**
      * Constructor
      *
@@ -104,6 +106,24 @@ class GameSession implements \JsonSerializable
     public function hasWon(): bool
     {
         return $this->won;
+    }
+
+    /**
+     * Check if the game has been put on the highscore list.
+     *
+     * @return bool True if the game is recorded, false otherwise
+     */
+    public function isRecorded(): bool
+    {
+        return $this->recorded;
+    }
+
+    /**
+     * Mark the game as put on the highscore list, so it is only recorded once.
+     */
+    public function markRecorded(): void
+    {
+        $this->recorded = true;
     }
 
     /**
