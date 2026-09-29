@@ -62,7 +62,7 @@
 <section>
     <h2>Enhetstester mot databasen</h2>
     <p>
-    I nuläget görs inga enhetstester direkt mot databasen. WorldLoader testas istället med en mockad Doctrine, där testerna kontrollerar att rätt rum, utgångar, saker och händelser sparas och att de hänger ihop som de ska.
+    Databasen testas på två sätt. Modellklasserna, som WorldLoader, enhetstestas med en mockad Doctrine, där testerna kontrollerar att rätt rum, utgångar, saker och händelser sparas och att de hänger ihop som de ska, utan att någon databas behöver vara igång. Därutöver finns funktionella tester med WebTestCase som går mot en riktig SQLite-databas, en egen för testerna i var/data_test.db, där schemat byggs om och världen läses in inför varje test. Dessa tester spelar bl.a. igenom hela spelet via riktiga requests och kontrollerar att highscorelistan sparas i databasen. Samma tester körs även på Scrutinizer, där testdatabasen skapas under bygget. Till en början föll testerna som renderar sidor där, eftersom Scrutinizer inte bygger frontend-filerna, men efter att testmiljön fått klara sig utan dem går samtliga tester igenom även mot databasen på Scrutinizer.
     </p>
 </section>
 
