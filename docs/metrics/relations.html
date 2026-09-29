@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>PhpMetrics report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/milligram.min.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/style.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/roboto.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/normalize.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/material-icons.css?v=v2.9.0">
+    <link rel="stylesheet" href="css/milligram.min.css?v=2.11.0">
+    <link rel="stylesheet" href="css/style.css?v=2.11.0">
+    <link rel="stylesheet" href="css/roboto.css?v=2.11.0">
+    <link rel="stylesheet" href="css/normalize.css?v=2.11.0">
+    <link rel="stylesheet" href="css/material-icons.css?v=2.11.0">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
 <div class="page">
     <div class="content content-first">
         <div class="report-details">
-            Created at 2025-10-28 12:50:31        , with PHPMetrics v2.9.0 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
+            Created at 2026-09-29 17:18:04        , with PHPMetrics 2.11.0 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
         </div>
 
         
@@ -93,7 +93,7 @@
                             <path d="M0 0h24v24H0z" fill="none">
                             <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z">
                         </svg>
-                        Violations (6)
+                        Violations (10)
                     </a>
                 </li>
                                     <li>
@@ -236,18 +236,18 @@
 </div>
 </div>
 
-<script src="js/functions.js?v=v2.9.0"></script>
+<script src="js/functions.js?v=2.11.0"></script>
 <script src="js/d3.v3.js"></script>
 <script src="js/d3.hexbin.v0.js"></script>
-<script src="js/sort-table.min.js?v=v2.9.0"></script>
-<script src="js/graph-maintainability.js?v=v2.9.0"></script>
-<script src="js/graph-licenses.js?v=v2.9.0"></script>
-<script src="js/FileSaver.min.js?v=v2.9.0"></script>
+<script src="js/sort-table.min.js?v=2.11.0"></script>
+<script src="js/graph-maintainability.js?v=2.11.0"></script>
+<script src="js/graph-licenses.js?v=2.11.0"></script>
+<script src="js/FileSaver.min.js?v=2.11.0"></script>
 
-<script src="js/clusterize.min.js?v=v2.9.0"></script>
-<link rel="stylesheet" href="css/clusterize.css?v=v2.9.0">
+<script src="js/clusterize.min.js?v=2.11.0"></script>
+<link rel="stylesheet" href="css/clusterize.css?v=2.11.0">
 
-<script src="classes.js?v=v2.9.0"></script>
+<script src="classes.js?v=2.11.0"></script>
 
 <script>
     var accessibilityEnabled = false;
@@ -262,7 +262,7 @@
 
     var relations = [
     {
-        "name": "\\App\\Repository\\BookRepository",
+        "name": "\\App\\Repository\\RoomRepository",
         "size": 3000,
         "relations": []
     },
@@ -273,6 +273,36 @@
     },
     {
         "name": "\\Doctrine\\Persistence\\ManagerRegistry",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Repository\\PassageRepository",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Repository\\ItemRepository",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Repository\\HighscoreRepository",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Repository\\BookRepository",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Repository\\InteractionRepository",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Repository\\HotspotRepository",
         "size": 3000,
         "relations": []
     },
@@ -331,6 +361,76 @@
         "relations": []
     },
     {
+        "name": "\\App\\Entity\\Room",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Entity\\Highscore",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\DateTimeImmutable",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Entity\\Interaction",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Entity\\Item",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Entity\\Passage",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Entity\\Hotspot",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\WorldLoader",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\Progress",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\HighscoreRecorder",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\GameSession",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\Backpack",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\GameStatus",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "\\App\\Adventure\\ActionHandler",
+        "size": 3000,
+        "relations": []
+    },
+    {
         "name": "\\App\\Controller\\CardController",
         "size": 3000,
         "relations": [
@@ -369,6 +469,17 @@
         "name": "\\Symfony\\Component\\HttpFoundation\\RedirectResponse",
         "size": 3000,
         "relations": []
+    },
+    {
+        "name": "\\App\\Controller\\ProjectController",
+        "size": 3000,
+        "relations": [
+            "\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController",
+            "\\Symfony\\Component\\HttpFoundation\\Response",
+            "\\Symfony\\Component\\HttpFoundation\\RedirectResponse",
+            "\\App\\Adventure\\WorldLoader",
+            "\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface"
+        ]
     },
     {
         "name": "\\App\\Controller\\GameController",
@@ -414,6 +525,27 @@
         ]
     },
     {
+        "name": "\\App\\Controller\\AdventureGameApiController",
+        "size": 3000,
+        "relations": [
+            "\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController",
+            "\\Symfony\\Component\\HttpFoundation\\JsonResponse",
+            "\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface",
+            "\\App\\Adventure\\GameStatus",
+            "\\Symfony\\Component\\HttpFoundation\\Request",
+            "\\App\\Repository\\RoomRepository",
+            "\\App\\Adventure\\GameSession",
+            "\\App\\Adventure\\ActionHandler",
+            "\\App\\Repository\\ItemRepository",
+            "\\App\\Repository\\PassageRepository"
+        ]
+    },
+    {
+        "name": "\\Symfony\\Component\\HttpFoundation\\Request",
+        "size": 3000,
+        "relations": []
+    },
+    {
         "name": "\\App\\Controller\\ReportController",
         "size": 3000,
         "relations": [
@@ -430,6 +562,22 @@
             "\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface",
             "\\App\\DeckOfCards\\StandardDeck",
             "\\App\\Card\\CardHand"
+        ]
+    },
+    {
+        "name": "\\App\\Controller\\AdventureApiController",
+        "size": 3000,
+        "relations": [
+            "\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController",
+            "\\App\\Repository\\RoomRepository",
+            "\\App\\Repository\\PassageRepository",
+            "\\App\\Repository\\ItemRepository",
+            "\\Symfony\\Component\\HttpFoundation\\Response",
+            "\\Symfony\\Component\\HttpFoundation\\JsonResponse",
+            "\\App\\Repository\\HighscoreRepository",
+            "\\App\\Adventure\\WorldLoader",
+            "\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface",
+            "\\App\\Entity\\Room"
         ]
     },
     {
@@ -458,14 +606,28 @@
         ]
     },
     {
-        "name": "\\Symfony\\Component\\HttpFoundation\\Request",
+        "name": "\\Doctrine\\ORM\\EntityManagerInterface",
         "size": 3000,
         "relations": []
     },
     {
-        "name": "\\Doctrine\\ORM\\EntityManagerInterface",
+        "name": "\\App\\Controller\\AdventureController",
         "size": 3000,
-        "relations": []
+        "relations": [
+            "\\Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController",
+            "\\Symfony\\Component\\HttpFoundation\\Response",
+            "\\Symfony\\Component\\HttpFoundation\\Request",
+            "\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface",
+            "\\App\\Repository\\RoomRepository",
+            "\\App\\Repository\\HotspotRepository",
+            "\\App\\Repository\\PassageRepository",
+            "\\App\\Repository\\ItemRepository",
+            "\\Symfony\\Component\\HttpFoundation\\RedirectResponse",
+            "\\App\\Adventure\\GameSession",
+            "\\App\\Adventure\\ActionHandler",
+            "\\App\\Repository\\HighscoreRepository",
+            "\\App\\Entity\\Hotspot"
+        ]
     },
     {
         "name": "\\App\\TwentyOne\\CardHand",

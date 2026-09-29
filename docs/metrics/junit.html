@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>PhpMetrics report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/milligram.min.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/style.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/roboto.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/normalize.css?v=v2.9.0">
-    <link rel="stylesheet" href="css/material-icons.css?v=v2.9.0">
+    <link rel="stylesheet" href="css/milligram.min.css?v=2.11.0">
+    <link rel="stylesheet" href="css/style.css?v=2.11.0">
+    <link rel="stylesheet" href="css/roboto.css?v=2.11.0">
+    <link rel="stylesheet" href="css/normalize.css?v=2.11.0">
+    <link rel="stylesheet" href="css/material-icons.css?v=2.11.0">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
 <div class="page">
     <div class="content content-first">
         <div class="report-details">
-            Created at 2025-10-28 12:50:31        , with PHPMetrics v2.9.0 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
+            Created at 2026-09-29 17:18:04        , with PHPMetrics 2.11.0 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
         </div>
 
         
@@ -60,24 +60,24 @@
         <div class="bloc bloc-number">
             <div class="label">Test suites</div>
             <div class="number">
-                8            </div>
+                22            </div>
         </div>
     </div>
     <div class="column">
         <div class="bloc bloc-number">
             <div class="label">Assertions</div>
             <div class="number">
-                262            </div>
+                788            </div>
         </div>
     </div>
     <div class="column">
         <div class="bloc bloc-number">
             <div class="label">
                 classes never called by tests
-                <small>(66.67 %)</small>
+                <small>(63.41 %)</small>
             </div>
             <div class="number">
-                12            </div>
+                26            </div>
         </div>
     </div>
 </div>
@@ -103,7 +103,73 @@
                         </thead>
                         <tbody id="contentAreaJunitNeverCalled" class="clusterize-content">
                                                     <tr>
+                                <td><span class="path">App\Repository\RoomRepository</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        0                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Repository\PassageRepository</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        0                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Repository\ItemRepository</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        0                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Repository\HighscoreRepository</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        0                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
                                 <td><span class="path">App\Repository\BookRepository</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        0                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Repository\InteractionRepository</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        0                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Repository\HotspotRepository</span></td>
                                                                     <td>
                                         <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
                                         1                                        </span>
@@ -120,7 +186,7 @@
                                         1                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.01);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
                                         0.01                                        </span>
                                     </td>
                                                             </tr>
@@ -131,29 +197,84 @@
                                         1                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.06);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.03);">
                                         0.06                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Entity\Room</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.01);">
+                                        0.03                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Entity\Highscore</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.01);">
+                                        0.03                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Entity\Hotspot</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.03);">
+                                        0.06                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Adventure\WorldLoader</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.59);">
+                                        14                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 1);">
+                                        2.14                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
                                 <td><span class="path">App\Controller\CardController</span></td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.13);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.09);">
                                         3                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.21);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.1);">
                                         0.21                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Controller\ProjectController</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0);">
+                                        1                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.02);">
+                                        0.05                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
                                 <td><span class="path">App\Controller\GameController</span></td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.33);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.23);">
                                         6                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.22);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.1);">
                                         0.22                                        </span>
                                     </td>
                                                             </tr>
@@ -164,8 +285,19 @@
                                         1                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.02);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.01);">
                                         0.02                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Controller\AdventureGameApiController</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.45);">
+                                        11                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.21);">
+                                        0.45                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
@@ -175,19 +307,30 @@
                                         1                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.06);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.03);">
                                         0.06                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
                                 <td><span class="path">App\Controller\DeckApiController</span></td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.33);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.23);">
                                         6                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.21);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.1);">
                                         0.21                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Controller\AdventureApiController</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.05);">
+                                        2                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.12);">
+                                        0.25                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
@@ -197,29 +340,40 @@
                                         1                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.02);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.01);">
                                         0.02                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
                                 <td><span class="path">App\Controller\LibraryController</span></td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.53);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.36);">
                                         9                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.52);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.24);">
                                         0.52                                        </span>
+                                    </td>
+                                                            </tr>
+                                                        <tr>
+                                <td><span class="path">App\Controller\AdventureController</span></td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.77);">
+                                        18                                        </span>
+                                    </td>
+                                                                    <td>
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.27);">
+                                        0.58                                        </span>
                                     </td>
                                                             </tr>
                                                         <tr>
                                 <td><span class="path">App\DeckOfCards\Deck</span></td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.27);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.18);">
                                         5                                        </span>
                                     </td>
                                                                     <td>
-                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.06);">
+                                        <span class="badge"  style="background-color: hsla(203, 82%, 76%, 0.03);">
                                         0.06                                        </span>
                                     </td>
                                                             </tr>
@@ -269,6 +423,117 @@
                         </thead>
                         <tbody id="contentAreaJunitCalled" class="clusterize-content">
                                                     <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\ActionHandlerTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            23                                        </span>
+                                        <span class="path">App\Adventure\GameSession</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            10                                        </span>
+                                        <span class="path">App\Adventure\ActionHandler</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            1                                        </span>
+                                        <span class="path">App\Entity\Item</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\BackpackTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            2                                        </span>
+                                        <span class="path">App\Adventure\Backpack</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\GameSessionActionTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            1                                        </span>
+                                        <span class="path">App\Entity\Item</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            1                                        </span>
+                                        <span class="path">App\Entity\Interaction</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            23                                        </span>
+                                        <span class="path">App\Adventure\GameSession</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\GameSessionTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            23                                        </span>
+                                        <span class="path">App\Adventure\GameSession</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            1                                        </span>
+                                        <span class="path">App\Entity\Passage</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\GameStatusTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            23                                        </span>
+                                        <span class="path">App\Adventure\GameSession</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            2                                        </span>
+                                        <span class="path">App\Adventure\GameStatus</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\HighscoreRecorderTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            3                                        </span>
+                                        <span class="path">App\Adventure\HighscoreRecorder</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\ProgressTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">PHPUnit\Framework\TestCase</span>
+                                                                            <br>                                        <span class="badge" title="Cyclomatic complexity of class">
+                                            7                                        </span>
+                                        <span class="path">App\Adventure\Progress</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\WorldLoaderPuzzleTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Adventure\WorldLoaderTestCase</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Adventure\WorldLoaderTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Adventure\WorldLoaderTestCase</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
                                 <td valign="top"><span class="path">App\Tests\Card\TestCardHand</span></td>
                                 <td style="padding-bottom: 1em;">
                                                                                                                     <span class="badge" title="Cyclomatic complexity of class">
@@ -288,6 +553,46 @@
                                                                             <br>                                        <span class="badge" title="Cyclomatic complexity of class">
                                             4                                        </span>
                                         <span class="path">App\Card\Card</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Controller\AdventureApiControllerTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Controller\ProjectWebTestCase</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Controller\AdventureControllerTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Controller\ProjectWebTestCase</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Controller\AdventureGameApiControllerTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Controller\ProjectWebTestCase</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Controller\AdventureWinTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Controller\ProjectWebTestCase</span>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <td valign="top"><span class="path">App\Tests\Controller\ProjectControllerTest</span></td>
+                                <td style="padding-bottom: 1em;">
+                                                                                                                    <span class="badge" title="Cyclomatic complexity of class">
+                                            -                                        </span>
+                                        <span class="path">App\Tests\Controller\ProjectWebTestCase</span>
                                                                     </td>
                             </tr>
                                                     <tr>
@@ -391,7 +696,7 @@
                             <path d="M0 0h24v24H0z" fill="none">
                             <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z">
                         </svg>
-                        Violations (6)
+                        Violations (10)
                     </a>
                 </li>
                                     <li>
@@ -534,18 +839,18 @@
 </div>
 </div>
 
-<script src="js/functions.js?v=v2.9.0"></script>
+<script src="js/functions.js?v=2.11.0"></script>
 <script src="js/d3.v3.js"></script>
 <script src="js/d3.hexbin.v0.js"></script>
-<script src="js/sort-table.min.js?v=v2.9.0"></script>
-<script src="js/graph-maintainability.js?v=v2.9.0"></script>
-<script src="js/graph-licenses.js?v=v2.9.0"></script>
-<script src="js/FileSaver.min.js?v=v2.9.0"></script>
+<script src="js/sort-table.min.js?v=2.11.0"></script>
+<script src="js/graph-maintainability.js?v=2.11.0"></script>
+<script src="js/graph-licenses.js?v=2.11.0"></script>
+<script src="js/FileSaver.min.js?v=2.11.0"></script>
 
-<script src="js/clusterize.min.js?v=v2.9.0"></script>
-<link rel="stylesheet" href="css/clusterize.css?v=v2.9.0">
+<script src="js/clusterize.min.js?v=2.11.0"></script>
+<link rel="stylesheet" href="css/clusterize.css?v=2.11.0">
 
-<script src="classes.js?v=v2.9.0"></script>
+<script src="classes.js?v=2.11.0"></script>
 
 <script>
     var accessibilityEnabled = false;
@@ -600,7 +905,7 @@
 
 
             
-            var json = {"name":"Execution time","children":[{"name":"App\\Tests\\Card\\TestCardHand","time":0.027457},{"name":"App\\Tests\\Card\\CardTest","time":0.002189},{"name":"App\\Tests\\DeckOfCards\\DeckTest","time":0.002503},{"name":"App\\Tests\\DeckOfCards\\StandardDeckTest","time":0.01193},{"name":"App\\Tests\\TwentyOne\\TestCardHand","time":0.002059},{"name":"App\\Tests\\TwentyOne\\CardHandTest","time":0.001066},{"name":"App\\Tests\\TwentyOne\\GameTest","time":0.017496},{"name":"App\\Tests\\TwentyOne\\TestPlayer","time":0.000668}]};
+            var json = {"name":"Execution time","children":[{"name":"App\\Tests\\Adventure\\ActionHandlerTest","time":0.048882},{"name":"App\\Tests\\Adventure\\BackpackTest","time":0.008226},{"name":"App\\Tests\\Adventure\\GameSessionActionTest","time":0.016766},{"name":"App\\Tests\\Adventure\\GameSessionTest","time":0.005742},{"name":"App\\Tests\\Adventure\\GameStatusTest","time":0.004218},{"name":"App\\Tests\\Adventure\\HighscoreRecorderTest","time":0.005075},{"name":"App\\Tests\\Adventure\\ProgressTest","time":0.002709},{"name":"App\\Tests\\Adventure\\WorldLoaderPuzzleTest","time":0.011773},{"name":"App\\Tests\\Adventure\\WorldLoaderTest","time":0.01876},{"name":"App\\Tests\\Card\\TestCardHand","time":0.004673},{"name":"App\\Tests\\Card\\CardTest","time":0.001112},{"name":"App\\Tests\\Controller\\AdventureApiControllerTest","time":3.390953},{"name":"App\\Tests\\Controller\\AdventureControllerTest","time":1.221489},{"name":"App\\Tests\\Controller\\AdventureGameApiControllerTest","time":0.662821},{"name":"App\\Tests\\Controller\\AdventureWinTest","time":2.071758},{"name":"App\\Tests\\Controller\\ProjectControllerTest","time":0.486572},{"name":"App\\Tests\\DeckOfCards\\DeckTest","time":0.001787},{"name":"App\\Tests\\DeckOfCards\\StandardDeckTest","time":0.006495},{"name":"App\\Tests\\TwentyOne\\TestCardHand","time":0.000872},{"name":"App\\Tests\\TwentyOne\\CardHandTest","time":0.000793},{"name":"App\\Tests\\TwentyOne\\GameTest","time":0.012387},{"name":"App\\Tests\\TwentyOne\\TestPlayer","time":0.00062}]};
             root = json;
             var nodes = treemap.nodes(json)
                 .filter(function (d) {
