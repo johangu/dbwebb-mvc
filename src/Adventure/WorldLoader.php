@@ -155,7 +155,7 @@ class WorldLoader
         ],
         'ankaret' => [
             'room' => 'skeppet',
-            'description' => 'Ett stort ankare av järn, det är fortfarande nedsänkt.',
+            'description' => 'Ett stort ankare av järn som hänger i en tjock kätting.',
             'startsHidden' => false,
             'pickable' => false,
             'image' => null,
@@ -269,6 +269,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => 'penningpungen',
             'unlocks' => null,
+            'changesRoomImage' => null,
             'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Du undersöker tunnan och hittar en penningpung gömd bakom den.',
@@ -280,6 +281,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => 'skattkartan',
             'unlocks' => null,
+            'changesRoomImage' => null,
             'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Du lyfter på tavlan, bakom den hänger en gammal skattkarta.',
@@ -291,20 +293,22 @@ class WorldLoader
             'requires' => null,
             'reveals' => 'besättningen',
             'unlocks' => null,
+            'changesRoomImage' => null,
             'consumesUsedItem' => true,
             'wins' => false,
             'message' => 'Sjömännen tar gärna emot pengarna och går med på att bli din besättning.',
         ],
         'hissa-ankaret' => [
             'room' => 'skeppet',
-            'target' => 'ankaret',
+            'target' => 'ankarspelet',
             'usedItem' => 'besättningen',
             'requires' => null,
             'reveals' => null,
             'unlocks' => null,
+            'changesRoomImage' => 'skeppet_2.webp',
             'consumesUsedItem' => false,
             'wins' => false,
-            'message' => 'Besättningen hjälps åt att hissa ankaret.',
+            'message' => 'Besättningen hjälps åt att veva ankarspelet och ankaret hissas.',
         ],
         'ta-ratten' => [
             'room' => 'skeppet',
@@ -313,6 +317,7 @@ class WorldLoader
             'requires' => 'hissa-ankaret',
             'reveals' => null,
             'unlocks' => 'skeppet-havet',
+            'changesRoomImage' => null,
             'consumesUsedItem' => false,
             'wins' => false,
             'message' => 'Du tar tag i ratten, skeppet är redo att lägga ut.',
@@ -324,6 +329,7 @@ class WorldLoader
             'requires' => null,
             'reveals' => null,
             'unlocks' => null,
+            'changesRoomImage' => null,
             'consumesUsedItem' => false,
             'wins' => true,
             'message' => 'Du följer skattkartan mot ön vid horisonten och hittar skatten.',
@@ -480,6 +486,7 @@ class WorldLoader
             $interaction->setRequiredInteraction($data['requires'] ? $this->interactions[$data['requires']] : null);
             $interaction->setRevealsItem($data['reveals'] ? $this->items[$data['reveals']] : null);
             $interaction->setUnlocksPassage($data['unlocks'] ? $this->passages[$data['unlocks']] : null);
+            $interaction->setChangesRoomImage($data['changesRoomImage']);
             $interaction->setConsumesUsedItem($data['consumesUsedItem']);
             $interaction->setWins($data['wins']);
             $interaction->setMessage($data['message']);
