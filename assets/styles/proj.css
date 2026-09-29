@@ -329,7 +329,9 @@ p {
 }
 
 .verb {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   width: 100%;
   padding: 0 0.5rem;
   background: none;
@@ -348,6 +350,51 @@ p {
 
 .verb:hover {
   background-color: rgba(255, 255, 255, 0.08);
+}
+
+.verb-icon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  -webkit-mask: no-repeat center / contain;
+  mask: no-repeat center / contain;
+}
+
+.verb-icon-examine {
+  -webkit-mask-image: var(--icon-examine);
+  mask-image: var(--icon-examine);
+}
+
+.verb-icon-take {
+  -webkit-mask-image: var(--icon-take);
+  mask-image: var(--icon-take);
+}
+
+.verb-icon-use {
+  -webkit-mask-image: var(--icon-use);
+  mask-image: var(--icon-use);
+}
+
+.verb-icon-walk {
+  -webkit-mask-image: var(--icon-walk);
+  mask-image: var(--icon-walk);
+}
+
+.verb-examine .hotspot {
+  cursor: var(--cursor-examine) 16 16, pointer;
+}
+
+.verb-take .hotspot {
+  cursor: var(--cursor-take) 16 16, pointer;
+}
+
+.verb-use .hotspot {
+  cursor: var(--cursor-use) 16 16, pointer;
+}
+
+.scene .hotspot.hotspot-exit {
+  cursor: var(--cursor-walk) 16 16, pointer;
 }
 
 .inventory {

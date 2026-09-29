@@ -8,8 +8,15 @@
 {% block body %}
 <h1>{{ room.name }}</h1>
 
-<div class="adventure">
-    <form method="post" action="{{ path('proj_click') }}" class="scene{% if debug %} scene-debug{% endif %}">
+{% set icons = [] %}
+{% for name in ['examine', 'take', 'use', 'walk'] %}
+    {% set icons = icons|merge([
+        '--icon-' ~ name ~ ': url(' ~ asset('build/images/proj/icons/' ~ name ~ '.svg') ~ ')',
+        '--cursor-' ~ name ~ ': url(' ~ asset('build/images/proj/cursors/' ~ name ~ '.svg') ~ ')',
+    ]) %}
+{% endfor %}
+<div class="adventure" style="{{ icons|join('; ') }}">
+    <form method="post" action="{{ path('proj_click') }}" class="scene verb-{{ verb }}{% if debug %} scene-debug{% endif %}">
         <input type="hidden" name="verb" value="{{ verb }}">
         {% if usedItem %}
             <input type="hidden" name="item" value="{{ usedItem.id }}">
@@ -47,7 +54,7 @@
         <ul class="verbs" aria-label="Verb">
             {% for key, name in verbs %}
                 <li>
-                    <a href="{{ path('proj_play', {verb: key}) }}" class="verb{% if key == verb %} verb-active{% endif %}">{{ name }}</a>
+                    <a href="{{ path('proj_play', {verb: key}) }}" class="verb{% if key == verb %} verb-active{% endif %}"><span class="verb-icon verb-icon-{{ key }}"></span>{{ name }}</a>
                 </li>
             {% endfor %}
         </ul>
@@ -56,7 +63,7 @@
             <ul class="verbs" aria-label="Utgångar">
                 {% for passage in passages %}
                     <li>
-                        <button type="submit" name="passage" value="{{ passage.id }}" class="verb">{{ passage.verb }} {{ directions[passage.direction] }}</button>
+                        <button type="submit" name="passage" value="{{ passage.id }}" class="verb"><span class="verb-icon verb-icon-walk"></span>{{ passage.verb }} {{ directions[passage.direction] }}</button>
                     </li>
                 {% endfor %}
             </ul>
