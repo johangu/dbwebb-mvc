@@ -71,7 +71,7 @@ class AdventureApiController extends AbstractController
             fn (Highscore $highscore) => [
                 'name' => $highscore->getName(),
                 'moves' => $highscore->getMoves(),
-                'date' => $highscore->getCreatedAt()?->format('Y-m-d H:i'),
+                'date' => $highscore->getCreatedAt()?->format(DATE_ATOM),
             ],
             $highscoreRepository->findBy([], ['moves' => 'ASC', 'createdAt' => 'ASC'], 10)
         ));
